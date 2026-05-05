@@ -6,7 +6,9 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GateWay.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        ExtendClientAreaToDecorationsHint="True"
+        WindowDecorations="None"
+        Icon="/Assets/GateWay_logo.ico"
         Title="GateWay">
 
     <Design.DataContext>
