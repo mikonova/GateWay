@@ -16,11 +16,92 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-    <Viewbox Stretch="Uniform">
-        <Grid Background="#191725">
+    <Window.Styles>
+        <Style Selector="Border.TopRowBorder">
+            <Setter Property="Background" Value="#59518c"/>
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+        <Style Selector="Button.TopRowStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="36"/>
+        </Style>
+    </Window.Styles>
+    <!--Viewbox Stretch="Uniform"-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="40" MinHeight="40"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <WrapPanel HorizontalAlignment="Right">
+                <Border Classes="TopRowBorder">
+                    <Button 
+                        x:Name="BtnToTray" 
+                        FontSize="20"
+                        Content="-"
+                        HorizontalAlignment="Center"
+                        CornerRadius="0"
+                        Classes="TopRowStyle"
+                        Click="BtnToTray_OnClick"/>
+                </Border>
+                <Border Classes="TopRowBorder">
+                    <Button 
+                        x:Name="BtnFullscreen" 
+                        Classes="TopRowStyle"
+                        Click="BtnFullscreen_OnClick">
+                        <TextBlock Text="□" FontSize="14" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Button>
+                </Border>
+                <Border Classes="TopRowBorder">
+                    <Button 
+                        x:Name="BtnClose" 
+                        Content="x"
+                        FontSize="20"
+                        HorizontalAlignment="Center"
+                        CornerRadius="0"
+                        Classes="TopRowStyle"
+                        Click="BtnClose_OnClick"/>
+                </Border>
+            </WrapPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <SplitView 
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Left"
+                    x:Name="SidePane" 
+                    Background="#59518c" 
+                    DisplayMode= "CompactInline"
+                    IsPaneOpen="False"
+                    OpenPaneLength="100">
+                    <SplitView.Pane>
+                        <StackPanel>
+                            <Button Content="☰" x:Name="PaneExpand" Click="PaneExpand_OnClick"
+                                    Width="48" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </SplitView.Pane>
+                    <SplitView.Content>
+                        
+                    </SplitView.Content>
+                </SplitView>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        
+                    </StackPanel>
+                </Grid>
+            </Grid>
             
         </Grid>
-    </Viewbox>
+    <!--/Viewbox-->
 
 </Window>
