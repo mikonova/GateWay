@@ -1,7 +1,7 @@
 <Solution>
-  <Folder Name="/Tests/">
+  <Project Path="GateWay.csproj" />
+<Folder Name="/Tests/">
     <Project Path="Tests/CoreClasses.Tests/CoreClasses.Tests.csproj" />
   </Folder>
-  <Project Path="CoreClasses/CoreClasses.csproj" />
-  <Project Path="GateWay.csproj" />
+<Project Path="CoreClasses/CoreClasses.csproj" />
 </Solution>
