@@ -1,3 +1,5 @@
+#pragma warning disable 4014
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -6,7 +8,6 @@ namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
-    public bool IsFullScreen = false;
     public MainWindow()
     {
         InitializeComponent();
@@ -17,12 +18,14 @@ public partial class MainWindow : Window
         if (SidePane.IsPaneOpen)
         {
             SidePane.IsPaneOpen = false;
-            PaneBorder.Width = SidePane.CompactPaneLength;
+            
+            //PaneBorder.Width = SidePane.CompactPaneLength;
         }
         else
         {
             SidePane.IsPaneOpen = true;
-            PaneBorder.Width = SidePane.OpenPaneLength;
+            
+            //PaneBorder.Width = SidePane.OpenPaneLength;
         }
     }
 

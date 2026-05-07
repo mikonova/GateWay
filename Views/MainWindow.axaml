@@ -39,7 +39,7 @@
         </Style>
         
         <Style Selector="Label.SidePaneStyle">
-            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="CornerRadius" Value="0"/>
             <Setter Property="Width" Value="48"/>
             <Setter Property="Height" Value="48"/>
         </Style>
@@ -49,7 +49,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition MaxHeight="40" MinHeight="40"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid HorizontalAlignment="Stretch" Background="#191725">
                 <WrapPanel Background="Transparent" HorizontalAlignment="Right">
@@ -81,43 +81,36 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border
-                    CornerRadius="0 12 12 0"
-                    x:Name="PaneBorder"
+                <SplitView 
+                    VerticalAlignment="Stretch"
                     HorizontalAlignment="Left"
-                    Width="{Binding Path=CompactPaneLength, ElementName=SidePane}"
-                    Background="#59518c">
-                    <SplitView 
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Left"
-                        x:Name="SidePane" 
-                        CornerRadius="12"
-                        Background="Transparent" 
-                        PaneBackground="Transparent"
-                        DisplayMode= "CompactOverlay"
-                        IsPaneOpen="False"
-                        OpenPaneLength="100">
-                        <SplitView.Pane>
-                            <StackPanel>
-                                <Label 
-                                       x:Name="PaneExpand"
-                                       PointerPressed="PaneExpand_OnClick"
-                                       Classes="SidePaneStyle"
-                                       FontSize="30"
-                                       HorizontalAlignment="Left">
-                                    <TextBlock 
-                                        Text="☰" 
-                                        FontSize="35" 
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"/>
-                                </Label>
-                            </StackPanel>
-                        </SplitView.Pane>
-                        <SplitView.Content>
-                            
-                        </SplitView.Content>
-                    </SplitView>
-                </Border>
+                    x:Name="SidePane" 
+                    CornerRadius="12"
+                    Background="#59518c" 
+                    PaneBackground="#59518c"
+                    DisplayMode= "CompactOverlay"
+                    IsPaneOpen="False"
+                    OpenPaneLength="300">
+                    <SplitView.Pane>
+                        <StackPanel>
+                            <Label 
+                                   x:Name="PaneExpand"
+                                   PointerPressed="PaneExpand_OnClick"
+                                   Classes="SidePaneStyle"
+                                   FontSize="30"
+                                   HorizontalAlignment="Left">
+                                <TextBlock 
+                                    Text="☰" 
+                                    FontSize="35" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                            </Label>
+                        </StackPanel>
+                    </SplitView.Pane>
+                    <SplitView.Content>
+                        
+                    </SplitView.Content>
+                </SplitView>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="70"/>
