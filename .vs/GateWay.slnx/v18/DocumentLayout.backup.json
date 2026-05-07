@@ -1,0 +1,190 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\tests\\coreclasses.tests\\messagefactorytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|solutionrelative:tests\\coreclasses.tests\\messagefactorytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\tests\\coreclasses.tests\\cryptoservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|solutionrelative:tests\\coreclasses.tests\\cryptoservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\tests\\coreclasses.tests\\networkservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|solutionrelative:tests\\coreclasses.tests\\networkservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\protocol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\protocol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\networkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\networkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\messagefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\messagefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\networkpacket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\networkpacket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\cryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\cryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\icryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\icryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\keypair.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\keypair.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MessageFactoryTests.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\MessageFactoryTests.cs",
+              "RelativeDocumentMoniker": "Tests\\CoreClasses.Tests\\MessageFactoryTests.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\MessageFactoryTests.cs",
+              "RelativeToolTip": "Tests\\CoreClasses.Tests\\MessageFactoryTests.cs",
+              "ViewState": "AgIAACUBAAAAAAAAAAAUwEcBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T22:18:47.612Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Protocol.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\Protocol.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\Protocol.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\Protocol.cs",
+              "RelativeToolTip": "CoreClasses\\Protocol.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAG4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T22:14:15.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NetworkServiceTests.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\NetworkServiceTests.cs",
+              "RelativeDocumentMoniker": "Tests\\CoreClasses.Tests\\NetworkServiceTests.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\NetworkServiceTests.cs",
+              "RelativeToolTip": "Tests\\CoreClasses.Tests\\NetworkServiceTests.cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAkwMQAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T20:44:04.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NetworkService.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\NetworkService.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\NetworkService.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\NetworkService.cs",
+              "RelativeToolTip": "CoreClasses\\NetworkService.cs",
+              "ViewState": "AgIAAM8AAAAAAAAAAAAwwP8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T20:36:13.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CryptoServiceTests.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\CryptoServiceTests.cs",
+              "RelativeDocumentMoniker": "Tests\\CoreClasses.Tests\\CryptoServiceTests.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\CryptoServiceTests.cs",
+              "RelativeToolTip": "Tests\\CoreClasses.Tests\\CryptoServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:11:50.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MessageFactory.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\MessageFactory.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\MessageFactory.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\MessageFactory.cs",
+              "RelativeToolTip": "CoreClasses\\MessageFactory.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAqwFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T22:15:23.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NetworkPacket.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\NetworkPacket.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\NetworkPacket.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\NetworkPacket.cs",
+              "RelativeToolTip": "CoreClasses\\NetworkPacket.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T20:34:57.71Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CryptoService.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\CryptoService.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\CryptoService.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\CryptoService.cs",
+              "RelativeToolTip": "CoreClasses\\CryptoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:10:10.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ICryptoService.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\ICryptoService.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\ICryptoService.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\ICryptoService.cs",
+              "RelativeToolTip": "CoreClasses\\ICryptoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:06:27.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "KeyPair.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\KeyPair.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\KeyPair.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\KeyPair.cs",
+              "RelativeToolTip": "CoreClasses\\KeyPair.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-04T20:08:35.429Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
