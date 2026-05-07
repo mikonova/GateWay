@@ -31,17 +31,17 @@ public partial class MainWindow : Window
         if(this.WindowState == WindowState.FullScreen)
         {
             this.WindowState = WindowState.Normal;
-            BtnFullscreen.Content = "□";
+            BtnFullscreen.Text = "□";
         }
         else
         {
             this.WindowState = WindowState.FullScreen;
-            BtnFullscreen.Content = "■";
+            BtnFullscreen.Text = "■";
         }
     }
 
     private void BtnToTray_OnClick(object? sender, RoutedEventArgs e)
     {
-        
+        this.WindowState = WindowState.Minimized;
     }
 }
