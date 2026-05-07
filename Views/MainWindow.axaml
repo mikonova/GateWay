@@ -83,16 +83,18 @@
                 </Grid.ColumnDefinitions>
                 <Border
                     CornerRadius="0 12 12 0"
-                    Width="{Binding Path=OpenPaneLength ElementName=SidePane}"
-                    Height="{Binding ElementName=SidePane}">
+                    x:Name="PaneBorder"
+                    HorizontalAlignment="Left"
+                    Width="{Binding Path=CompactPaneLength, ElementName=SidePane}"
+                    Background="#59518c">
                     <SplitView 
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Left"
                         x:Name="SidePane" 
                         CornerRadius="12"
-                        Background="#59518c" 
-                        PaneBackground="#59518c"
-                        DisplayMode= "CompactInline"
+                        Background="Transparent" 
+                        PaneBackground="Transparent"
+                        DisplayMode= "CompactOverlay"
                         IsPaneOpen="False"
                         OpenPaneLength="100">
                         <SplitView.Pane>

@@ -17,8 +17,13 @@ public partial class MainWindow : Window
         if (SidePane.IsPaneOpen)
         {
             SidePane.IsPaneOpen = false;
+            PaneBorder.Width = SidePane.CompactPaneLength;
         }
-        else SidePane.IsPaneOpen = true;
+        else
+        {
+            SidePane.IsPaneOpen = true;
+            PaneBorder.Width = SidePane.OpenPaneLength;
+        }
     }
 
     private void BtnClose_OnClick(object? sender, RoutedEventArgs e)
