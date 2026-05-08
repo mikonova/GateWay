@@ -19,7 +19,7 @@
     <Window.Styles>
         
         <Style Selector="Label.TopRowStyle">
-            <Setter Property="Background" Value="#59518c" />
+            <Setter Property="Background" Value="#606500c1" />
             <Setter Property="Width" Value="36" />
             <Setter Property="Height" Value="36"/>
             <Setter Property="CornerRadius" Value="18"/>
@@ -27,7 +27,7 @@
         </Style>
         
         <Style Selector="Label.TopRowStyle:pointerover">
-            <Setter Property="Background" Value="#6d65a1"/>
+            <Setter Property="Background" Value="#906500c1"/>
         </Style>
         
         <Style Selector="Label.TopRowStyle:pressed">
@@ -51,7 +51,7 @@
                 <RowDefinition MaxHeight="40" MinHeight="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid HorizontalAlignment="Stretch" Background="#191725">
+            <Grid HorizontalAlignment="Stretch" Background="#240046">
                 <WrapPanel Background="Transparent" HorizontalAlignment="Right">
                     <Label 
                         x:Name="BtnToTray" 
@@ -78,7 +78,7 @@
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition MinWidth="100" MaxWidth="400"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <SplitView 
@@ -86,8 +86,7 @@
                     HorizontalAlignment="Left"
                     x:Name="SidePane" 
                     CornerRadius="12"
-                    Background="#59518c" 
-                    PaneBackground="#59518c"
+                    PaneBackground="#240046"
                     DisplayMode= "CompactOverlay"
                     IsPaneOpen="False"
                     OpenPaneLength="300">
@@ -111,15 +110,14 @@
                         
                     </SplitView.Content>
                 </SplitView>
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel>
+                <StackPanel Grid.Column="1">
+                    <ScrollViewer
+                        VerticalScrollBarVisibility="Hidden"
+                        HorizontalScrollBarVisibility="Disabled"
+                        >
                         
-                    </StackPanel>
-                </Grid>
+                    </ScrollViewer>
+                </StackPanel>
             </Grid>
             
         </Grid>
