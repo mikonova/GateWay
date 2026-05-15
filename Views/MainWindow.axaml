@@ -77,18 +77,20 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="400"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <SplitView 
                     VerticalAlignment="Stretch"
+                    ZIndex="10"
                     HorizontalAlignment="Left"
                     x:Name="SidePane" 
                     CornerRadius="12"
                     PaneBackground="#240046"
                     DisplayMode= "CompactOverlay"
                     IsPaneOpen="False"
+                    CompactPaneLength="50"
                     OpenPaneLength="300">
                     <SplitView.Pane>
                         <StackPanel>
@@ -110,12 +112,18 @@
                         
                     </SplitView.Content>
                 </SplitView>
-                <StackPanel Grid.Column="1">
+                <StackPanel 
+                    Grid.Column="0"
+                    Margin="50,0,0,0"
+                    HorizontalAlignment="Left">
                     <ScrollViewer
+                        IsScrollInertiaEnabled="False"
                         VerticalScrollBarVisibility="Hidden"
                         HorizontalScrollBarVisibility="Disabled"
                         >
-                        
+                        <StackPanel x:Name="ChatList">
+                            
+                        </StackPanel>
                     </ScrollViewer>
                 </StackPanel>
             </Grid>
