@@ -3,6 +3,7 @@
         xmlns:vm="using:GateWay.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:color="clr-namespace:ColorPalette"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GateWay.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -19,7 +20,7 @@
     <Window.Styles>
         
         <Style Selector="Label.TopRowStyle">
-            <Setter Property="Background" Value="#606500c1" />
+            <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}" />
             <Setter Property="Width" Value="36" />
             <Setter Property="Height" Value="36"/>
             <Setter Property="CornerRadius" Value="18"/>
@@ -51,7 +52,7 @@
                 <RowDefinition MaxHeight="40" MinHeight="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid HorizontalAlignment="Stretch" Background="#240046">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}">
                 <WrapPanel Background="Transparent" HorizontalAlignment="Right">
                     <Label 
                         x:Name="BtnToTray" 
