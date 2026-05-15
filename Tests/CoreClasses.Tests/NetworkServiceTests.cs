@@ -1,4 +1,5 @@
 ﻿using CoreClasses;
+using CoreClasses.Protocol;
 using System;
 using System.Net.Sockets;
 using System.Text;
@@ -214,5 +215,102 @@ public class NetworkServiceTests : IDisposable
 
         await Assert.ThrowsAsync<SocketException>(
             () => _client.SendAsync(LocalHost, 19999, Encoding.UTF8.GetBytes("unreachable")));
+    }
+    [Fact]
+    public async Task FullFlow_EncryptSendReceiveDecrypt_ShouldReturnOriginalMessage()
+    {
+        var crypto = new CryptoService();
+        var alice = crypto.GenerateKeys();
+        var bob = crypto.GenerateKeys();
+
+        // Исходное сообщение
+        var originalMessage = "Привет, Боб! Это секретное сообщение."u8.ToArray();
+
+        // Шифруем
+        var encrypted = crypto.Encrypt(originalMessage, alice.PrivateKey, bob.PublicKey);
+
+        // Поднимаем сервер на стороне Боба
+        var bobStack = new NetworkService.NetworkStack(15000);
+        NetworkPacket? receivedPacket = null;
+        var packetReceived = new TaskCompletionSource<NetworkPacket>();
+
+        bobStack.PacketReceived += (_, packet) => packetReceived.TrySetResult(packet);
+        bobStack.Start();
+
+        // Алиса отправляет
+        var aliceStack = new NetworkService.NetworkStack(15001);
+        await aliceStack.SendAsync("127.0.0.1", 15000, encrypted);
+
+        // Ждём получения (таймаут 5 секунд)
+        var completedTask = await Task.WhenAny(packetReceived.Task, Task.Delay(5000));
+        Assert.True(completedTask == packetReceived.Task, "Пакет не получен за 5 секунд");
+
+        receivedPacket = await packetReceived.Task;
+
+        // Боб расшифровывает
+        var decrypted = crypto.Decrypt(receivedPacket.Data, bob.PrivateKey, alice.PublicKey);
+
+        // Сравниваем
+        Assert.Equal(originalMessage, decrypted);
+
+        // Чистим
+        bobStack.Stop();
+        bobStack.Dispose();
+    }
+    [Fact]
+    public async Task FullFlow_EncryptSendReceiveDecrypt_WithMessageFactory_ShouldReturnOriginalMessage()
+    {
+        var crypto = new CryptoService();
+        var alice = crypto.GenerateKeys();
+        var bob = crypto.GenerateKeys();
+
+        // Создаём сообщение через MessageFactory
+        var payload = new RenderMessagePayload
+        {
+            ChatId = "chat-001",
+            SenderId = "alice-001",
+            SenderName = "Алиса",
+            Content = "Привет, Боб! Это секретное сообщение."
+        };
+
+        var rawMessage = MessageFactory.CreateInternal(InternalCommand.RenderMessage, payload);
+
+        // Шифруем
+        var encrypted = crypto.Encrypt(rawMessage, alice.PrivateKey, bob.PublicKey);
+
+        // Поднимаем сервер на стороне Боба
+        var bobStack = new NetworkService.NetworkStack(15002);
+        var packetReceived = new TaskCompletionSource<NetworkPacket>();
+
+        bobStack.PacketReceived += (_, packet) => packetReceived.TrySetResult(packet);
+        bobStack.Start();
+
+        // Алиса отправляет
+        var aliceStack = new NetworkService.NetworkStack(15003);
+        await aliceStack.SendAsync("127.0.0.1", 15005, encrypted);
+
+        // Ждём получения
+        var completedTask = await Task.WhenAny(packetReceived.Task, Task.Delay(5000));
+        Assert.True(completedTask == packetReceived.Task, "Пакет не получен за 5 секунд");
+
+        var receivedPacket = await packetReceived.Task;
+
+        // Боб расшифровывает
+        var decrypted = crypto.Decrypt(receivedPacket.Data, bob.PrivateKey, alice.PublicKey);
+
+        // Разбираем NetworkMessage
+        var networkMessage = MessageFactory.Parse(decrypted);
+        var receivedPayload = MessageFactory.ExtractPayload<RenderMessagePayload>(networkMessage);
+
+        // Сравниваем
+        Assert.Equal(InternalCommand.RenderMessage.ToString(), networkMessage.Command);
+        Assert.Equal(payload.ChatId, receivedPayload.ChatId);
+        Assert.Equal(payload.SenderId, receivedPayload.SenderId);
+        Assert.Equal(payload.SenderName, receivedPayload.SenderName);
+        Assert.Equal(payload.Content, receivedPayload.Content);
+
+        // Чистим
+        bobStack.Stop();
+        bobStack.Dispose();
     }
 }
