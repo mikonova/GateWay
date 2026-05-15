@@ -22,5 +22,11 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.1" />
+<Compile Remove="CoreClasses\**" />
+  <EmbeddedResource Remove="CoreClasses\**" />
+  <None Remove="CoreClasses\**" />
+  <Compile Remove="Tests\**" />
+  <EmbeddedResource Remove="Tests\**" />
+  <None Remove="Tests\**" />
   </ItemGroup>
 </Project>
