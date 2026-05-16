@@ -12,7 +12,10 @@ namespace CoreClasses.Tests
 
         public KeyStorageTests()
         {
-            _testRoot = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            _testRoot = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+        "GateWayTests",
+        Guid.NewGuid().ToString());
             _storage = new KeyStorage(_testRoot);
         }
 

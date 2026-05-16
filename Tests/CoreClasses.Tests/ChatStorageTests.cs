@@ -13,7 +13,10 @@ namespace CoreClasses.Tests
 
         public ChatStorageTests()
         {
-            _testRoot = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            _testRoot = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+        "GateWayTests",
+        Guid.NewGuid().ToString());
             _storage = new ChatStorage(_testRoot);
         }
 
@@ -182,8 +185,9 @@ namespace CoreClasses.Tests
 
         public void Dispose()
         {
-            if (Directory.Exists(_testRoot))
-                Directory.Delete(_testRoot, recursive: true);
+            //if (Directory.Exists(_testRoot))
+              //  Directory.Delete(_testRoot, recursive: true);
+            Console.WriteLine($"Папка тестов: {_testRoot}");
         }
     }
 }

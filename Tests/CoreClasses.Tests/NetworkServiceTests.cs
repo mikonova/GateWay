@@ -287,7 +287,7 @@ public class NetworkServiceTests : IDisposable
 
         // Алиса отправляет
         var aliceStack = new NetworkService.NetworkStack(15003);
-        await aliceStack.SendAsync("127.0.0.1", 15005, encrypted);
+        await aliceStack.SendAsync("127.0.0.1", 15002, encrypted);
 
         // Ждём получения
         var completedTask = await Task.WhenAny(packetReceived.Task, Task.Delay(5000));
