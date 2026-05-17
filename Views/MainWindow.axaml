@@ -17,10 +17,11 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+    
     <Window.Styles>
         
         <Style Selector="Label.TopRowStyle">
-            <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}" />
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Width" Value="36" />
             <Setter Property="Height" Value="36"/>
             <Setter Property="CornerRadius" Value="18"/>
@@ -28,32 +29,27 @@
         </Style>
         
         <Style Selector="Label.TopRowStyle:pointerover">
-            <Setter Property="Background" Value="#906500c1"/>
+            <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.HighlightColor}}"/>
         </Style>
         
         <Style Selector="Label.TopRowStyle:pressed">
-            <Setter Property="Background" Value="#7e78ab"/>
+            <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.PressColor}}"/>
         </Style>
         
         <Style Selector="Label.SidePaneStyle:pointerover">
             <Setter Property="Background" Value="#40f5f5f5" />
         </Style>
         
-        <Style Selector="Label.SidePaneStyle">
-            <Setter Property="CornerRadius" Value="0"/>
-            <Setter Property="Width" Value="48"/>
-            <Setter Property="Height" Value="48"/>
-        </Style>
-        
     </Window.Styles>
+    
     <!--Viewbox Stretch="Uniform"-->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition MaxHeight="40" MinHeight="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid HorizontalAlignment="Stretch" Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}">
-                <WrapPanel Background="Transparent" HorizontalAlignment="Right">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
+                <StackPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Right">
                     <Label 
                         x:Name="BtnToTray" 
                         HorizontalAlignment="Right"
@@ -65,7 +61,7 @@
                             Classes="TopRowStyle"
                             PointerPressed="BtnFullscreen_OnClick"
                             HorizontalAlignment="Right">
-                            <TextBlock x:Name="BtnFullscreen"  Text="□" FontSize="14" VerticalAlignment="Center" TextAlignment="Center"/>
+                            <TextBlock x:Name="BtnFullscreen"  Text="□" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"/>
                         </Label>
                         <Label 
                             x:Name="BtnClose" 
@@ -74,13 +70,13 @@
                             PointerPressed="BtnClose_OnClick">
                             <TextBlock Text="x" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"/>
                         </Label>
-                </WrapPanel>
+                </StackPanel>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="400"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <SplitView 
                     VerticalAlignment="Stretch"
@@ -88,35 +84,66 @@
                     HorizontalAlignment="Left"
                     x:Name="SidePane" 
                     CornerRadius="12"
-                    PaneBackground="#240046"
-                    DisplayMode= "CompactOverlay"
+                    PaneBackground="{Binding Source={x:Static color:ColorPaletteNebula.VertBarGradient}}"
+                    DisplayMode= "CompactInline"
                     IsPaneOpen="False"
                     CompactPaneLength="50"
                     OpenPaneLength="300">
                     <SplitView.Pane>
-                        <StackPanel>
-                            <Label 
-                                   x:Name="PaneExpand"
-                                   PointerPressed="PaneExpand_OnClick"
-                                   Classes="SidePaneStyle"
-                                   FontSize="30"
-                                   HorizontalAlignment="Left">
-                                <TextBlock 
-                                    Text="☰" 
-                                    FontSize="35" 
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
-                            </Label>
+                        <StackPanel 
+                            Orientation="Vertical"
+                            ClipToBounds="True">
+                            <StackPanel>
+                                <Label 
+                                       x:Name="PaneExpand"
+                                       PointerPressed="PaneExpand_OnClick"
+                                       Classes="SidePaneStyle"
+                                       Width="48"
+                                       Height="48"
+                                       HorizontalAlignment="Left">
+                                    <TextBlock 
+                                        Text="☰" 
+                                        FontSize="35" 
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                                </Label>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Vertical"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Stretch"
+                                x:Name="PaneContent"
+                                IsEnabled="False"
+                                IsVisible="False"
+                                ClipToBounds="True">
+                                <Separator
+                                    ClipToBounds="True"
+                                    Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"/>
+                                <Label
+                                    Classes="SidePaneStyle"
+                                    HorizontalAlignment="Stretch"
+                                    Height="50"
+                                    Margin="5 5 5 5"
+                                    CornerRadius="5"
+                                    Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
+                                    <TextBlock
+                                        Text="Добавить чат"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="20"/>
+                                </Label>
+                            </StackPanel>
                         </StackPanel>
                     </SplitView.Pane>
                     <SplitView.Content>
-                        
+
                     </SplitView.Content>
                 </SplitView>
                 <StackPanel 
                     Grid.Column="0"
                     Margin="50,0,0,0"
-                    HorizontalAlignment="Left">
+                    HorizontalAlignment="Left"
+                    Orientation="Vertical">
                     <ScrollViewer
                         IsScrollInertiaEnabled="False"
                         VerticalScrollBarVisibility="Hidden"
