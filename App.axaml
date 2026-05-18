@@ -17,12 +17,15 @@
         <FluentTheme />
         <Style Selector="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style Selector="Label">
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style Selector="MenuItem">
             <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
         
     </Application.Styles>
