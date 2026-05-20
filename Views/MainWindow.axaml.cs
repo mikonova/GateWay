@@ -16,10 +16,19 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         Context = this;
+        
+        if (isUserSessionActive == true)
+        {
+            
+            AddChatToList("123", "miko", "ты лох ебучий иди нахуй пидорас блять чтоб ты сдох мудила", false);
+            AddChatToList("124", "хуй", "сам умри пидарок блять", true);
+            AddChatToList("125", "фырфыр", "няняня все дела пробку в попу", false);
+        }
+        else
+        {
+            
+        }
         InitializeComponent();
-        AddChatToList("123","miko", "ты лох ебучий иди нахуй пидорас блять чтоб ты сдох мудила", false);
-        AddChatToList("124","хуй", "сам умри пидарок блять", true);
-        AddChatToList("125","фырфыр", "няняня все дела пробку в попу", false);
     }
 
     private void PaneExpand_OnClick(object? sender, RoutedEventArgs e)
