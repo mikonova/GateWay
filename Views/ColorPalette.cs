@@ -21,8 +21,10 @@ public static class ColorPaletteNebula
     //tidepool teal
     public static readonly SolidColorBrush ChatCloudColor = new SolidColorBrush(Color.Parse("#2FA0C6"));
     
+    // summer surf
+    public static readonly SolidColorBrush SummerSurfColor = new SolidColorBrush(Color.Parse("#58C9F3"));
     // glacier mist
-    public static readonly SolidColorBrush GlacierMistColor = new SolidColorBrush(Color.Parse("#2FA0C6"));
+    public static readonly SolidColorBrush GlacierMistColor = new SolidColorBrush(Color.Parse("#BDE5FF"));
     
     // blended brushes
     public static readonly SolidColorBrush ChatHover = BrushManipulator.BlendBrushes(BackgroundColor, HighlightColor, 0.3);

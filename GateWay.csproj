@@ -29,5 +29,8 @@
   <Compile Remove="Tests\**" />
   <EmbeddedResource Remove="Tests\**" />
   <None Remove="Tests\**" />
+  <Compile Update="Views\LoginWindow.axaml.cs">
+    <DependentUpon>LoginWindow.axaml</DependentUpon>
+  </Compile>
   </ItemGroup>
 </Project>

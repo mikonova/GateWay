@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -12,23 +13,33 @@ namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
+
+    private bool _isUserSessionActive = false; // не должно стоять значения, пример
+
+    public bool IsUserSessionActive
+    {
+        get => _isUserSessionActive;
+        set => _isUserSessionActive = value;
+    }
+
     public static MainWindow? Context;
     public MainWindow()
     {
         Context = this;
-        
-        if (isUserSessionActive == true)
+        InitializeComponent();
+        if (_isUserSessionActive)
         {
-            
-            AddChatToList("123", "miko", "ты лох ебучий иди нахуй пидорас блять чтоб ты сдох мудила", false);
-            AddChatToList("124", "хуй", "сам умри пидарок блять", true);
-            AddChatToList("125", "фырфыр", "няняня все дела пробку в попу", false);
+            LoginScreen.IsVisible = false;
+            UserLogged.IsVisible = true;
         }
         else
         {
-            
+            UserLogged.IsVisible = true;
+            UserLogged.IsVisible = false;
         }
-        InitializeComponent();
+        AddChatToList("123", "miko", "Привчедел", false);
+        AddChatToList("124", "Вася", "Го в кино", true);
+        AddChatToList("125", "Леша", "Ты тут?", false);
     }
 
     private void PaneExpand_OnClick(object? sender, RoutedEventArgs e)
@@ -72,5 +83,22 @@ public partial class MainWindow : Window
     private void BtnToTray_OnClick(object? sender, RoutedEventArgs e)
     {
         this.WindowState = WindowState.Minimized;
+    }
+
+    private void CreateUserLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        CreateUserLabel.Background = ColorPaletteNebula.ChatPress;
+        LoginWindow LoginInfo = new LoginWindow();
+        LoginInfo.ShowDialog(this);
+    }
+
+    private void CreateUserLabel_OnPointerEntered(object? sender, PointerEventArgs e)
+    {
+        CreateUserLabel.Background = ColorPaletteNebula.ChatHover;
+    }
+
+    private void CreateUserLabel_OnPointerExited(object? sender, PointerEventArgs e)
+    {
+        CreateUserLabel.Background = ColorPaletteNebula.ChatCloudColor;
     }
 }

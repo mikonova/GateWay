@@ -1,0 +1,74 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:color="clr-namespace:ColorPalette"
+        mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="400"
+        Width="300"
+        Height="400"
+        x:Class="GateWay.Views.LoginWindow"
+        WindowDecorations="None"
+        CanResize="False">
+        
+        <Window.Styles>
+                <Style Selector="Label.OkButtonLabel">
+                        
+                </Style>
+                <Style Selector="Label.OkButtonLabel:pointerover">
+                        
+                </Style>
+                
+                <Style Selector="Label.OkButtonLabel:pressed">
+                        
+                </Style>
+        </Window.Styles>
+        
+        <StackPanel
+                Orientation="Vertical"
+                Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+                <Label 
+                        Content="Скопируйте или&#10;запишите содержимое!"
+                        Foreground="WhiteSmoke"
+                        FontSize="20"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="0 5 0 15"/>
+                <Border
+                        CornerRadius="5"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch"
+                        Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}">
+                        <StackPanel
+                                Orientation="Horizontal">
+                                <Border
+                                        Width="30"
+                                        Height="30"
+                                        HorizontalAlignment="Left"
+                                        Name="CopyButton"
+                                        Background="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}"
+                                        CornerRadius="5"
+                                        Margin="5 5 5 5"
+                                        PointerPressed="CopyButton_OnPointerPressed">
+                                        <Label>
+                                                <Label.Background>
+                                                        <ImageBrush Source="avares://GateWay/Assets/Clipboard.png" Stretch="Uniform"/>
+                                                </Label.Background>
+                                        </Label>
+                                </Border>
+                                <TextBlock
+                                        Width="250"
+                                        TextWrapping="Wrap"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Foreground="WhiteSmoke"
+                                        FontSize="16"
+                                        Name="PublicKeyTextBlock"/>
+                                <Label
+                                        Name="OkLabel"
+                                        Classes="OkButtonLabel"/>
+                        </StackPanel>
+                </Border>
+        </StackPanel>
+</Window>
