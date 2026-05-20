@@ -1,0 +1,152 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\views\\chatmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|solutionrelative:views\\chatmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\views\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|solutionrelative:views\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\templates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\templates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\chatstorage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\chatstorage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\coreclasses\\chatpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7368BEA2-5022-BEA7-DD44-D1E62F61962A}|CoreClasses\\CoreClasses.csproj|solutionrelative:coreclasses\\chatpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\tests\\coreclasses.tests\\chatstoragetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|solutionrelative:tests\\coreclasses.tests\\chatstoragetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Family\\AppData\\Local\\Temp\\VSGeneratedDocuments\\e563692d-2a93-51b9-7a01-55accccfb4e0\\GateWay.Views.MainWindow.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|e:\\\u0441424\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\gateway\\viewmodels\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|solutionrelative:viewmodels\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ChatPreview.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\ChatPreview.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\ChatPreview.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\ChatPreview.cs",
+              "RelativeToolTip": "CoreClasses\\ChatPreview.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T21:22:21.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChatStorageTests.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\ChatStorageTests.cs",
+              "RelativeDocumentMoniker": "Tests\\CoreClasses.Tests\\ChatStorageTests.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Tests\\CoreClasses.Tests\\ChatStorageTests.cs",
+              "RelativeToolTip": "Tests\\CoreClasses.Tests\\ChatStorageTests.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAmwIkAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T21:21:25.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.axaml.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Views\\MainWindow.axaml.cs",
+              "RelativeDocumentMoniker": "Views\\MainWindow.axaml.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Views\\MainWindow.axaml.cs",
+              "RelativeToolTip": "Views\\MainWindow.axaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T21:14:51.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Templates.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\Templates.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\Templates.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\Templates.cs",
+              "RelativeToolTip": "CoreClasses\\Templates.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAuwB8AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T21:07:54.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChatManager.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Views\\ChatManager.cs",
+              "RelativeDocumentMoniker": "Views\\ChatManager.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\Views\\ChatManager.cs",
+              "RelativeToolTip": "Views\\ChatManager.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAQwG0AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T20:59:59.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ChatStorage.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\ChatStorage.cs",
+              "RelativeDocumentMoniker": "CoreClasses\\ChatStorage.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\CoreClasses\\ChatStorage.cs",
+              "RelativeToolTip": "CoreClasses\\ChatStorage.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAYwFMAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T21:22:16.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GateWay.Views.MainWindow.g.cs",
+              "DocumentMoniker": "C:\\Users\\Family\\AppData\\Local\\Temp\\VSGeneratedDocuments\\e563692d-2a93-51b9-7a01-55accccfb4e0\\GateWay.Views.MainWindow.g.cs",
+              "ToolTip": "GateWay.Views.MainWindow.g.cs [\u0441\u043E\u0437\u0434\u0430\u043D \u0433\u0435\u043D\u0435\u0440\u0430\u0442\u043E\u0440\u043E\u043C Avalonia.Generators.NameGenerator.AvaloniaNameIncrementalGenerator]",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "OverriddenToolTip": "GateWay.Views.MainWindow.g.cs [\u0441\u043E\u0437\u0434\u0430\u043D \u0433\u0435\u043D\u0435\u0440\u0430\u0442\u043E\u0440\u043E\u043C Avalonia.Generators.NameGenerator.AvaloniaNameIncrementalGenerator]",
+              "WhenOpened": "2026-05-20T21:10:55.764Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MainWindowViewModel.cs",
+              "DocumentMoniker": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\ViewModels\\MainWindowViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\MainWindowViewModel.cs",
+              "ToolTip": "E:\\\u0421424\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430_\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\\GateWay\\ViewModels\\MainWindowViewModel.cs",
+              "RelativeToolTip": "ViewModels\\MainWindowViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T21:00:10.733Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
