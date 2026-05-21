@@ -9,7 +9,27 @@
         <local:ViewLocator/>
     </Application.DataTemplates>
   
+     <Application.Resources>
+         <FontFamily x:Key="AppFont">avares://GateWay/Assets/Fonts#Nunito</FontFamily>
+     </Application.Resources>
+             
     <Application.Styles>
         <FluentTheme />
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Label">
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="MenuItem">
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        
     </Application.Styles>
+             
+
+             
 </Application>

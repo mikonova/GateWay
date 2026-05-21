@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Assets\Fonts\" />
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
@@ -28,5 +29,9 @@
   <Compile Remove="Tests\**" />
   <EmbeddedResource Remove="Tests\**" />
   <None Remove="Tests\**" />
+  <Compile Update="Views\LoginWindow.axaml.cs">
+    <DependentUpon>LoginWindow.axaml</DependentUpon>
+  </Compile>
+  <PackageReference Include="MessageBox.Avalonia" Version="12.0.0" />
   </ItemGroup>
 </Project>
