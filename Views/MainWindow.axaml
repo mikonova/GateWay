@@ -185,7 +185,20 @@
                         CornerRadius="5"
                         Margin="0 20 0 20 "
                         HorizontalAlignment="Center"/>
-
+                    <Grid
+                        Grid.Column="2">
+                        <Grid.RowDefinitions>*</Grid.RowDefinitions>
+                        <ScrollViewer
+                            IsScrollInertiaEnabled="False"
+                            VerticalScrollBarVisibility="Hidden"
+                            HorizontalScrollBarVisibility="Disabled">
+                            <StackPanel
+                                Name="StackMessages"
+                                ClipToBounds="True">
+                                
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
                 </Grid>
             </UserControl>
             <UserControl Grid.Row="1" Name="LoginScreen" Background="{StaticResource BgBrush}">
@@ -195,31 +208,41 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel 
-                        Grid.Column="1" 
-                        Orientation="Vertical"
+                    <Grid 
+                        Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
                         <Label 
+                            Grid.Row="1"
                             Content="Добро Пожаловать!"
-                            FontSize="20" 
+                            FontSize="40" 
                             FontWeight="ExtraBold"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Foreground="FloralWhite"
-                            />
+                        />
                         <TextBlock 
+                            Grid.Row="2"
                             Text="Вы не имеете локального аккаунта. Нажмите ниже, чтобы создать его.&#10;
                         Мы не используем сторонние сервисы" 
-                            FontSize="18" 
+                            FontSize="30"
+                            Name="GreetingText"
                             VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
                             FontWeight="DemiBold"
                             Foreground="FloralWhite"/>
                         <Label
+                            Grid.Row="3"
                             Name="CreateUserLabel"
                             Margin="0 25 0 0"
-                            FontSize="25"
+                            FontSize="40"
                             Padding="10"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
@@ -233,7 +256,7 @@
                                 Text="Поехали"
                                 Foreground="FloralWhite"/>
                         </Label>
-                    </StackPanel>
+                    </Grid>
                 </Grid>
             </UserControl>
             

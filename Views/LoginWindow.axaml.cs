@@ -6,6 +6,8 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace GateWay.Views;
 
@@ -25,8 +27,14 @@ public partial class LoginWindow : Window
         }
         else
         {
-            throw new NotImplementedException();
+            var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
+                "Кажется произошла ошибка и ключ не сгенерировался", ButtonEnum.Ok);
+            box.ShowAsync();
         }
     }
-    
+
+    private void OkLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        this.Close();
+    }
 }

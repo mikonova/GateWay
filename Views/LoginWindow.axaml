@@ -12,14 +12,14 @@
         
         <Window.Styles>
                 <Style Selector="Label.OkButtonLabel">
-                        
+                        <Setter Property="Foreground" Value="WhiteSmoke"/>
                 </Style>
                 <Style Selector="Label.OkButtonLabel:pointerover">
-                        
+                        <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.HighlightColor}}"/>
                 </Style>
                 
                 <Style Selector="Label.OkButtonLabel:pressed">
-                        
+                        <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.PressColor}}"/>
                 </Style>
         </Window.Styles>
         
@@ -66,8 +66,12 @@
                                         FontSize="16"
                                         Name="PublicKeyTextBlock"/>
                                 <Label
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Content="Принять"
                                         Name="OkLabel"
-                                        Classes="OkButtonLabel"/>
+                                        Classes="OkButtonLabel"
+                                        PointerPressed='OkLabel_OnPointerPressed'/>
                         </StackPanel>
                 </Border>
         </StackPanel>

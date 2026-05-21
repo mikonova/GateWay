@@ -32,5 +32,6 @@
   <Compile Update="Views\LoginWindow.axaml.cs">
     <DependentUpon>LoginWindow.axaml</DependentUpon>
   </Compile>
+  <PackageReference Include="MessageBox.Avalonia" Version="12.0.0" />
   </ItemGroup>
 </Project>

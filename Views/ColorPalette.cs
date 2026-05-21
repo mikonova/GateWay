@@ -10,7 +10,7 @@ public static class ColorPaletteNebula
     public static readonly SolidColorBrush BackgroundColor = new SolidColorBrush(Color.Parse("#061826"));
     
     // atlantic steel
-    public static readonly SolidColorBrush OnBgColor = new SolidColorBrush(Color.Parse("#901C4E75"));
+    public static readonly SolidColorBrush OnBgColor = new SolidColorBrush(Color.Parse("#1C4E75"));
     
     // smoky white
     public static readonly SolidColorBrush HighlightColor = new SolidColorBrush(Color.Parse("#40f5f5f5"));
