@@ -14,7 +14,7 @@ namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
-    private bool _isUserSessionActive = true; // не должно стоять значения, пример
+    private bool _isUserSessionActive = false; // не должно стоять значения, пример
 
     public bool IsUserSessionActive
     {
@@ -37,10 +37,11 @@ public partial class MainWindow : Window
             UserLogged.IsVisible = true;
             UserLogged.IsVisible = false;
         }
+        // тесты ,удалить 
         AddChatToList("123", "miko", "Привчедел", false);
         AddChatToList("124", "Вася", "Го в кино", true);
         AddChatToList("125", "Леша", "Ты тут?", false);
-        LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45+02:00", true);
+        LoadMessage("123", "aboba", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
         LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
     }
 

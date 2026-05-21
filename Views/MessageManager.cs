@@ -28,14 +28,17 @@ public partial class MainWindow
         Border message = new Border()
         {
             Name = chatId,
-            Margin = new Thickness(50, 0),
+            Margin = new Thickness(50, 30),
             CornerRadius = new CornerRadius(5),
-            Padding = new Thickness(10)
+            Padding = new Thickness(10),
+            MinWidth = 50
         };
 
         Grid grid = new Grid();
         grid.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Auto));
+        grid.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Star));
         grid.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Auto));
+        grid.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Star));
         grid.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Auto));
 
         Label senderSignature = new Label()
@@ -68,14 +71,28 @@ public partial class MainWindow
             VerticalAlignment = VerticalAlignment.Center,
             Text = UnitedDate
         };
+        Separator upperSeparator = new Separator()
+        {
+            Height = 2,
+            Background = ColorPaletteNebula.GlacierMistColor,
+        };
         
+        Separator lowerSeparator = new Separator()
+        {
+            Height = 2,
+            Background = ColorPaletteNebula.GlacierMistColor,
+        };
+        grid.Children.Add(lowerSeparator);
+        grid.Children.Add(upperSeparator);
         grid.Children.Add(senderSignature);
         grid.Children.Add(contentSignature);
         grid.Children.Add(timeSignature);
         
         Grid.SetRow(senderSignature, 0);
-        Grid.SetRow(contentSignature, 1);
-        Grid.SetRow(timeSignature, 2);
+        Grid.SetRow(upperSeparator, 1);
+        Grid.SetRow(contentSignature, 2);
+        Grid.SetRow(lowerSeparator, 3);
+        Grid.SetRow(timeSignature, 4);
         
         message.Child = grid;
         StackMessages.Children.Add(message);
@@ -83,10 +100,16 @@ public partial class MainWindow
         if (isOutgoing)
         {
             message.Background = ColorPaletteNebula.OnBgColor;
+            message.HorizontalAlignment = HorizontalAlignment.Left;
         }
         else
         {
             message.Background = ColorPaletteNebula.ChatCloudColor;
+            message.HorizontalAlignment = HorizontalAlignment.Right;
         }
     }
 }
+/*
+ * что тыкать куда:
+ * 
+*/

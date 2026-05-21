@@ -9,6 +9,10 @@
         x:DataType="vm:MainWindowViewModel"
         ExtendClientAreaToDecorationsHint="True"
         WindowDecorations="None"
+        Height="1200"
+        Width="1200"
+        MinWidth="500"
+        MinHeight="500"
         Icon="/Assets/GateWay_logo.ico"
         Title="GateWay">
 
@@ -76,6 +80,8 @@
                         </Label>
                 </StackPanel>
             </Grid>
+            
+            <!-- Если пользователь залогинен, работает контрол ниже -->
             <UserControl 
                 Grid.Row="1"
                 Name="UserLogged">
@@ -191,7 +197,8 @@
                         <ScrollViewer
                             IsScrollInertiaEnabled="False"
                             VerticalScrollBarVisibility="Hidden"
-                            HorizontalScrollBarVisibility="Disabled">
+                            HorizontalScrollBarVisibility="Disabled"
+                            Margin="0 20 0 30">
                             <StackPanel
                                 Name="StackMessages"
                                 ClipToBounds="True">
@@ -201,45 +208,42 @@
                     </Grid>
                 </Grid>
             </UserControl>
+            
+            <!-- Если не залогинен, работает экран логина -->
             <UserControl Grid.Row="1" Name="LoginScreen" Background="{StaticResource BgBrush}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid 
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                <StackPanel 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label 
-                            Grid.Row="1"
-                            Content="Добро Пожаловать!"
+                        <TextBlock
+                            Grid.Row="0" 
+                            Text="Добро Пожаловать!"
+                            TextWrapping="Wrap"
                             FontSize="40" 
                             FontWeight="ExtraBold"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Foreground="FloralWhite"
                         />
-                        <TextBlock 
-                            Grid.Row="2"
+
+                        <TextBlock
+                            Grid.Row="1"
                             Text="Вы не имеете локального аккаунта. Нажмите ниже, чтобы создать его.&#10;
                         Мы не используем сторонние сервисы" 
                             FontSize="30"
                             Name="GreetingText"
+                            TextWrapping="Wrap"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             FontWeight="DemiBold"
                             Foreground="FloralWhite"/>
                         <Label
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Name="CreateUserLabel"
                             Margin="0 25 0 0"
                             FontSize="40"
@@ -257,7 +261,7 @@
                                 Foreground="FloralWhite"/>
                         </Label>
                     </Grid>
-                </Grid>
+                </StackPanel>
             </UserControl>
             
         </Grid>
