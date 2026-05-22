@@ -9,6 +9,7 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using ColorPalette;
+using GateWay.ViewModels;
 
 namespace GateWay.Views;
 

@@ -10,11 +10,15 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     public static List<Border?> _chatList = new List<Border?>();
     
-    private bool _isUserSessionActive = false; // не должно стоять значения, пример
+    private bool _isUserSessionActive; // не должно стоять значения, пример
     public bool IsUserSessionActive
     {
         get => _isUserSessionActive;
-        set => _isUserSessionActive = value;
+        set
+        {
+            _isUserSessionActive = value;
+            CheckUserSession().Wait();
+        }
     }
 
     public async Task CheckUserSession()

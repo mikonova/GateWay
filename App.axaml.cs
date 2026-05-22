@@ -11,8 +11,7 @@ namespace GateWay;
 
 public partial class App : Application
 {
-    public static MainWindow mainWindow;
-    MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+    public static MainWindow mainWindow = new MainWindow();
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -22,14 +21,11 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            mainWindowViewModel.CheckUserSession().Wait();
-            MainWindow mainWindow = new MainWindow();
             desktop.MainWindow = mainWindow;
             {
-                DataContext = mainWindowViewModel;
+                DataContext = new MainWindowViewModel();
 
             };
-            
         }
         base.OnFrameworkInitializationCompleted();
     }
