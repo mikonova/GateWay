@@ -81,11 +81,18 @@ public class ChatStorage
                 ChatId = chatId,
                 Name = name,
                 LastMessage = lastMessage,
-                LastSenderId = lastSenderId
+                IsLastOutgoing = true
             });
         }
 
         return result;
+    }
+
+    public void DeleteChat(string chatId)
+    {
+        var chatPath = GetChatPath(chatId);
+        if (Directory.Exists(chatPath))
+            Directory.Delete(chatPath, recursive: true);
     }
 
     // ===================== СООБЩЕНИЯ =====================
@@ -150,4 +157,8 @@ public class ChatStorage
         var hash = SHA256.HashData(publicKey);
         return Convert.ToHexString(hash).ToLower();
     }
+
+    
+
+    
 }

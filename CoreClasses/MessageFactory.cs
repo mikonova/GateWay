@@ -33,9 +33,9 @@ namespace CoreClasses.Protocol
         }
 
         /// <summary>Создать внешнее сообщение (операция с БД).</summary>
-        public static byte[] CreateExternal(
+        public static byte[] CreateExternal<TPayload>(
             ExternalCommand command,
-            DatabasePayload payload)
+            TPayload payload)
         {
             var message = new NetworkMessage
             {

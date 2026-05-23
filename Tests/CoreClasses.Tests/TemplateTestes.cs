@@ -10,7 +10,7 @@ namespace CoreClasses.Tests
         private readonly Templates tmpl;
         public TemplateTestes()
         {
-            tmpl = new Templates("C:\\Users\\nteli\\Desktop\\GateWayTests");
+            tmpl = new Templates("C:\\Users\\Family\\Desktop\\GateWayTests");
         }
 
         [Fact]

@@ -17,7 +17,7 @@ public class Message
     public string Content { get; init; } = string.Empty;
 
     [JsonPropertyName("sent_at")]
-    public DateTime SentAt { get; init; }
+    public DateTimeOffset SentAt { get; init; }
 
     [JsonPropertyName("is_outgoing")]
     public bool IsOutgoing { get; init; }

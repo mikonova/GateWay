@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace CoreClasses.Protocol
@@ -19,7 +20,9 @@ namespace CoreClasses.Protocol
         RenderChatList,     // Обновить список чатов
         RenderUserStatus,   // Обновить статус пользователя
         Ping,               // Проверка соединения
-        Pong                // Ответ на Ping
+        Pong,                // Ответ на Ping
+        RegistrationSuccess,
+        RegistrationCancel
     }
 
     /// <summary>Внешние команды (операции с БД).</summary>
@@ -28,7 +31,10 @@ namespace CoreClasses.Protocol
         Insert,     // Вставить запись
         Select,     // Получить запись
         Update,     // Обновить запись
-        Delete      // Удалить запись
+        Delete,      // Удалить запись
+        Registration,
+        Login,
+        Logout
     }
 
     // ===================== КОНВЕРТ =====================
@@ -106,5 +112,22 @@ namespace CoreClasses.Protocol
         public Dictionary<string, string> Data { get; init; } = new();
     }
 
+    public class RegistrationPayload {
+        [JsonPropertyName("user_name")]
+        public string UserName { get; init; } = string.Empty;
+
+        [JsonPropertyName("publi_key")]
+        public string PublicKey { get; init; } = string.Empty;
+
+        }
+
+    public class UpdateIPPayload
+    {
+        [JsonPropertyName("user_name")]
+        public string UserName { get; set;  } = string.Empty;
+        [JsonPropertyName("user_ip")]
+        public IPAddress ip { get; set; }
+
+    }
 
 }
