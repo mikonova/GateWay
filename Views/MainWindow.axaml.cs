@@ -16,7 +16,6 @@ namespace GateWay.Views;
 public partial class MainWindow : Window
 {
 
-
     public static MainWindow? Context;
     public MainWindow()
     {

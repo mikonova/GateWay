@@ -11,7 +11,7 @@ namespace GateWay;
 
 public partial class App : Application
 {
-    public static MainWindow mainWindow = new MainWindow();
+    public MainWindow mainWindow = new MainWindow();
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);

@@ -8,6 +8,11 @@ namespace GateWay.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    private App app;
+    public MainWindowViewModel()
+    {
+        app = App.Current as App;
+    }
     public static List<Border?> _chatList = new List<Border?>();
     
     private bool _isUserSessionActive; // не должно стоять значения, пример
@@ -21,17 +26,17 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    public async Task CheckUserSession()
+    private async Task CheckUserSession()
     {
         if (_isUserSessionActive)
         {
-            App.mainWindow.LoginScreen.IsVisible = false;
-            App.mainWindow.UserLogged.IsVisible = true;
+            app.mainWindow.LoginScreen.IsVisible = false;
+            app.mainWindow.UserLogged.IsVisible = true;
         }
         else
         {
-            App.mainWindow.UserLogged.IsVisible = true;
-            App.mainWindow.UserLogged.IsVisible = false;
+            app.mainWindow.UserLogged.IsVisible = true;
+            app.mainWindow.UserLogged.IsVisible = false;
         }
     }
 }
