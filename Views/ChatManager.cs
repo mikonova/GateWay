@@ -7,11 +7,12 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using ColorPalette;
+using GateWay.ViewModels;
 
 namespace GateWay.Views;
 public partial class MainWindow
 {
-    private List<Border?> _chatList = new List<Border?>();
+    
     private Border? _selectedChat;
     public async void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
     {
@@ -93,7 +94,7 @@ public partial class MainWindow
             _selectedChat = border;
         };
 
-        _chatList.Add(border);
+        MainWindowViewModel._chatList.Add(border);
         border.Child = grid;
         grid.Children.Add(userName);
         grid.Children.Add(messageInfo);
@@ -107,8 +108,8 @@ public partial class MainWindow
 
     public async void DeleteChat(string chatId)
     {
-        Border chat = _chatList.Find(border => border.Name == chatId);
-        _chatList.Remove(chat);
+        Border chat = MainWindowViewModel._chatList.Find(border => border.Name == chatId);
+        MainWindowViewModel._chatList.Remove(chat);
         ChatList.Children.Remove(chat);
     }
 }

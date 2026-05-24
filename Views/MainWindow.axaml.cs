@@ -9,34 +9,19 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using ColorPalette;
+using GateWay.ViewModels;
 
 namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
-    private bool _isUserSessionActive = false; // не должно стоять значения, пример
 
-    public bool IsUserSessionActive
-    {
-        get => _isUserSessionActive;
-        set => _isUserSessionActive = value;
-    }
 
     public static MainWindow? Context;
     public MainWindow()
     {
         Context = this;
         InitializeComponent();
-        if (_isUserSessionActive)
-        {
-            LoginScreen.IsVisible = false;
-            UserLogged.IsVisible = true;
-        }
-        else
-        {
-            UserLogged.IsVisible = true;
-            UserLogged.IsVisible = false;
-        }
         // тесты ,удалить 
         AddChatToList("123", "miko", "Привчедел", false);
         AddChatToList("124", "Вася", "Го в кино", true);
