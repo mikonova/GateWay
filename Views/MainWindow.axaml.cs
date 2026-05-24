@@ -10,17 +10,20 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using ColorPalette;
+using CoreClasses;
 using GateWay.ViewModels;
 
 namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
-    private MainWindowViewModel _mainWindowViewModel { get; set; }
+    private MainWindowViewModel _mainWindowViewModel;
+    public Templates Template;
     public MainWindow(MainWindowViewModel ViewModel)
     {
         _mainWindowViewModel = ViewModel;
         InitializeComponent();
+        Template.LoadAllChats();
         // тесты ,удалить 
         AddChatToList("123", "miko", "Привчедел", false);
         AddChatToList("124", "Вася", "Го в кино", true);

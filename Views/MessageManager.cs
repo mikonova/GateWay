@@ -18,7 +18,7 @@ public partial class MainWindow
     
     private async void LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing)
     {
-        if (_selectedChat == null)
+        if (_mainWindowViewModel.SelectedChat == null)
         {
             throw new Exception("No selected chat!");
         }

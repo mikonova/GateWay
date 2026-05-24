@@ -18,8 +18,8 @@ namespace CoreClasses
     
     public class Templates
     {
-        private readonly MainWindow _mainWindow;
-        private readonly MainWindowViewModel _mainWindowViewModel;
+        public MainWindow MainWindow;
+        public MainWindowViewModel MainWindowViewModel;
         private readonly KeyStorage _keyStorage;
         private readonly ChatStorage _chatStorage;
         private readonly NetworkService.NetworkStack _local_service;
@@ -27,13 +27,11 @@ namespace CoreClasses
         private readonly IPAddress _host = Dns.GetHostEntry(Dns.GetHostName()).AddressList.First(a => a.AddressFamily == AddressFamily.InterNetwork);
         private readonly string _target_host = "127.0.0.1";
 
-        public Templates(string rootPath, MainWindow window, MainWindowViewModel viewModel)
+        public Templates(string rootPath)
         {
             _keyStorage = new KeyStorage(rootPath);
             _chatStorage = new ChatStorage(rootPath);
             _local_service = new NetworkService.NetworkStack(_listen_port, _host);
-            _mainWindow = window;
-            _mainWindowViewModel = viewModel;
         }
 
         public bool IsUserRegistered()
@@ -44,7 +42,7 @@ namespace CoreClasses
         public void LoadAllChats()
         {
             foreach (ChatPreview Chat in _chatStorage.GetAllChats()) {
-                _mainWindow.AddChatToList(
+                MainWindow.AddChatToList(
                     Chat.ChatId,
                     Chat.Name,
                     Chat.LastMessage,

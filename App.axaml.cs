@@ -14,8 +14,9 @@ namespace GateWay;
 public partial class App : Application
 {
 
-    public MainWindowViewModel mainWindowViewModel;
-    public MainWindow mainWindow;
+    private MainWindowViewModel _mainWindowViewModel;
+    private MainWindow _mainWindow;
+    private Templates _templates;
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -25,19 +26,22 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            mainWindowViewModel = new MainWindowViewModel();
-            mainWindow = new MainWindow(mainWindowViewModel);
-            mainWindowViewModel.CurrentWindow = mainWindow;
+            _templates = new Templates(AppDomain.CurrentDomain.BaseDirectory.ToString());
+            _mainWindowViewModel = new MainWindowViewModel();
+            _mainWindow = new MainWindow(_mainWindowViewModel);
+            _mainWindowViewModel.CurrentWindow = _mainWindow;
+            _templates.MainWindow = _mainWindow;
+            _templates.MainWindowViewModel = _mainWindowViewModel;
             
-            desktop.MainWindow = mainWindow;
-            desktop.MainWindow.DataContext = mainWindowViewModel;
+            desktop.MainWindow = _mainWindow;
+            desktop.MainWindow.DataContext = _mainWindowViewModel;
         }
         base.OnFrameworkInitializationCompleted();
+        _mainWindowViewModel.IsUserSessionActive = _templates.IsUserRegistered();
+        _mainWindow.Template = _templates;
+        _mainWindowViewModel.Template = _templates;
     }
+    
 
-    public void PostInitActions()
-    {
-        Templates appCurrentTemplate = new Templates(AppDomain.CurrentDomain.BaseDirectory.ToString(), mainWindow, mainWindowViewModel);
-        mainWindowViewModel.IsUserSessionActive = appCurrentTemplate.IsUserRegistered();
-    }
+
 }

@@ -14,7 +14,6 @@ namespace GateWay.Views;
 public partial class MainWindow
 {
     
-    private Border? _selectedChat;
     public async void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
     {
         // string chatId, string senderAlias, string lastSentence, bool isSelf
@@ -72,14 +71,14 @@ public partial class MainWindow
 
         border.PointerEntered += (_, _) =>
         {
-            if (_selectedChat != border)
+            if (_mainWindowViewModel.SelectedChat != border)
             {
                 border.Background = ColorPaletteNebula.ChatHover;
             }
         };
         border.PointerExited += (_, _) =>
         {
-            if (_selectedChat != border)
+            if (_mainWindowViewModel.SelectedChat != border)
             {
                 border.Background = ColorPaletteNebula.BackgroundColor;
             }
@@ -87,12 +86,12 @@ public partial class MainWindow
         border.Tapped += (_, _) =>
         {
             border.Background = ColorPaletteNebula.PressColor;
-            if (_selectedChat != null && _selectedChat != border)
+            if (_mainWindowViewModel.SelectedChat != null && _mainWindowViewModel.SelectedChat != border)
             {
-                _selectedChat.Background = ColorPaletteNebula.BackgroundColor;
+                _mainWindowViewModel.SelectedChat.Background = ColorPaletteNebula.BackgroundColor;
             }
 
-            _selectedChat = border;
+            _mainWindowViewModel.SelectedChat = border;
         };
         
         _mainWindowViewModel.ChatList.Add(border);
@@ -104,6 +103,7 @@ public partial class MainWindow
         messageInfo.Children.Add(sender);
         messageInfo.Children.Add(lastMsg);
         ChatList.Children.Add(border);
+        
 
     }
 
