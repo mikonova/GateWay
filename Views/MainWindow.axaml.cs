@@ -15,11 +15,11 @@ namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
-
-    public static MainWindow? Context;
+    
+    private App CurrentApp;
     public MainWindow()
     {
-        Context = this;
+        CurrentApp = App.Current as App;
         InitializeComponent();
         // тесты ,удалить 
         AddChatToList("123", "miko", "Привчедел", false);

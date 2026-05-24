@@ -8,12 +8,12 @@ namespace GateWay.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    private App app;
+    private App CurrentApp;
     public MainWindowViewModel()
     {
-        app = App.Current as App;
+        CurrentApp = App.Current as App;
     }
-    public static List<Border?> _chatList = new List<Border?>();
+    public List<Border?> _chatList = new List<Border?>();
     
     private bool _isUserSessionActive; // не должно стоять значения, пример
     public bool IsUserSessionActive
@@ -30,13 +30,13 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         if (_isUserSessionActive)
         {
-            app.mainWindow.LoginScreen.IsVisible = false;
-            app.mainWindow.UserLogged.IsVisible = true;
+            CurrentApp.mainWindow.LoginScreen.IsVisible = false;
+            CurrentApp.mainWindow.UserLogged.IsVisible = true;
         }
         else
         {
-            app.mainWindow.UserLogged.IsVisible = true;
-            app.mainWindow.UserLogged.IsVisible = false;
+            CurrentApp.mainWindow.UserLogged.IsVisible = true;
+            CurrentApp.mainWindow.UserLogged.IsVisible = false;
         }
     }
 }
