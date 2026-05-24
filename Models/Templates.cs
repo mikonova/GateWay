@@ -2,19 +2,24 @@
 using GateWay.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Text.Json;
-
-
+using System.Threading.Tasks;
+using GateWay;
+using GateWay.ViewModels;
 
 
 namespace CoreClasses
 {
+    
     public class Templates
     {
+        private readonly MainWindow _mainWindow;
+        private readonly MainWindowViewModel _mainWindowViewModel;
         private readonly KeyStorage _keyStorage;
         private readonly ChatStorage _chatStorage;
         private readonly NetworkService.NetworkStack _local_service;
@@ -22,11 +27,13 @@ namespace CoreClasses
         private readonly IPAddress _host = Dns.GetHostEntry(Dns.GetHostName()).AddressList.First(a => a.AddressFamily == AddressFamily.InterNetwork);
         private readonly string _target_host = "127.0.0.1";
 
-        public Templates(string rootPath)
+        public Templates(string rootPath, MainWindow window, MainWindowViewModel viewModel)
         {
             _keyStorage = new KeyStorage(rootPath);
             _chatStorage = new ChatStorage(rootPath);
             _local_service = new NetworkService.NetworkStack(_listen_port, _host);
+            _mainWindow = window;
+            _mainWindowViewModel = viewModel;
         }
 
         public bool IsUserRegistered()
@@ -37,7 +44,7 @@ namespace CoreClasses
         public void LoadAllChats()
         {
             foreach (ChatPreview Chat in _chatStorage.GetAllChats()) {
-                GateWay.Views.MainWindow.Context.AddChatToList(
+                _mainWindow.AddChatToList(
                     Chat.ChatId,
                     Chat.Name,
                     Chat.LastMessage,

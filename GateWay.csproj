@@ -33,5 +33,7 @@
     <DependentUpon>LoginWindow.axaml</DependentUpon>
   </Compile>
   <PackageReference Include="MessageBox.Avalonia" Version="12.0.0" />
+  <PackageReference Include="NSec.Cryptography" Version="26.4.0" />
+  <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.8" />
   </ItemGroup>
 </Project>

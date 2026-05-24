@@ -87,12 +87,12 @@ namespace CoreClasses.Tests
             var chat1 = chats.First(c => c.ChatId == chatId1);
             Assert.Equal("Алиса", chat1.Name);
             Assert.Equal("Привет!", chat1.LastMessage);
-            Assert.Equal("alice-001", chat1.LastSenderId);
+            Assert.True(chat1.IsLastOutgoing);
 
             var chat2 = chats.First(c => c.ChatId == chatId2);
             Assert.Equal("Боб", chat2.Name);
             Assert.Equal("Как дела?", chat2.LastMessage);
-            Assert.Equal("me", chat2.LastSenderId);
+            Assert.True(chat2.IsLastOutgoing);
         }
 
         [Fact]
@@ -105,7 +105,7 @@ namespace CoreClasses.Tests
 
             Assert.Equal("Алиса", chat.Name);
             Assert.Equal(string.Empty, chat.LastMessage);
-            Assert.Equal(string.Empty, chat.LastSenderId);
+            Assert.True(chat.IsLastOutgoing);
         }
 
         // ===================== СООБЩЕНИЯ =====================

@@ -1,4 +1,5 @@
 #pragma warning disable 4014
+#pragma warning disable AVLN3001
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia;
@@ -9,40 +10,24 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using ColorPalette;
+using GateWay.ViewModels;
 
 namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
-    private bool _isUserSessionActive = false; // не должно стоять значения, пример
-
-    public bool IsUserSessionActive
+    private MainWindowViewModel _mainWindowViewModel { get; set; }
+    public MainWindow(MainWindowViewModel ViewModel)
     {
-        get => _isUserSessionActive;
-        set => _isUserSessionActive = value;
-    }
-
-    public static MainWindow? Context;
-    public MainWindow()
-    {
-        Context = this;
+        _mainWindowViewModel = ViewModel;
         InitializeComponent();
-        if (_isUserSessionActive)
-        {
-            LoginScreen.IsVisible = false;
-            UserLogged.IsVisible = true;
-        }
-        else
-        {
-            UserLogged.IsVisible = true;
-            UserLogged.IsVisible = false;
-        }
         // тесты ,удалить 
         AddChatToList("123", "miko", "Привчедел", false);
         AddChatToList("124", "Вася", "Го в кино", true);
         AddChatToList("125", "Леша", "Ты тут?", false);
         LoadMessage("123", "aboba", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
         LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
+        
     }
 
     private void PaneExpand_OnClick(object? sender, RoutedEventArgs e)
