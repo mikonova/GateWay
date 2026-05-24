@@ -37,7 +37,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         else
         {
-            CurrentWindow.UserLogged.IsVisible = true;
+            CurrentWindow.LoginScreen.IsVisible = true;
             CurrentWindow.UserLogged.IsVisible = false;
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
@@ -6,6 +7,7 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using GateWay.ViewModels;
 using GateWay.Views;
+using CoreClasses;
 
 namespace GateWay;
 
@@ -31,5 +33,11 @@ public partial class App : Application
             desktop.MainWindow.DataContext = mainWindowViewModel;
         }
         base.OnFrameworkInitializationCompleted();
+    }
+
+    public void PostInitActions()
+    {
+        Templates appCurrentTemplate = new Templates(AppDomain.CurrentDomain.BaseDirectory.ToString(), mainWindow, mainWindowViewModel);
+        mainWindowViewModel.IsUserSessionActive = appCurrentTemplate.IsUserRegistered();
     }
 }

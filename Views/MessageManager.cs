@@ -9,16 +9,18 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using ColorPalette;
+using CoreClasses;
+
 namespace GateWay.Views;
 
 public partial class MainWindow
 {
-    private List<Border> _messageListLoaded = new List<Border>();
+    
     private async void LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing)
     {
         if (_selectedChat == null)
         {
-            //throw new Exception("No selected chat!");
+            throw new Exception("No selected chat!");
         }
         DateTime dateTime = DateTime.Parse(timeStamp);
         string date = dateTime.ToString("dd.MM.yyyy");
@@ -107,6 +109,11 @@ public partial class MainWindow
             message.Background = ColorPaletteNebula.ChatCloudColor;
             message.HorizontalAlignment = HorizontalAlignment.Right;
         }
+    }
+
+    void CreateMessage(string senderAlias, string content, string timeStamp)
+    {
+        
     }
 }
 /*
