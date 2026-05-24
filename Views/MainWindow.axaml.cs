@@ -1,4 +1,5 @@
 #pragma warning disable 4014
+#pragma warning disable AVLN3001
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia;
@@ -15,11 +16,10 @@ namespace GateWay.Views;
 
 public partial class MainWindow : Window
 {
-    
-    private App CurrentApp;
-    public MainWindow()
+    private MainWindowViewModel _mainWindowViewModel { get; set; }
+    public MainWindow(MainWindowViewModel ViewModel)
     {
-        CurrentApp = App.Current as App;
+        _mainWindowViewModel = ViewModel;
         InitializeComponent();
         // тесты ,удалить 
         AddChatToList("123", "miko", "Привчедел", false);
@@ -27,6 +27,7 @@ public partial class MainWindow : Window
         AddChatToList("125", "Леша", "Ты тут?", false);
         LoadMessage("123", "aboba", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
         LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
+        
     }
 
     private void PaneExpand_OnClick(object? sender, RoutedEventArgs e)

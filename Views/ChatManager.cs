@@ -94,8 +94,8 @@ public partial class MainWindow
 
             _selectedChat = border;
         };
-
-        CurrentApp.mainWindowViewModel._chatList.Add(border);
+        
+        _mainWindowViewModel.ChatList.Add(border);
         border.Child = grid;
         grid.Children.Add(userName);
         grid.Children.Add(messageInfo);
@@ -109,8 +109,8 @@ public partial class MainWindow
 
     public async void DeleteChat(string chatId)
     {
-        Border chat = CurrentApp.mainWindowViewModel._chatList.Find(border => border.Name == chatId);
-        CurrentApp.mainWindowViewModel._chatList.Remove(chat);
+        Border chat = _mainWindowViewModel.ChatList.Find(border => border.Name == chatId);
+        _mainWindowViewModel.ChatList.Remove(chat);
         ChatList.Children.Remove(chat);
     }
 }
