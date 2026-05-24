@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CoreClasses\CoreClasses.csproj" />
+    <ProjectReference Include="..\..\GateWay.csproj" />
   </ItemGroup>
 
 </Project>
