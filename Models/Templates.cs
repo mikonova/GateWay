@@ -23,15 +23,17 @@ namespace CoreClasses
         private readonly KeyStorage _keyStorage;
         private readonly ChatStorage _chatStorage;
         private readonly NetworkService.NetworkStack _local_service;
+        private readonly CryptoService _crypto;
         private readonly int _listen_port = 15002;
-        private readonly IPAddress _host = Dns.GetHostEntry(Dns.GetHostName()).AddressList.First(a => a.AddressFamily == AddressFamily.InterNetwork);
+        private readonly string _host = "127.0.0.1";
         private readonly string _target_host = "127.0.0.1";
 
         public Templates(string rootPath, MainWindow window, MainWindowViewModel viewModel)
         {
             _keyStorage = new KeyStorage(rootPath);
             _chatStorage = new ChatStorage(rootPath);
-            _local_service = new NetworkService.NetworkStack(_listen_port, _host);
+            _local_service = new NetworkService.NetworkStack(_listen_port);
+            _crypto = new CryptoService();
             _mainWindow = window;
             _mainWindowViewModel = viewModel;
         }
@@ -55,8 +57,8 @@ namespace CoreClasses
 
         public async Task RegistraitionUser(string name)
         {
-            var crypto = new CryptoService();
-            var keyPair = crypto.GenerateKeys(); // ← сохраняем всю пару
+            
+            var keyPair = _crypto.GenerateKeys(); // ← сохраняем всю пару
 
             var payload = new RegistrationPayload
             {
@@ -89,7 +91,7 @@ namespace CoreClasses
 
         }
 
-        public async Task UpdateCurrentDevice(string name)
+        public async Task UpdateCurrentDevice(string name, bool disconnect)
         {
             try
             {
@@ -99,7 +101,14 @@ namespace CoreClasses
                     ip = _host
                 };
 
-                var message = MessageFactory.CreateExternal(ExternalCommand.Login, payload);
+                var command = disconnect ? ExternalCommand.Logout : ExternalCommand.Login;
+                var message = MessageFactory.CreateExternal(command, payload);
+
+                if (disconnect)
+                {
+                    await _local_service.SendAsync(_target_host, _listen_port, message);
+                    return;
+                }
 
                 var packetReceived = new TaskCompletionSource<NetworkPacket>();
                 _local_service.PacketReceived += (_, packet) => packetReceived.TrySetResult(packet);
@@ -129,20 +138,23 @@ namespace CoreClasses
             var recipientPublicKey = chatStorage.GetPublicKey(chatId);
             //var recipientName = chatStorage.GetChatInfo(chatId).Name;
 
+            var contentBytes = Encoding.UTF8.GetBytes(content);
+            var encryptedContent = _crypto.Encrypt(contentBytes, myPrivateKey, recipientPublicKey);
+
             // Формируем сообщение
             var message = new Message
             {
                 Id = Convert.ToBase64String(recipientPublicKey),
                 SenderId = Convert.ToBase64String(myPublicKey),
-                Content = content,
+                Content = Convert.ToBase64String(encryptedContent),
                 SentAt = DateTimeOffset.UtcNow,
                 IsOutgoing = true
             };
 
             // Сериализуем и шифруем
-            var crypto = new CryptoService();
+            
             var raw = JsonSerializer.SerializeToUtf8Bytes(message);
-            var encrypted = crypto.Encrypt(raw, myPrivateKey, recipientPublicKey);
+            var encrypted = _crypto.Encrypt(raw, myPrivateKey, recipientPublicKey);
 
             // Оборачиваем в протокол
             var payload = new RenderMessagePayload
@@ -159,6 +171,28 @@ namespace CoreClasses
 
             // Сохраняем локально
             chatStorage.SaveMessage(chatId, message);
+        }
+        public void StartListening()
+        {
+            _local_service.PacketReceived += OnPacketReceived;
+            _local_service.Start();
+        }
+
+        private void OnPacketReceived(object? sender, NetworkPacket packet)
+        {
+            var message = MessageFactory.Parse(packet.Data);
+
+            switch (message.Command)
+            {
+                case nameof(InternalCommand.RenderMessage):
+                    var payload = MessageFactory.ExtractPayload<RenderMessagePayload>(message);
+                    // обновляем UI
+                    break;
+
+                case nameof(InternalCommand.RenderUserStatus):
+                    // обновляем статус
+                    break;
+            }
         }
 
         // TODO: Регистрация пользователя

@@ -128,7 +128,7 @@ namespace CoreClasses.Protocol
         [JsonPropertyName("user_name")]
         public string UserName { get; set;  } = string.Empty;
         [JsonPropertyName("user_ip")]
-        public IPAddress ip { get; set; }
+        public string ip { get; set; }
 
     }
 

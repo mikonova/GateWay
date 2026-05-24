@@ -46,7 +46,7 @@ namespace CoreClasses
             public NetworkStack(int listenPort, IPAddress? listenAddress = null)
             {
                 _listenPort = listenPort;
-                _listenAddress = listenAddress ?? IPAddress.Loopback;
+                _listenAddress = listenAddress ?? IPAddress.Any;
             }
 
             // ===================== ЗАПУСК / ОСТАНОВКА =====================
