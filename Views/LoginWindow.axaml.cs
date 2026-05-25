@@ -16,23 +16,13 @@ public partial class LoginWindow : Window
 {
     private Templates _template;
     private MainWindow _window;
-    private bool _isKeyPresent;
     private string _publicKey;
     public LoginWindow(Templates template, MainWindow window, string key)
     {
         InitializeComponent();
         _template = template;
         _window = window;
-        if (!string.IsNullOrEmpty(key))
-        {
-            _publicKey = key;
-            _isKeyPresent = true;
-        }
-        else
-        {
-            _publicKey = null;
-            _isKeyPresent = false;
-        }
+        _publicKey = key;
         
     }
 
@@ -40,17 +30,11 @@ public partial class LoginWindow : Window
     {
         PublicKeyTextBlock.Text = _publicKey;
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
-        if (_isKeyPresent)
-        {
-            clipboard.SetTextAsync(PublicKeyTextBlock.Text);
-        }
-        else
-        {
-            var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
-                "Кажется произошла ошибка и ключ не сгенерировался", ButtonEnum.Ok);
-            box.ShowAsync();
-            this.Close();
-        }
+        clipboard.SetTextAsync(PublicKeyTextBlock.Text);
+        var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
+            "Кажется произошла ошибка и ключ не сгенерировался", ButtonEnum.Ok);
+        box.ShowAsync();
+        this.Close();
     }
 
     private void OkLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -66,11 +50,12 @@ public partial class LoginWindow : Window
         {
             _window.LoginScreen.IsVisible = false;
             _window.UserLogged.IsVisible = true;
+            _template.LoadAllChats();
             this.Close();
         }
         else if (Choice == ButtonResult.No)
         {
-
+            
         }
     }
 }

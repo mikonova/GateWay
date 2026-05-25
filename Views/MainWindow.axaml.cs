@@ -26,7 +26,6 @@ public partial class MainWindow : Window
         _template = template;
         _mainWindowViewModel = ViewModel;
         InitializeComponent();
-        template.LoadAllChats();
         // тесты ,удалить 
         //AddChatToList("123", "miko", "Привчедел", false);
         //AddChatToList("124", "Вася", "Го в кино", true);
@@ -111,9 +110,16 @@ public partial class MainWindow : Window
         string PublicKey = String.Empty; //плейсхолдер
         if (!string.IsNullOrEmpty(Login) && _isValidUsername(Login) )
         {
-            _template.RegistraitionUser(Login);
-            LoginWindow LoginInfo = new LoginWindow(_template, this, PublicKey); 
-            LoginInfo.ShowDialog(this);
+            _template.RegistraitionUser(Login).Wait(5000); // ждем 5 сек -> таймаут
+            if (string.IsNullOrEmpty(PublicKey))
+            {
+                UserLogin.Clear();
+            }
+            else
+            {
+                LoginWindow LoginInfo = new LoginWindow(_template, this, PublicKey); 
+                LoginInfo.ShowDialog(this);
+            }
         }
         else
         {

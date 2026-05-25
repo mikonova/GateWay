@@ -197,11 +197,17 @@
                         HorizontalAlignment="Center"/>
                     <Grid
                         Grid.Column="2">
-                        <Grid.RowDefinitions>*</Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <ScrollViewer
+                            Grid.Row="0"
                             IsScrollInertiaEnabled="False"
                             VerticalScrollBarVisibility="Hidden"
                             HorizontalScrollBarVisibility="Disabled"
+                            Name="MessageScroller"
+                            ScrollChanged="ScrollViewer_LoadMore"
                             Margin="0 20 0 30">
                             <StackPanel
                                 Name="StackMessages"
@@ -209,6 +215,58 @@
                                 
                             </StackPanel>
                         </ScrollViewer>
+                        <!--
+                        ОТПРАВКА СООБЩЕНИЯ
+                        -->
+                        <Border
+                            Grid.Row="1"
+                            Background="#1f2529"
+                            CornerRadius="5"
+                            Margin="8,0,8,8"
+                            Padding="8">
+
+                            <Grid ColumnDefinitions="*, Auto">
+
+                                <!-- Поле ввода с прокруткой -->
+                                <ScrollViewer 
+                                    Grid.Column="0"
+                                    MaxHeight="160"
+                                    VerticalScrollBarVisibility="Auto"
+                                    HorizontalScrollBarVisibility="Disabled">
+
+                                    <TextBox 
+                                        Name="MessageInput"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Foreground="#e0e0e0"
+                                        FontSize="15"
+                                        Padding="12,10"
+                                        MaxLength="1000"
+                                        AcceptsReturn="True"
+                                        TextWrapping="Wrap"
+                                        MinHeight="42"
+                                        MaxHeight="140"
+                                        VerticalAlignment="Stretch"
+                                        PlaceholderText="Напишите сообщение..."/>
+                                </ScrollViewer>
+
+                                <!-- Кнопка отправки -->
+                                <Label Grid.Column="1"
+                                       x:Name="SendButton"
+                                       Cursor="Hand"
+                                       Height="28"
+                                       Width="29"
+                                       VerticalAlignment="Bottom"
+                                       CornerRadius="5"
+                                       Margin="8,0,4,4"
+                                       Padding="8">
+                                    <Label.Background>
+                                        <ImageBrush Source="avares://GateWay/Assets/SendMessage.jpg" Stretch="Uniform"/>
+                                    </Label.Background>
+                                </Label>
+
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Grid>
             </UserControl>
@@ -264,7 +322,7 @@
                                 PointerPressed="LogUserLabel_OnPointerPressed">
                                 <TextBlock 
                                     HorizontalAlignment="Center"
-                                    Text="Регистрация"
+                                    Text="Вход"
                                     Foreground="FloralWhite"/>
                             </Label>
                             <Label
@@ -287,6 +345,9 @@
                             </Label>
                         </Grid>
                     </StackPanel>
+                    
+                    <!-- Блок Регистрации юзера -->
+                    
                     <StackPanel
                         Name="RegistrationForm"
                         HorizontalAlignment="Center"
@@ -331,6 +392,7 @@
                                 VerticalAlignment="Center"/>
                         </Label>
                     </StackPanel>
+                    <!-- Блок аторизации -->
                     <StackPanel
                         Name="LoginForm"
                         HorizontalAlignment="Center"

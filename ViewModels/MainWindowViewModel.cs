@@ -12,14 +12,18 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     public MainWindow? CurrentWindow;
     private Templates _template;
-    public Border? SelectedChat;
-    public List<Border?> ChatList = new List<Border?>();
-    private bool _isUserSessionActive; // не должно стоять значения, пример
 
-    public MainWindowViewModel(Templates template)
+    public Border? SelectedChat
     {
-        _template = template;
+        get => SelectedChat;
+        set
+        {
+            // LoadLastMessages - 
+        }
     }
+    public List<Border?> ChatList = new List<Border?>();
+    private bool _isUserSessionActive;
+    
     
     public bool IsUserSessionActive
     {
@@ -28,10 +32,15 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             _isUserSessionActive = value;
             CheckUserSession().Wait();
+            _template.LoadAllChats();
         }
     }
     
-
+    public MainWindowViewModel(Templates template)
+    {
+        _template = template;
+    }
+    
     private async Task CheckUserSession()
     {
         if (_isUserSessionActive)
