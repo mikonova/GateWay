@@ -19,17 +19,20 @@ public partial class MainWindow : Window
 {
     private MainWindowViewModel _mainWindowViewModel;
     public Templates Template;
-    public MainWindow(MainWindowViewModel ViewModel)
+    private Templates _template;
+
+    public MainWindow(MainWindowViewModel ViewModel, Templates template)
     {
+        _template = template;
         _mainWindowViewModel = ViewModel;
         InitializeComponent();
-        Template.LoadAllChats();
+        template.LoadAllChats();
         // тесты ,удалить 
-        AddChatToList("123", "miko", "Привчедел", false);
-        AddChatToList("124", "Вася", "Го в кино", true);
-        AddChatToList("125", "Леша", "Ты тут?", false);
-        LoadMessage("123", "aboba", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
-        LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
+        //AddChatToList("123", "miko", "Привчедел", false);
+        //AddChatToList("124", "Вася", "Го в кино", true);
+        //AddChatToList("125", "Леша", "Ты тут?", false);
+        //LoadMessage("123", "aboba", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
+        //LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
         
     }
 

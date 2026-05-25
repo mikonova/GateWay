@@ -15,6 +15,11 @@ public partial class MainWindowViewModel : ViewModelBase
     public Border? SelectedChat;
     public List<Border?> ChatList = new List<Border?>();
     private bool _isUserSessionActive; // не должно стоять значения, пример
+
+    public MainWindowViewModel(Templates template)
+    {
+        Template = template;
+    }
     
     public bool IsUserSessionActive
     {

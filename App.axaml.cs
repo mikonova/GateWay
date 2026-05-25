@@ -27,8 +27,8 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             _templates = new Templates(AppDomain.CurrentDomain.BaseDirectory.ToString());
-            _mainWindowViewModel = new MainWindowViewModel();
-            _mainWindow = new MainWindow(_mainWindowViewModel);
+            _mainWindowViewModel = new MainWindowViewModel(_templates);
+            _mainWindow = new MainWindow(_mainWindowViewModel, _templates);
             _mainWindowViewModel.CurrentWindow = _mainWindow;
             _templates.MainWindow = _mainWindow;
             _templates.MainWindowViewModel = _mainWindowViewModel;
