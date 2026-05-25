@@ -55,7 +55,11 @@
                 <RowDefinition MaxHeight="40" MinHeight="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid HorizontalAlignment="Stretch"
+            <Grid 
+                Grid.Row="0"
+                Name="TopBar"
+                HorizontalAlignment="Stretch"
+                PointerPressed="TopBar_OnPointerPressed"
                   Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
                 <StackPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Right">
                     <Label 
@@ -221,6 +225,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <TextBlock
                                 Grid.Row="0" 
@@ -246,6 +251,24 @@
                                 Foreground="FloralWhite"/>
                             <Label
                                 Grid.Row="2"
+                                Name="LogUserLabel"
+                                Margin="0 25 0 0"
+                                FontSize="40"
+                                Padding="10"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                CornerRadius="5"
+                                Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                                PointerEntered="LogUserLabel_OnPointerEntered"
+                                PointerExited="LogUserLabel_OnPointerExited"
+                                PointerPressed="LogUserLabel_OnPointerPressed">
+                                <TextBlock 
+                                    HorizontalAlignment="Center"
+                                    Text="Регистрация"
+                                    Foreground="FloralWhite"/>
+                            </Label>
+                            <Label
+                                Grid.Row="3"
                                 Name="CreateUserLabel"
                                 Margin="0 25 0 0"
                                 FontSize="40"
@@ -259,37 +282,61 @@
                                 PointerPressed="CreateUserLabel_OnPointerPressed">
                                 <TextBlock 
                                     HorizontalAlignment="Center"
-                                    Text="Поехали"
+                                    Text="Регистрация"
                                     Foreground="FloralWhite"/>
                             </Label>
                         </Grid>
                     </StackPanel>
                     <StackPanel
-                        Name="LoginForm"
-                        IsVisible="False"
+                        Name="RegistrationForm"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <TextBlock
                             Name="UserWarningLength"
                             TextWrapping="NoWrap"
+                            FontSize="20"
                             Foreground="OrangeRed"
                             IsVisible="False"
                             Text="Минимальная Длина имени - 4 символа"/>
                         <TextBox 
                             Name="UserLogin"
+                            FontSize="20"
                             PlaceholderText="Введите имя пользователя..."
                             AcceptsReturn="False"
                             AcceptsTab="False"
                             TextWrapping="NoWrap"
+                            Margin="0 10 0 0"
                             MaxLength="20"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             TextAlignment="Center"/>
                         <Label
                             Name="AcceptName"
+                            Foreground="WhiteSmoke"
+                            HorizontalAlignment="Center"
+                            CornerRadius="5 "
+                            VerticalAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            Padding="5 5 5 5"
+                            Margin="0 25 0 0 "
                             PointerEntered="AcceptName_OnPointerEntered"
                             PointerExited="AcceptName_OnPointerExited"
-                            PointerPressed="AcceptName_OnPointerPressed"/>
+                            PointerPressed="AcceptName_OnPointerPressed">
+                            <TextBlock
+                                Foreground="WhiteSmoke"
+                                Text="Зарегистрироваться"
+                                FontSize="20"
+                                TextAlignment="Center"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Label>
+                    </StackPanel>
+                    <StackPanel
+                        Name="LoginForm"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        
+                        
                     </StackPanel>
                 </Grid>
             </UserControl>

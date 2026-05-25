@@ -16,17 +16,31 @@ public partial class LoginWindow : Window
 {
     private Templates _template;
     private MainWindow _window;
-    public LoginWindow(Templates template, MainWindow window)
+    private bool _isKeyPresent;
+    private string _publicKey;
+    public LoginWindow(Templates template, MainWindow window, string key)
     {
         InitializeComponent();
         _template = template;
         _window = window;
+        if (!string.IsNullOrEmpty(key))
+        {
+            _publicKey = key;
+            _isKeyPresent = true;
+        }
+        else
+        {
+            _publicKey = null;
+            _isKeyPresent = false;
+        }
+        
     }
 
     private void CopyButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        PublicKeyTextBlock.Text = _publicKey;
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
-        if (!string.IsNullOrEmpty(PublicKeyTextBlock.Text))
+        if (_isKeyPresent)
         {
             clipboard.SetTextAsync(PublicKeyTextBlock.Text);
         }
@@ -35,6 +49,7 @@ public partial class LoginWindow : Window
             var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
                 "Кажется произошла ошибка и ключ не сгенерировался", ButtonEnum.Ok);
             box.ShowAsync();
+            this.Close();
         }
     }
 

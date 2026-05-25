@@ -37,6 +37,8 @@ public partial class App : Application
             desktop.MainWindow.DataContext = _mainWindowViewModel;
         }
         base.OnFrameworkInitializationCompleted();
+        _mainWindow.RegistrationForm.IsVisible = false;
+        _mainWindow.LoginForm.IsVisible = false;
         _mainWindowViewModel.IsUserSessionActive = _templates.IsUserRegistered();
     }
     

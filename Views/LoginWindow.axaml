@@ -29,56 +29,63 @@
                 Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch">
-                <Label 
-                        Content="Скопируйте или&#10;запишите содержимое!"
-                        Foreground="WhiteSmoke"
-                        FontSize="20"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Margin="0 5 0 15"/>
-                <Border
-                        CornerRadius="5"
-                        VerticalAlignment="Center"
+                <StackPanel
+                        ClipToBounds="True"
+                        VerticalAlignment="Stretch"
                         HorizontalAlignment="Stretch"
-                        Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}">
-                        <StackPanel
-                                Orientation="Horizontal">
-                                <Border
-                                        Width="30"
-                                        Height="30"
-                                        HorizontalAlignment="Left"
-                                        Name="CopyButton"
-                                        Background="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}"
-                                        CornerRadius="5"
-                                        Margin="5 5 5 5"
-                                        PointerPressed="CopyButton_OnPointerPressed">
-                                        <Label>
-                                                <Label.Background>
-                                                        <ImageBrush Source="avares://GateWay/Assets/Clipboard.png" Stretch="Uniform"/>
-                                                </Label.Background>
-                                        </Label>
-                                </Border>
-                                <TextBlock
-                                        Width="250"
-                                        TextWrapping="Wrap"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Foreground="WhiteSmoke"
-                                        FontSize="16"
-                                        Name="PublicKeyTextBlock"
-										PointerPressed="CopyButton_OnPointerPressed"/>
-                        </StackPanel>
-                </Border>
-			<Label
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-				Margin="0 20 0 0"
-				Padding="10 10 10 10"
-				FontSize="20"
-				CornerRadius="5"
-                Content="Принять"
-                Name="OkLabel"
-                Classes="OkButtonLabel"
-                PointerPressed="OkLabel_OnPointerPressed"/>
+                        Background="Transparent">
+                        <Label 
+                                Content="Скопируйте или&#10;запишите содержимое!"
+                                Foreground="WhiteSmoke"
+                                FontSize="20"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="0 5 0 15"/>
+                        <Border
+                                CornerRadius="5"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}">
+                                <StackPanel
+                                        Orientation="Horizontal">
+                                        <Border
+                                                Width="30"
+                                                Height="30"
+                                                HorizontalAlignment="Left"
+                                                Name="CopyButton"
+                                                Background="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}"
+                                                CornerRadius="5"
+                                                Margin="5 5 5 5"
+                                                PointerPressed="CopyButton_OnPointerPressed">
+                                                <Label>
+                                                        <Label.Background>
+                                                                <ImageBrush Source="avares://GateWay/Assets/Clipboard.png" Stretch="Uniform"/>
+                                                        </Label.Background>
+                                                </Label>
+                                        </Border>
+                                        <TextBlock
+                                                Width="250"
+                                                TextWrapping="Wrap"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Foreground="WhiteSmoke"
+                                                FontSize="16"
+                                                Name="PublicKeyTextBlock"
+                                                PointerPressed="CopyButton_OnPointerPressed"/>
+                                </StackPanel>
+                        </Border>
+			        <Label
+                                        ClipToBounds="True"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+				        Margin="0 20 0 0"
+				        Padding="10 10 10 10"
+				        FontSize="20"
+				        CornerRadius="5"
+                                        Content="Принять"
+                                        Name="OkLabel"
+                                        Classes="OkButtonLabel"
+                                        PointerPressed="OkLabel_OnPointerPressed"/>
+                </StackPanel>
         </StackPanel>
 </Window>

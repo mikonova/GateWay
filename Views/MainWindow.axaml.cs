@@ -35,6 +35,13 @@ public partial class MainWindow : Window
         //LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
         
     }
+    private void TopBar_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            BeginMoveDrag(e);
+        }
+    }
 
     private void PaneExpand_OnClick(object? sender, RoutedEventArgs e)
     {
@@ -78,11 +85,12 @@ public partial class MainWindow : Window
     {
         this.WindowState = WindowState.Minimized;
     }
-
+    // вызов формы регистрации
     private void CreateUserLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         CreateUserLabel.Background = ColorPaletteNebula.ChatPress;
         LoginSuggestion.IsVisible = false;
+        RegistrationForm.IsVisible = true;
     }
 
     private void CreateUserLabel_OnPointerEntered(object? sender, PointerEventArgs e)
@@ -99,12 +107,12 @@ public partial class MainWindow : Window
     private void AcceptName_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         AcceptName.Background = ColorPaletteNebula.ChatPress;
-        string Login = UserLogin.Text; 
+        string Login = UserLogin.Text;
+        string PublicKey = String.Empty; //плейсхолдер
         if (!string.IsNullOrEmpty(Login) && _isValidUsername(Login) )
         {
             _template.RegistraitionUser(Login);
-            
-            LoginWindow LoginInfo = new LoginWindow(_template, this); 
+            LoginWindow LoginInfo = new LoginWindow(_template, this, PublicKey); 
             LoginInfo.ShowDialog(this);
         }
         else
@@ -122,5 +130,23 @@ public partial class MainWindow : Window
     private void AcceptName_OnPointerEntered(object? sender, PointerEventArgs e)
     {
         AcceptName.Background = ColorPaletteNebula.ChatHover;
+    }
+
+
+    private void LogUserLabel_OnPointerEntered(object? sender, PointerEventArgs e)
+    {
+        LogUserLabel.Background = ColorPaletteNebula.ChatHover;
+    }
+
+    private void LogUserLabel_OnPointerExited(object? sender, PointerEventArgs e)
+    {
+        LogUserLabel.Background = ColorPaletteNebula.ChatCloudColor;
+    }
+    // Вызов логин формы
+    private void LogUserLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        LogUserLabel.Background = ColorPaletteNebula.ChatPress;
+        LoginSuggestion.IsVisible = false;
+        LoginForm.IsVisible = true;
     }
 }
