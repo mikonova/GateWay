@@ -1,5 +1,6 @@
 #pragma warning disable 4014
 #pragma warning disable AVLN3001
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia;
@@ -18,7 +19,6 @@ namespace GateWay.Views;
 public partial class MainWindow : Window
 {
     private MainWindowViewModel _mainWindowViewModel;
-    public Templates Template;
     private Templates _template;
 
     public MainWindow(MainWindowViewModel ViewModel, Templates template)
@@ -82,8 +82,7 @@ public partial class MainWindow : Window
     private void CreateUserLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         CreateUserLabel.Background = ColorPaletteNebula.ChatPress;
-        LoginWindow LoginInfo = new LoginWindow();
-        LoginInfo.ShowDialog(this);
+        LoginSuggestion.IsVisible = false;
     }
 
     private void CreateUserLabel_OnPointerEntered(object? sender, PointerEventArgs e)
@@ -94,5 +93,34 @@ public partial class MainWindow : Window
     private void CreateUserLabel_OnPointerExited(object? sender, PointerEventArgs e)
     {
         CreateUserLabel.Background = ColorPaletteNebula.ChatCloudColor;
+    }
+
+    private void AcceptName_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        AcceptName.Background = ColorPaletteNebula.ChatPress;
+        string Login = UserLogin.Text; 
+        if (!string.IsNullOrEmpty(Login))
+        {
+            if (Login.Length < 3)
+            {
+                UserWarningLength.IsVisible = true;
+                UserLogin.Clear();
+            }
+            else
+            {
+                LoginWindow LoginInfo = new LoginWindow(_template, this);
+                LoginInfo.ShowDialog(this);
+            }
+        }
+    }
+
+    private void AcceptName_OnPointerExited(object? sender, PointerEventArgs e)
+    {
+        AcceptName.Background = ColorPaletteNebula.ChatCloudColor;
+    }
+
+    private void AcceptName_OnPointerEntered(object? sender, PointerEventArgs e)
+    {
+        AcceptName.Background = ColorPaletteNebula.ChatHover;
     }
 }

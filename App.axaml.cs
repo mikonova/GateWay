@@ -38,8 +38,6 @@ public partial class App : Application
         }
         base.OnFrameworkInitializationCompleted();
         _mainWindowViewModel.IsUserSessionActive = _templates.IsUserRegistered();
-        _mainWindow.Template = _templates;
-        _mainWindowViewModel.Template = _templates;
     }
     
 

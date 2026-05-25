@@ -11,14 +11,14 @@ namespace GateWay.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     public MainWindow? CurrentWindow;
-    public Templates Template;
+    private Templates _template;
     public Border? SelectedChat;
     public List<Border?> ChatList = new List<Border?>();
     private bool _isUserSessionActive; // не должно стоять значения, пример
 
     public MainWindowViewModel(Templates template)
     {
-        Template = template;
+        _template = template;
     }
     
     public bool IsUserSessionActive
@@ -30,6 +30,7 @@ public partial class MainWindowViewModel : ViewModelBase
             CheckUserSession().Wait();
         }
     }
+    
 
     private async Task CheckUserSession()
     {

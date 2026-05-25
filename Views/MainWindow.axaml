@@ -211,57 +211,87 @@
             
             <!-- Если не залогинен, работает экран логина -->
             <UserControl Grid.Row="1" Name="LoginScreen" Background="{StaticResource BgBrush}">
-                <StackPanel 
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0" 
-                            Text="Добро Пожаловать!"
-                            TextWrapping="Wrap"
-                            FontSize="40" 
-                            FontWeight="ExtraBold"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="FloralWhite"
-                        />
-
-                        <TextBlock
-                            Grid.Row="1"
-                            Text="Вы не имеете локального аккаунта. Нажмите ниже, чтобы создать его.&#10;
-                        Мы не используем сторонние сервисы" 
-                            FontSize="30"
-                            Name="GreetingText"
-                            TextWrapping="Wrap"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontWeight="DemiBold"
-                            Foreground="FloralWhite"/>
-                        <Label
-                            Grid.Row="2"
-                            Name="CreateUserLabel"
-                            Margin="0 25 0 0"
-                            FontSize="40"
-                            Padding="10"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            CornerRadius="5"
-                            Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
-                            PointerEntered="CreateUserLabel_OnPointerEntered"
-                            PointerExited="CreateUserLabel_OnPointerExited"
-                            PointerPressed="CreateUserLabel_OnPointerPressed">
-                            <TextBlock 
+                <Grid>
+                    <StackPanel
+                        Name="LoginSuggestion"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0" 
+                                Text="Добро Пожаловать!"
+                                TextWrapping="Wrap"
+                                FontSize="40" 
+                                FontWeight="ExtraBold"
                                 HorizontalAlignment="Center"
-                                Text="Поехали"
+                                VerticalAlignment="Center"
+                                Foreground="FloralWhite"
+                            />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Text="Вы не имеете локального аккаунта. Нажмите ниже, чтобы создать его.&#10;
+                            Мы не используем сторонние сервисы" 
+                                FontSize="30"
+                                Name="GreetingText"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                FontWeight="DemiBold"
                                 Foreground="FloralWhite"/>
-                        </Label>
-                    </Grid>
-                </StackPanel>
+                            <Label
+                                Grid.Row="2"
+                                Name="CreateUserLabel"
+                                Margin="0 25 0 0"
+                                FontSize="40"
+                                Padding="10"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                CornerRadius="5"
+                                Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                                PointerEntered="CreateUserLabel_OnPointerEntered"
+                                PointerExited="CreateUserLabel_OnPointerExited"
+                                PointerPressed="CreateUserLabel_OnPointerPressed">
+                                <TextBlock 
+                                    HorizontalAlignment="Center"
+                                    Text="Поехали"
+                                    Foreground="FloralWhite"/>
+                            </Label>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel
+                        Name="LoginForm"
+                        IsVisible="False"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            Name="UserWarningLength"
+                            TextWrapping="NoWrap"
+                            Foreground="OrangeRed"
+                            IsVisible="False"
+                            Text="Минимальная Длина имени - 4 символа"/>
+                        <TextBox 
+                            Name="UserLogin"
+                            PlaceholderText="Введите имя пользователя..."
+                            AcceptsReturn="False"
+                            AcceptsTab="False"
+                            TextWrapping="NoWrap"
+                            MaxLength="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            TextAlignment="Center"/>
+                        <Label
+                            Name="AcceptName"
+                            PointerEntered="AcceptName_OnPointerEntered"
+                            PointerExited="AcceptName_OnPointerExited"
+                            PointerPressed="AcceptName_OnPointerPressed"/>
+                    </StackPanel>
+                </Grid>
             </UserControl>
             
         </Grid>
