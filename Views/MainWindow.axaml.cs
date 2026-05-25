@@ -95,22 +95,22 @@ public partial class MainWindow : Window
         CreateUserLabel.Background = ColorPaletteNebula.ChatCloudColor;
     }
 
+    // обработка логина
     private void AcceptName_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         AcceptName.Background = ColorPaletteNebula.ChatPress;
         string Login = UserLogin.Text; 
-        if (!string.IsNullOrEmpty(Login))
+        if (!string.IsNullOrEmpty(Login) && _isValidUsername(Login) )
         {
-            if (Login.Length < 3)
-            {
-                UserWarningLength.IsVisible = true;
-                UserLogin.Clear();
-            }
-            else
-            {
-                LoginWindow LoginInfo = new LoginWindow(_template, this);
-                LoginInfo.ShowDialog(this);
-            }
+            _template.RegistraitionUser(Login);
+            
+            LoginWindow LoginInfo = new LoginWindow(_template, this); 
+            LoginInfo.ShowDialog(this);
+        }
+        else
+        {
+            UserWarningLength.IsVisible = true;
+            UserLogin.Clear();
         }
     }
 
