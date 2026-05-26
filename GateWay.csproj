@@ -30,7 +30,7 @@
   <EmbeddedResource Remove="Tests\**" />
   <None Remove="Tests\**" />
   <Compile Update="Views\LoginWindow.axaml.cs">
-    <DependentUpon>LoginWindow.axaml</DependentUpon>
+    <DependentUpon>KeyRevealWindow.axaml</DependentUpon>
   </Compile>
   <PackageReference Include="MessageBox.Avalonia" Version="12.0.0" />
   <PackageReference Include="NSec.Cryptography" Version="26.4.0" />

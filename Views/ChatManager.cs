@@ -11,9 +11,31 @@ using GateWay.ViewModels;
 using GateWay;
 
 namespace GateWay.Views;
+
+public class Chat
+{
+    private int _pagesLoaded = 0;
+    public Border? ChatBorder;
+    public readonly string ChatId;
+    public Chat(Border border)
+    {
+        ChatBorder = border;
+        ChatId = border.Name;
+    }
+
+    public int GetPagesLoaded()
+    {
+        return _pagesLoaded;
+    }
+
+    private int AddPage()
+    {
+        _pagesLoaded++;
+        return _pagesLoaded;
+    }
+}
 public partial class MainWindow
 {
-    
     public async void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
     {
         // string chatId, string senderAlias, string lastSentence, bool isSelf
@@ -71,14 +93,14 @@ public partial class MainWindow
 
         border.PointerEntered += (_, _) =>
         {
-            if (_mainWindowViewModel.SelectedChat != border)
+            if (_mainWindowViewModel.SelectedChat.ChatBorder != border)
             {
                 border.Background = ColorPaletteNebula.ChatHover;
             }
         };
         border.PointerExited += (_, _) =>
         {
-            if (_mainWindowViewModel.SelectedChat != border)
+            if (_mainWindowViewModel.SelectedChat.ChatBorder != border)
             {
                 border.Background = ColorPaletteNebula.BackgroundColor;
             }
@@ -86,15 +108,15 @@ public partial class MainWindow
         border.Tapped += (_, _) =>
         {
             border.Background = ColorPaletteNebula.PressColor;
-            if (_mainWindowViewModel.SelectedChat != null && _mainWindowViewModel.SelectedChat != border)
+            if (_mainWindowViewModel.SelectedChat != null &&
+                _mainWindowViewModel.SelectedChat.ChatBorder != border)
             {
-                _mainWindowViewModel.SelectedChat.Background = ColorPaletteNebula.BackgroundColor;
+                _mainWindowViewModel.SelectedChat.ChatBorder.Background = ColorPaletteNebula.BackgroundColor;
+                _mainWindowViewModel.SelectedChat.ChatBorder = border;
             }
-
-            _mainWindowViewModel.SelectedChat = border;
         };
         
-        _mainWindowViewModel.ChatList.Add(border);
+        _mainWindowViewModel.ChatList.Add(new Chat(border));
         border.Child = grid;
         grid.Children.Add(userName);
         grid.Children.Add(messageInfo);
@@ -109,8 +131,9 @@ public partial class MainWindow
 
     public async void DeleteChat(string chatId)
     {
-        Border chat = _mainWindowViewModel.ChatList.Find(border => border.Name == chatId);
+        Chat chat = _mainWindowViewModel.ChatList.Find(chat => chat.ChatBorder.Name == chatId);
         _mainWindowViewModel.ChatList.Remove(chat);
-        ChatList.Children.Remove(chat);
+        ChatList.Children.Remove(chat.ChatBorder);
     }
+    
 }
