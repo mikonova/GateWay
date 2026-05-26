@@ -28,7 +28,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         template.LoadAllChats();
         // тесты ,удалить 
-        //AddChatToList("123", "miko", "Привчедел", false);
+        AddChatToList("123", "miko", "Привчедел", false);
         //AddChatToList("124", "Вася", "Го в кино", true);
         //AddChatToList("125", "Леша", "Ты тут?", false);
         //LoadMessage("123", "aboba", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
@@ -65,12 +65,12 @@ public partial class MainWindow : Window
         if(this.WindowState == WindowState.FullScreen)
         {
             this.WindowState = WindowState.Normal;
-            BtnFullscreen.Text = "□";
+            BtnFullscreen.Content = "□";
         }
         else
         {
             this.WindowState = WindowState.FullScreen;
-            BtnFullscreen.Text = "■";
+            BtnFullscreen.Content = "■";
         }
     }
 
