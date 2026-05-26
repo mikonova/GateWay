@@ -131,6 +131,8 @@ public class ChatStorage
         return JsonSerializer.Deserialize<List<Message>>(json, _options) ?? [];
     }
 
+    public int GetMaxListNumber(string chatId) => GetLastPageNumber(chatId);
+
     // ===================== ПРИВАТНОЕ =====================
 
     private void WritePage(string chatId, int pageNumber, List<Message> messages)

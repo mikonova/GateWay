@@ -119,7 +119,9 @@ namespace CoreClasses.Protocol
         [JsonPropertyName("publi_key")]
         public string PublicKey { get; init; } = string.Empty;
 
-        }
+        [JsonPropertyName("password")]
+        public string Password { get; init; } = string.Empty;
+    }
 
     public class SendMessage
     {
