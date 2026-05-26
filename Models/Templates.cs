@@ -1,21 +1,16 @@
 ﻿using CoreClasses.Protocol;
+using GateWay.ViewModels;
 using GateWay.Views;
 using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using GateWay;
-using GateWay.ViewModels;
-
 
 namespace CoreClasses
 {
-    
     public class Templates
     {
         public MainWindow MainWindow;
@@ -23,146 +18,189 @@ namespace CoreClasses
         private readonly KeyStorage _keyStorage;
         private readonly ChatStorage _chatStorage;
         private readonly NetworkService.NetworkStack _local_service;
-        private readonly int _listen_port = 15002;
-        private readonly IPAddress _host = Dns.GetHostEntry(Dns.GetHostName()).AddressList.First(a => a.AddressFamily == AddressFamily.InterNetwork);
+        private readonly CryptoService _crypto;
         private readonly string _target_host = "127.0.0.1";
+        private readonly int _target_port = 15002;
 
         public Templates(string rootPath)
         {
             _keyStorage = new KeyStorage(rootPath);
             _chatStorage = new ChatStorage(rootPath);
-            _local_service = new NetworkService.NetworkStack(_listen_port, _host);
+            _local_service = new NetworkService.NetworkStack();
         }
 
-        public bool IsUserRegistered()
+        // ===================== ЗАПУСК =====================
+
+        public async Task StartConnectionToServer()
         {
-            return _keyStorage.KeysExist();
+            _local_service.PacketReceived += OnPacketReceived;
+            _local_service.Reconnected += (_, _) => Console.WriteLine("[Templates] Переподключились к серверу.");
+            _local_service.Disconnected += (_, _) => Console.WriteLine("[Templates] Соединение потеряно.");
+            await _local_service.ConnectAsync(_target_host, _target_port);
         }
 
-        public void LoadAllChats()
+        private void OnPacketReceived(object? sender, NetworkPacket packet)
         {
-            foreach (ChatPreview Chat in _chatStorage.GetAllChats()) {
-                MainWindow.AddChatToList(
-                    Chat.ChatId,
-                    Chat.Name,
-                    Chat.LastMessage,
-                    Chat.IsLastOutgoing
-                    );
+            try
+            {
+                var networkMessage = MessageFactory.Parse(packet.Data);
+
+                switch (networkMessage.Command)
+                {
+                    case nameof(InternalCommand.RenderMessage):
+                        var msgPayload = MessageFactory.ExtractPayload<RenderMessagePayload>(networkMessage);
+                        var myPrivateKey = _keyStorage.LoadPrivateKey();
+                        var senderPublicKey = Convert.FromBase64String(msgPayload.SenderId);
+
+                        var crypto = new CryptoService();
+                        var encryptedContent = Convert.FromBase64String(msgPayload.Content);
+                        var decryptedBytes = crypto.Decrypt(encryptedContent, myPrivateKey, senderPublicKey);
+                        var decryptedContent = System.Text.Encoding.UTF8.GetString(decryptedBytes);
+
+                        var message = new Message
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            SenderId = msgPayload.SenderId,
+                            Content = decryptedContent,
+                            SentAt = DateTimeOffset.UtcNow,
+                            IsOutgoing = false
+                        };
+
+                        _chatStorage.SaveMessage(msgPayload.ChatId, message);
+                        //MainWindow.AddMessageToChat(msgPayload.ChatId, message);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Templates] Ошибка обработки пакета: {ex.Message}");
             }
         }
 
-        public async Task RegistraitionUser(string name)
+        // ===================== ПОЛЬЗОВАТЕЛЬ =====================
+
+        public bool IsUserRegistered() => _keyStorage.KeysExist();
+
+
+        private async Task<NetworkMessage> SendRegistraionRequest(RegistrationPayload? payload)
         {
-            var crypto = new CryptoService();
-            var keyPair = crypto.GenerateKeys(); // ← сохраняем всю пару
-
-            var payload = new RegistrationPayload
-            {
-                UserName = name,
-                PublicKey = Convert.ToBase64String(keyPair.PublicKey)
-            };
-
             var message = MessageFactory.CreateExternal(ExternalCommand.Registration, payload);
 
             var packetReceived = new TaskCompletionSource<NetworkPacket>();
             _local_service.PacketReceived += (_, packet) => packetReceived.TrySetResult(packet);
-            _local_service.Start();
 
-            await _local_service.SendAsync(_target_host, _listen_port, message);
+            await _local_service.SendAsync(message);
 
             var completedTask = await Task.WhenAny(packetReceived.Task, Task.Delay(5000));
             if (completedTask != packetReceived.Task)
                 throw new TimeoutException("Сервер не ответил за 5 секунд");
 
             var receivedPacket = await packetReceived.Task;
-            var networkMessage = MessageFactory.Parse(receivedPacket.Data);
-
-            if (networkMessage.Command != InternalCommand.RegistrationSuccess.ToString())
-                throw new Exception("Сервер отклонил регистрацию");
-
-            // Сохраняем ключи
-            var keyStorage = new KeyStorage(AppDomain.CurrentDomain.BaseDirectory);
-            keyStorage.SavePublicKey(keyPair.PublicKey);
-            keyStorage.SavePrivateKey(keyPair.PrivateKey);
+            return MessageFactory.Parse(receivedPacket.Data);
 
         }
-
-        public async Task UpdateCurrentDevice(string name)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task RegistrationUser(string name)
         {
-            try
+            var keyPair = _crypto.GenerateKeys();
+
+            var payload = new RegistrationPayload
             {
-                var payload = new UpdateIPPayload
+                UserName = name,
+                PublicKey = Convert.ToBase64String(keyPair.PublicKey)
+            };
+            var networkMessage = await SendRegistraionRequest(payload);
+
+            while (networkMessage.Command == nameof(InternalCommand.RegistrationIncorrectKey))
+
+            {
+                keyPair = _crypto.GenerateKeys();
+
+                payload = new RegistrationPayload
                 {
                     UserName = name,
-                    ip = _host
+                    PublicKey = Convert.ToBase64String(keyPair.PublicKey)
                 };
 
-                var message = MessageFactory.CreateExternal(ExternalCommand.Login, payload);
 
-                var packetReceived = new TaskCompletionSource<NetworkPacket>();
-                _local_service.PacketReceived += (_, packet) => packetReceived.TrySetResult(packet);
-                _local_service.Start();
-
-                await _local_service.SendAsync(_target_host, _listen_port, message);
-
-                var completedTask = await Task.WhenAny(packetReceived.Task, Task.Delay(5000));
-                if (completedTask != packetReceived.Task)
-                    throw new TimeoutException("Сервер не ответил за 5 секунд");
+                networkMessage = await SendRegistraionRequest(payload);
             }
-            catch (Exception ex)
+
+                switch (networkMessage.Command)
+                {
+                    case nameof(InternalCommand.RegistrationSuccess):
+                        _keyStorage.SavePublicKey(keyPair.PublicKey);
+                        _keyStorage.SavePrivateKey(keyPair.PrivateKey);
+                        break;
+
+                    case nameof(InternalCommand.RegistrationIncorrectName):
+                        throw new Exception("Сервер отклонил регистрацию: имя занято или некорректно");
+
+                    default:
+                        throw new Exception($"Неожиданный ответ сервера: {networkMessage.Command}");
+
+                }        
+        }
+
+        // ===================== ЧАТЫ =====================
+
+        public void LoadAllChats()
+        {
+            foreach (var chat in _chatStorage.GetAllChats())
             {
-                throw new Exception($"Ошибка обновления устройства: {ex.Message}", ex);
+                MainWindow.AddChatToList(
+                    chat.ChatId,
+                    chat.Name,
+                    chat.LastMessage,
+                    chat.IsLastOutgoing
+                );
             }
         }
 
         public async Task SendMessage(string chatId, string content)
         {
-            // Загружаем ключи
-            var keyStorage = new KeyStorage(AppDomain.CurrentDomain.BaseDirectory);
-            var myPrivateKey = keyStorage.LoadPrivateKey();
-            var myPublicKey = keyStorage.LoadPublicKey();
+            var myPrivateKey = _keyStorage.LoadPrivateKey();
+            var myPublicKey = _keyStorage.LoadPublicKey();
+            var recipientPublicKey = _chatStorage.GetPublicKey(chatId);
 
-            // Загружаем публичный ключ собеседника
-            var chatStorage = new ChatStorage(AppDomain.CurrentDomain.BaseDirectory);
-            var recipientPublicKey = chatStorage.GetPublicKey(chatId);
-            //var recipientName = chatStorage.GetChatInfo(chatId).Name;
+            // Шифруем только контент
+            
+            var contentBytes = System.Text.Encoding.UTF8.GetBytes(content);
+            var encryptedContent = _crypto.Encrypt(contentBytes, myPrivateKey, recipientPublicKey);
 
-            // Формируем сообщение
-            var message = new Message
-            {
-                Id = Convert.ToBase64String(recipientPublicKey),
-                SenderId = Convert.ToBase64String(myPublicKey),
-                Content = content,
-                SentAt = DateTimeOffset.UtcNow,
-                IsOutgoing = true
+            // Формируем сообщение для сервера
+
+            var message_payload = new SendMessage { 
+                SendedTo = _chatStorage.GetName(chatId),
+                Content = encryptedContent,
+                //SendedAt = DateTimeOffset.UtcNow
             };
 
-            // Сериализуем и шифруем
-            var crypto = new CryptoService();
-            var raw = JsonSerializer.SerializeToUtf8Bytes(message);
-            var encrypted = crypto.Encrypt(raw, myPrivateKey, recipientPublicKey);
+            var message = MessageFactory.CreateExternal(ExternalCommand.SendMessage, message_payload);
+            await _local_service.SendAsync(message);
 
-            // Оборачиваем в протокол
-            var payload = new RenderMessagePayload
-            {
-                ChatId = chatId,
-                SenderId = message.SenderId,
-                SenderName = string.Empty,
-                Content = content
-            };
-            var networkMessage = MessageFactory.CreateInternal(InternalCommand.RenderMessage, payload);
+            //var local_message = new RenderMessagePayload
 
-            // Отправляем
-            await _local_service.SendAsync(_target_host, _listen_port, encrypted);
 
-            // Сохраняем локально
-            chatStorage.SaveMessage(chatId, message);
+            // Я ХЗ тут типа надо чтобы фронт проргузил у себя локально, потом или щас
+
+
+            //_chatStorage.SaveMessage(chatId, message);
         }
 
-        // TODO: Регистрация пользователя
-        // TODO: передать функцию для передачи сообщения И чата тебе в бэк =
-        // TODO: фолдер для чата
-        // TODO: для отрисовки сообщения ответ
-        // TODO: удаление чата(папки по ID)
+        public byte[] GetMyPublicKey() => _keyStorage.LoadPublicKey();
+
+
+
+        //public void DeleteChat(string chatId) => _chatStorage.DeleteChat(chatId);
+
+        //добавить вход зареганного аользователя
+        //добавить пароль
+
     }
 }

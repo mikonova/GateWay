@@ -21,10 +21,9 @@ namespace CoreClasses.Protocol
         RenderMessage,      // Отрисовать сообщение в чате
         RenderChatList,     // Обновить список чатов
         RenderUserStatus,   // Обновить статус пользователя
-        Ping,               // Проверка соединения
-        Pong,                // Ответ на Ping
         RegistrationSuccess,
-        RegistrationCancel
+        RegistrationIncorrectKey,
+        RegistrationIncorrectName
     }
 
     /// <summary>Внешние команды (операции с БД).</summary>
@@ -35,8 +34,7 @@ namespace CoreClasses.Protocol
         Update,     // Обновить запись
         Delete,      // Удалить запись
         Registration,
-        Login,
-        Logout
+        SendMessage,
     }
 
     // ===================== КОНВЕРТ =====================
@@ -123,13 +121,14 @@ namespace CoreClasses.Protocol
 
         }
 
-    public class UpdateIPPayload
+    public class SendMessage
     {
-        [JsonPropertyName("user_name")]
-        public string UserName { get; set;  } = string.Empty;
-        [JsonPropertyName("user_ip")]
-        public IPAddress ip { get; set; }
+        [JsonPropertyName("sended_to")]
+        public string SendedTo { get; init; } = string.Empty;
 
+        [JsonPropertyName("content")]
+        public byte[] Content { get; set; }
     }
-
 }
+
+

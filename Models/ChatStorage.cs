@@ -51,6 +51,12 @@ public class ChatStorage
         return Convert.FromBase64String(lines[1]);
     }
 
+    public string GetName(string chatId)
+    {
+        var lines = ReadInfo(chatId);
+        return lines[0];
+    }
+
     public List<ChatPreview> GetAllChats()
     {
         var chatsRoot = Path.Combine(_root, "chats");
