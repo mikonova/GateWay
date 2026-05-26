@@ -13,7 +13,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public MainWindow? CurrentWindow;
     private Templates _template;
 
-    public Border? SelectedChat
+    public Chat SelectedChat
     {
         get => SelectedChat;
         set
@@ -21,7 +21,7 @@ public partial class MainWindowViewModel : ViewModelBase
             // LoadLastMessages - 
         }
     }
-    public List<Border?> ChatList = new List<Border?>();
+    public List<Chat> ChatList = new List<Chat>();
     private bool _isUserSessionActive;
     
     

@@ -107,10 +107,10 @@ public partial class MainWindow : Window
     {
         AcceptName.Background = ColorPaletteNebula.ChatPress;
         string Login = UserLogin.Text;
-        string PublicKey = String.Empty; //плейсхолдер
+        string PublicKey = Convert.ToBase64String(_template.GetMyPublicKey());
         if (!string.IsNullOrEmpty(Login) && _isValidUsername(Login) )
         {
-            _template.RegistraitionUser(Login).Wait(5000); // ждем 5 сек -> таймаут
+            _template.RegistrationUser(Login).Wait(5000); // ждем 5 сек -> таймаут
             if (string.IsNullOrEmpty(PublicKey))
             {
                 UserLogin.Clear();
