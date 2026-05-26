@@ -30,7 +30,7 @@ public partial class App : Application
             _mainWindowViewModel = new MainWindowViewModel(_templates);
             _mainWindow = new MainWindow(_mainWindowViewModel, _templates);
             _mainWindowViewModel.CurrentWindow = _mainWindow;
-            _templates.MainWindow = _mainWindow;
+            _templates.Mainwindow = _mainWindow;
             _templates.MainWindowViewModel = _mainWindowViewModel;
             
             desktop.MainWindow = _mainWindow;

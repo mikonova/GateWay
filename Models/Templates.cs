@@ -2,72 +2,142 @@
 using GateWay.ViewModels;
 using GateWay.Views;
 using System;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
+using System.Net.Http;
+using System.Net.WebSockets;
+using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoreClasses
 {
     public class Templates
     {
-        public MainWindow MainWindow;
+        public MainWindow Mainwindow;
         public MainWindowViewModel MainWindowViewModel;
         private readonly KeyStorage _keyStorage;
         private readonly ChatStorage _chatStorage;
-        private readonly NetworkService.NetworkStack _local_service;
         private readonly CryptoService _crypto;
-        private readonly string _target_host = "127.0.0.1";
-        private readonly int _target_port = 15002;
+        private readonly HttpClient _http;
+
+        private ClientWebSocket? _ws;
+        private CancellationTokenSource? _wsCts;
+        private string? _token;
+
+        private readonly string _serverUrl = "http://127.0.0.1:8000";
+        private readonly string _wsUrl = "ws://127.0.0.1:8000";
 
         public Templates(string rootPath)
         {
             _keyStorage = new KeyStorage(rootPath);
             _chatStorage = new ChatStorage(rootPath);
-            _local_service = new NetworkService.NetworkStack();
+            _crypto = new CryptoService();
+            _http = new HttpClient();
         }
 
         // ===================== ЗАПУСК =====================
 
-        public async Task StartConnectionToServer()
+        public async Task StartConnectionToServer(string token)
         {
-            _local_service.PacketReceived += OnPacketReceived;
-            _local_service.Reconnected += (_, _) => Console.WriteLine("[Templates] Переподключились к серверу.");
-            _local_service.Disconnected += (_, _) => Console.WriteLine("[Templates] Соединение потеряно.");
-            await _local_service.ConnectAsync(_target_host, _target_port);
+            _token = token;
+            _http.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            await ConnectWebSocketAsync();
         }
 
-        private void OnPacketReceived(object? sender, NetworkPacket packet)
+        private async Task ConnectWebSocketAsync()
+        {
+            _wsCts = new CancellationTokenSource();
+            _ws = new ClientWebSocket();
+            await _ws.ConnectAsync(new Uri($"{_wsUrl}/ws/{_token}"), _wsCts.Token);
+            Console.WriteLine("[Templates] WebSocket подключён.");
+            _ = Task.Run(() => ReceiveLoopAsync(_wsCts.Token));
+        }
+
+        private async Task ReceiveLoopAsync(CancellationToken ct)
+        {
+            var buffer = new byte[1024 * 64];
+
+            while (!ct.IsCancellationRequested && _ws?.State == WebSocketState.Open)
+            {
+                try
+                {
+                    var result = await _ws.ReceiveAsync(buffer, ct);
+
+                    if (result.MessageType == WebSocketMessageType.Close)
+                    {
+                        Console.WriteLine("[Templates] Сервер закрыл соединение, реконнект...");
+                        await ReconnectAsync(ct);
+                        break;
+                    }
+
+                    var data = buffer[..result.Count];
+                    OnDataReceived(data);
+                }
+                catch (OperationCanceledException) { break; }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[Templates] WS ошибка: {ex.Message}, реконнект...");
+                    await ReconnectAsync(ct);
+                    break;
+                }
+            }
+        }
+
+        private async Task ReconnectAsync(CancellationToken ct)
+        {
+            while (!ct.IsCancellationRequested)
+            {
+                try
+                {
+                    await Task.Delay(3000, ct);
+                    _ws?.Dispose();
+                    await ConnectWebSocketAsync();
+                    Console.WriteLine("[Templates] Переподключились.");
+                    return;
+                }
+                catch
+                {
+                    Console.WriteLine("[Templates] Реконнект не удался, повторяем...");
+                }
+            }
+        }
+
+        private void OnDataReceived(byte[] data)
         {
             try
             {
-                var networkMessage = MessageFactory.Parse(packet.Data);
+                var json = JsonSerializer.Deserialize<JsonElement>(data);
+                var type = json.GetProperty("type").GetString();
 
-                switch (networkMessage.Command)
+                switch (type)
                 {
-                    case nameof(InternalCommand.RenderMessage):
-                        var msgPayload = MessageFactory.ExtractPayload<RenderMessagePayload>(networkMessage);
-                        var myPrivateKey = _keyStorage.LoadPrivateKey();
-                        var senderPublicKey = Convert.FromBase64String(msgPayload.SenderId);
+                    case "new_message":
+                        var chatId = json.GetProperty("chat_id").GetString() ?? string.Empty;
+                        var senderId = json.GetProperty("sender_id").GetString() ?? string.Empty;
+                        var encryptedContent = json.GetProperty("text").GetString() ?? string.Empty;
+                        var sentAt = json.GetProperty("sent_at").GetString() ?? string.Empty;
 
-                        var crypto = new CryptoService();
-                        var encryptedContent = Convert.FromBase64String(msgPayload.Content);
-                        var decryptedBytes = crypto.Decrypt(encryptedContent, myPrivateKey, senderPublicKey);
-                        var decryptedContent = System.Text.Encoding.UTF8.GetString(decryptedBytes);
+                        var myPrivateKey = _keyStorage.LoadPrivateKey();
+                        var senderPublicKey = _chatStorage.GetPublicKey(chatId);
+
+                        var encryptedBytes = Convert.FromBase64String(encryptedContent);
+                        var decryptedBytes = _crypto.Decrypt(encryptedBytes, myPrivateKey, senderPublicKey);
+                        var decryptedContent = Encoding.UTF8.GetString(decryptedBytes);
 
                         var message = new Message
                         {
                             Id = Guid.NewGuid().ToString(),
-                            SenderId = msgPayload.SenderId,
+                            SenderId = senderId,
                             Content = decryptedContent,
-                            SentAt = DateTimeOffset.UtcNow,
+                            SentAt = DateTimeOffset.Parse(sentAt),
                             IsOutgoing = false
                         };
 
-                        _chatStorage.SaveMessage(msgPayload.ChatId, message);
-                        //MainWindow.AddMessageToChat(msgPayload.ChatId, message);
+                        _chatStorage.SaveMessage(chatId, message);
+                        Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
+                            decryptedContent, sentAt, false);
                         break;
                 }
             }
@@ -81,70 +151,50 @@ namespace CoreClasses
 
         public bool IsUserRegistered() => _keyStorage.KeysExist();
 
-
-        private async Task<NetworkMessage> SendRegistraionRequest(RegistrationPayload? payload)
-        {
-            var message = MessageFactory.CreateExternal(ExternalCommand.Registration, payload);
-
-            var packetReceived = new TaskCompletionSource<NetworkPacket>();
-            _local_service.PacketReceived += (_, packet) => packetReceived.TrySetResult(packet);
-
-            await _local_service.SendAsync(message);
-
-            var completedTask = await Task.WhenAny(packetReceived.Task, Task.Delay(5000));
-            if (completedTask != packetReceived.Task)
-                throw new TimeoutException("Сервер не ответил за 5 секунд");
-
-            var receivedPacket = await packetReceived.Task;
-            return MessageFactory.Parse(receivedPacket.Data);
-
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public async Task RegistrationUser(string name)
+        public async Task<string> RegistrationUser(string name, string password)
         {
             var keyPair = _crypto.GenerateKeys();
 
-            var payload = new RegistrationPayload
-            {
-                UserName = name,
-                PublicKey = Convert.ToBase64String(keyPair.PublicKey)
-            };
-            var networkMessage = await SendRegistraionRequest(payload);
+            // 1. Регистрация
+            var regBody = JsonSerializer.Serialize(new { nickname = name, password });
+            var regResponse = await _http.PostAsync($"{_serverUrl}/register",
+                new StringContent(regBody, Encoding.UTF8, "application/json"));
 
-            while (networkMessage.Command == nameof(InternalCommand.RegistrationIncorrectKey))
+            if (!regResponse.IsSuccessStatusCode)
+                throw new Exception("Сервер отклонил регистрацию: имя занято или некорректно");
 
-            {
-                keyPair = _crypto.GenerateKeys();
+            // 2. Логин — получаем токен
+            var token = await LoginUser(name, password);
 
-                payload = new RegistrationPayload
-                {
-                    UserName = name,
-                    PublicKey = Convert.ToBase64String(keyPair.PublicKey)
-                };
+            // 3. Загружаем публичный ключ
+            var keyBody = JsonSerializer.Serialize(Convert.ToBase64String(keyPair.PublicKey));
+            var keyResponse = await _http.PostAsync($"{_serverUrl}/upload_public_key",
+                new StringContent(keyBody, Encoding.UTF8, "application/json"));
 
+            if (!keyResponse.IsSuccessStatusCode)
+                throw new Exception("Не удалось загрузить публичный ключ");
 
-                networkMessage = await SendRegistraionRequest(payload);
-            }
+            // 4. Сохраняем ключи локально
+            _keyStorage.SavePublicKey(keyPair.PublicKey);
+            _keyStorage.SavePrivateKey(keyPair.PrivateKey);
 
-                switch (networkMessage.Command)
-                {
-                    case nameof(InternalCommand.RegistrationSuccess):
-                        _keyStorage.SavePublicKey(keyPair.PublicKey);
-                        _keyStorage.SavePrivateKey(keyPair.PrivateKey);
-                        break;
+            return token;
+        }
 
-                    case nameof(InternalCommand.RegistrationIncorrectName):
-                        throw new Exception("Сервер отклонил регистрацию: имя занято или некорректно");
+        public async Task<string> LoginUser(string name, string password)
+        {
+            var body = JsonSerializer.Serialize(new { nickname = name, password });
+            var response = await _http.PostAsync($"{_serverUrl}/login",
+                new StringContent(body, Encoding.UTF8, "application/json"));
 
-                    default:
-                        throw new Exception($"Неожиданный ответ сервера: {networkMessage.Command}");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Неверный ник или пароль");
 
-                }        
+            var json = JsonSerializer.Deserialize<JsonElement>(
+                await response.Content.ReadAsStringAsync());
+
+            return json.GetProperty("access_token").GetString()
+                   ?? throw new Exception("Токен не получен");
         }
 
         // ===================== ЧАТЫ =====================
@@ -153,7 +203,7 @@ namespace CoreClasses
         {
             foreach (var chat in _chatStorage.GetAllChats())
             {
-                MainWindow.AddChatToList(
+                Mainwindow.AddChatToList(
                     chat.ChatId,
                     chat.Name,
                     chat.LastMessage,
@@ -165,42 +215,46 @@ namespace CoreClasses
         public async Task SendMessage(string chatId, string content)
         {
             var myPrivateKey = _keyStorage.LoadPrivateKey();
-            var myPublicKey = _keyStorage.LoadPublicKey();
             var recipientPublicKey = _chatStorage.GetPublicKey(chatId);
 
-            // Шифруем только контент
-            
-            var contentBytes = System.Text.Encoding.UTF8.GetBytes(content);
+            var contentBytes = Encoding.UTF8.GetBytes(content);
             var encryptedContent = _crypto.Encrypt(contentBytes, myPrivateKey, recipientPublicKey);
 
-            // Формируем сообщение для сервера
+            var body = JsonSerializer.Serialize(new
+            {
+                chat_id = chatId,
+                text = Convert.ToBase64String(encryptedContent)
+            });
 
-            var message_payload = new SendMessage { 
-                SendedTo = _chatStorage.GetName(chatId),
-                Content = encryptedContent,
-                //SendedAt = DateTimeOffset.UtcNow
+            await _http.PostAsync($"{_serverUrl}/send_message",
+                new StringContent(body, Encoding.UTF8, "application/json"));
+
+            // Сохраняем локально
+            var message = new Message
+            {
+                Id = Guid.NewGuid().ToString(),
+                SenderId = Convert.ToBase64String(_keyStorage.LoadPublicKey()),
+                Content = content,
+                SentAt = DateTimeOffset.UtcNow,
+                IsOutgoing = true
             };
+            _chatStorage.SaveMessage(chatId, message);
+        }
 
-            var message = MessageFactory.CreateExternal(ExternalCommand.SendMessage, message_payload);
-            await _local_service.SendAsync(message);
+        public void LoadMessages(string chatId, int downloaded)
+        {
+            int pages = _chatStorage.GetMaxListNumber(chatId);
+            var senderAlias = _chatStorage.GetName(chatId);
+            int toLoad = pages - downloaded;
+            var raw = _chatStorage.LoadPage(chatId, toLoad);
 
-            //var local_message = new RenderMessagePayload
-
-
-            // Я ХЗ тут типа надо чтобы фронт проргузил у себя локально, потом или щас
-
-
-            //_chatStorage.SaveMessage(chatId, message);
+            foreach (var msg in raw)
+            {
+                Mainwindow.LoadMessage(chatId, senderAlias, msg.Content,
+                    msg.SentAt.ToString(), msg.IsOutgoing);
+            }
         }
 
         public byte[] GetMyPublicKey() => _keyStorage.LoadPublicKey();
-
-
-
-        //public void DeleteChat(string chatId) => _chatStorage.DeleteChat(chatId);
-
-        //добавить вход зареганного аользователя
-        //добавить пароль
-
     }
 }
