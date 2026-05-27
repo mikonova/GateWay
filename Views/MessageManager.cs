@@ -15,12 +15,12 @@ namespace GateWay.Views;
 
 public partial class MainWindow
 {
-
+    
     public async void LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing)
     {
         if (_mainWindowViewModel.SelectedChat == null)
         {
-            throw new Exception("No selected chat!");
+            //throw new Exception("No selected chat!");
         }
         DateTime dateTime = DateTime.Parse(timeStamp);
         string date = dateTime.ToString("dd.MM.yyyy");
@@ -110,13 +110,29 @@ public partial class MainWindow
             message.HorizontalAlignment = HorizontalAlignment.Right;
         }
     }
-
-    void CreateMessage(string senderAlias, string content, string timeStamp)
+    
+    // отслеживание пачек сообщений для загрузки
+    private void ScrollViewer_LoadMore(object? sender, ScrollChangedEventArgs e)
     {
-        
+        if (MessageScroller.Offset.Y < 400)
+        {
+            double OldOffsetY = MessageScroller.Offset.Y;
+            
+            double OldExtHeight = MessageScroller.Extent.Height;
+            
+            // добавление новой пачки В ЭТОМ МЕСТЕ
+            
+            double NewExtHeight = MessageScroller.Extent.Height;
+            double delta = OldExtHeight - NewExtHeight;
+            MessageScroller.Offset = new Vector(0,  OldOffsetY+ delta);
+        }   
+    }
+
+    void SendMessage(string ChatId, string Content)
+    {
+        _template.SendMessage(ChatId, Content).Wait();
     }
 }
 /*
- * что тыкать куда:
  * 
 */

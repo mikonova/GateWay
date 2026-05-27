@@ -30,8 +30,8 @@ public partial class MainWindow : Window
         //AddChatToList("123", "miko", "Привчедел", false);
         //AddChatToList("124", "Вася", "Го в кино", true);
         //AddChatToList("125", "Леша", "Ты тут?", false);
-        //LoadMessage("123", "aboba", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
-        //LoadMessage("123", "aboba", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
+        //LoadMessage("123", "miko", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
+        //LoadMessage("123", "Леша", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
         
     }
     private void TopBar_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -84,36 +84,21 @@ public partial class MainWindow : Window
     {
         this.WindowState = WindowState.Minimized;
     }
-    // вызов формы регистрации
-    private void CreateUserLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        CreateUserLabel.Background = ColorPaletteNebula.ChatPress;
-        LoginSuggestion.IsVisible = false;
-        RegistrationForm.IsVisible = true;
-    }
-
-    private void CreateUserLabel_OnPointerEntered(object? sender, PointerEventArgs e)
-    {
-        CreateUserLabel.Background = ColorPaletteNebula.ChatHover;
-    }
-
-    private void CreateUserLabel_OnPointerExited(object? sender, PointerEventArgs e)
-    {
-        CreateUserLabel.Background = ColorPaletteNebula.ChatCloudColor;
-    }
 
     // обработка логина
     private void AcceptName_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         AcceptName.Background = ColorPaletteNebula.ChatPress;
-        string Login = UserLogin.Text;
-        string PublicKey = Convert.ToBase64String(_template.GetMyPublicKey());
-        if (!string.IsNullOrEmpty(Login) && _isValidUsername(Login) )
+        string _login = RegUserNameField.Text;
+        string _password = RegUserPassField.Text;
+        string PublicKey = String.Empty;
+        if (!string.IsNullOrEmpty(_login) && _isValidUsername(_login) )
         {
-            _template.RegistrationUser(Login).Wait(5000); // ждем 5 сек -> таймаут
+            _template.RegistrationUser(_login, _password).Wait(5000); // ждем 5 сек -> таймаут
+            PublicKey = Convert.ToBase64String(_template.GetMyPublicKey());
             if (string.IsNullOrEmpty(PublicKey))
             {
-                UserLogin.Clear();
+                UserWarning.Text = "Сервер не отвечает, ошибка получения ключа";
             }
             else
             {
@@ -123,8 +108,25 @@ public partial class MainWindow : Window
         }
         else
         {
-            UserWarningLength.IsVisible = true;
-            UserLogin.Clear();
+            UserWarning.Text = "Минимальная Длина имени - 4 символа";
+            UserWarning.IsVisible = true;
+            RegUserNameField.Clear();
+        }
+
+        if (!RegUserPassField.Text.Equals(RegUserPassRepField.Text))
+        {
+            UserWarning.Text = "Пароли не совпадают!";
+            UserWarning.IsVisible = true;
+        }
+
+        if (RegUserPassField.Text.Length < 8)
+        {
+            UserWarning.Text = "Минимальный размер - 8 символов";
+            UserWarning.IsVisible = true;
+        }
+        else if (!_isValidPassword(_password))
+        {
+            UserWarning.Text = "Пароль должен содержать цифры и буквы";
         }
     }
 
@@ -139,6 +141,7 @@ public partial class MainWindow : Window
     }
 
 
+    // ФОРМА 
     private void LogUserLabel_OnPointerEntered(object? sender, PointerEventArgs e)
     {
         LogUserLabel.Background = ColorPaletteNebula.ChatHover;

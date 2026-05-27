@@ -13,12 +13,14 @@ public partial class MainWindowViewModel : ViewModelBase
     public MainWindow? CurrentWindow;
     private Templates _template;
 
-    public Chat SelectedChat
+    public Chat? CurrentChat = new Chat(new Border());
+    public Chat? SelectedChat
     {
-        get => SelectedChat;
+        get => CurrentChat;
         set
         {
-            // LoadLastMessages - 
+            CurrentChat = value;
+            // сюда можно поставить проверку/логику
         }
     }
     public List<Chat> ChatList = new List<Chat>();
@@ -32,7 +34,6 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             _isUserSessionActive = value;
             CheckUserSession().Wait();
-            _template.LoadAllChats();
         }
     }
     
@@ -47,6 +48,7 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             CurrentWindow.LoginScreen.IsVisible = false;
             CurrentWindow.UserLogged.IsVisible = true;
+            _template.LoadAllChats();
         }
         else
         {

@@ -39,7 +39,7 @@ public partial class MainWindow
     public async void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
     {
         // string chatId, string senderAlias, string lastSentence, bool isSelf
-        Border border = new Border
+        Border? border = new Border
         {
             Background = ColorPaletteNebula.BackgroundColor,
             Name = chatId,
@@ -91,32 +91,6 @@ public partial class MainWindow
             sender.Text = $"{senderAlias}:";
         }
 
-        border.PointerEntered += (_, _) =>
-        {
-            if (_mainWindowViewModel.SelectedChat.ChatBorder != border)
-            {
-                border.Background = ColorPaletteNebula.ChatHover;
-            }
-        };
-        border.PointerExited += (_, _) =>
-        {
-            if (_mainWindowViewModel.SelectedChat.ChatBorder != border)
-            {
-                border.Background = ColorPaletteNebula.BackgroundColor;
-            }
-        };
-        border.Tapped += (_, _) =>
-        {
-            border.Background = ColorPaletteNebula.PressColor;
-            if (_mainWindowViewModel.SelectedChat != null &&
-                _mainWindowViewModel.SelectedChat.ChatBorder != border)
-            {
-                _mainWindowViewModel.SelectedChat.ChatBorder.Background = ColorPaletteNebula.BackgroundColor;
-                _mainWindowViewModel.SelectedChat.ChatBorder = border;
-            }
-        };
-        
-        _mainWindowViewModel.ChatList.Add(new Chat(border));
         border.Child = grid;
         grid.Children.Add(userName);
         grid.Children.Add(messageInfo);
@@ -124,7 +98,35 @@ public partial class MainWindow
         Grid.SetRow(messageInfo, 1);
         messageInfo.Children.Add(sender);
         messageInfo.Children.Add(lastMsg);
+        Chat? chat = new Chat(border);
+
+        border.PointerEntered += (_, _) =>
+        {
+            if (_mainWindowViewModel.CurrentChat != chat)
+            {
+                border.Background = ColorPaletteNebula.ChatHover;
+            }
+        };
+        border.PointerExited += (_, _) =>
+        {
+            if (_mainWindowViewModel.CurrentChat != chat)
+            {
+                border.Background = ColorPaletteNebula.BackgroundColor;
+            }
+        };
+        border.Tapped += (_, _) =>
+        {
+            border.Background = ColorPaletteNebula.PressColor;
+            if (_mainWindowViewModel.CurrentChat.ChatId != chat.ChatId)
+            {
+                _mainWindowViewModel.CurrentChat.ChatBorder.Background = ColorPaletteNebula.BackgroundColor;
+                _mainWindowViewModel.SelectedChat = chat;
+            }
+        };
+
+        _mainWindowViewModel.ChatList.Add(chat);
         ChatList.Children.Add(border);
+
         
 
     }

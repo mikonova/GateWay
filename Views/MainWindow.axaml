@@ -220,6 +220,8 @@
                         -->
                         <Border
                             Grid.Row="1"
+                            Name="ChatSendBar"
+                            IsVisible="True"
                             Background="#1f2529"
                             CornerRadius="5"
                             Margin="8,0,8,8"
@@ -347,51 +349,95 @@
                     </StackPanel>
                     
                     <!-- Блок Регистрации юзера -->
-                    
-                    <StackPanel
-                        Name="RegistrationForm"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                        <TextBlock
-                            Name="UserWarningLength"
-                            TextWrapping="NoWrap"
-                            FontSize="20"
-                            Foreground="OrangeRed"
-                            IsVisible="False"
-                            Text="Минимальная Длина имени - 4 символа"/>
-                        <TextBox 
-                            Name="UserLogin"
-                            FontSize="20"
-                            PlaceholderText="Введите имя пользователя..."
-                            AcceptsReturn="False"
-                            AcceptsTab="False"
-                            TextWrapping="NoWrap"
-                            Margin="0 10 0 0"
-                            MaxLength="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            TextAlignment="Center"/>
-                        <Label
-                            Name="AcceptName"
-                            Foreground="WhiteSmoke"
-                            HorizontalAlignment="Center"
-                            CornerRadius="5 "
-                            VerticalAlignment="Center"
-                            Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
-                            Padding="5 5 5 5"
-                            Margin="0 25 0 0 "
-                            PointerEntered="AcceptName_OnPointerEntered"
-                            PointerExited="AcceptName_OnPointerExited"
-                            PointerPressed="AcceptName_OnPointerPressed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Grid.Column="1"
+                            Name="RegistrationForm"
+                            HorizontalAlignment="Stretch"
+                            ClipToBounds="True"
+                            VerticalAlignment="Center">
                             <TextBlock
-                                Foreground="WhiteSmoke"
-                                Text="Зарегистрироваться"
+                                Name="UserWarning"
+                                TextWrapping="NoWrap"
                                 FontSize="20"
-                                TextAlignment="Center"
+                                Foreground="OrangeRed"
+                                IsVisible="False"/>
+                            <TextBox 
+                                Name="RegUserNameField"
+                                HorizontalContentAlignment="Stretch"
+                                FontSize="20"
+                                Width="400"
+                                PlaceholderText="Введите имя пользователя..."
+                                AcceptsReturn="False"
+                                AcceptsTab="False"
+                                TextWrapping="NoWrap"
+                                Margin="0 10 0 0"
+                                MaxLength="20"
+                                VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-                        </Label>
-                    </StackPanel>
+                                ClipToBounds="True"
+                                TextAlignment="Center"/>
+                            <TextBox 
+                                Name="RegUserPassField"
+                                Width="400"
+                                FontSize="20"
+                                HorizontalContentAlignment="Stretch"
+                                PasswordChar="*"
+                                RevealPassword="False"
+                                PlaceholderText="Пароль: от 8 символов, цифры и буквы"
+                                AcceptsReturn="False"
+                                AcceptsTab="False"
+                                TextWrapping="NoWrap"
+                                Margin="0 10 0 0"
+                                MaxLength="20"
+                                ClipToBounds="True"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                TextAlignment="Center"/>
+                            <TextBox 
+                                Name="RegUserPassRepField"
+                                Width="400"
+                                HorizontalContentAlignment="Stretch"
+                                ClipToBounds="True"
+                                FontSize="20"
+                                PasswordChar="*"
+                                RevealPassword="False"
+                                PlaceholderText="Повтор пароля"
+                                AcceptsReturn="False"
+                                AcceptsTab="False"
+                                TextWrapping="NoWrap"
+                                Margin="0 10 0 0"
+                                MaxLength="20"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                TextAlignment="Center"/>
+                            <Label
+                                Name="AcceptName"
+                                Foreground="WhiteSmoke"
+                                HorizontalAlignment="Center"
+                                CornerRadius="5 "
+                                VerticalAlignment="Center"
+                                Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                                Padding="5 5 5 5"
+                                Margin="0 25 0 0 "
+                                PointerEntered="AcceptName_OnPointerEntered"
+                                PointerExited="AcceptName_OnPointerExited"
+                                PointerPressed="AcceptName_OnPointerPressed">
+                                <TextBlock
+                                    Foreground="WhiteSmoke"
+                                    Text="Зарегистрироваться"
+                                    FontSize="20"
+                                    TextAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                            </Label>
+                        </StackPanel>
+                        </Grid>
                     <!-- Блок аторизации -->
                     <StackPanel
                         Name="LoginForm"
