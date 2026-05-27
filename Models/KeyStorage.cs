@@ -25,7 +25,12 @@ public class KeyStorage
         => File.WriteAllBytes(Path.Combine(_keysPath, "public.key"), publicKey);
 
     public byte[] LoadPublicKey()
-        => File.ReadAllBytes(Path.Combine(_keysPath, "public.key"));
+    {
+        var path = Path.Combine(_keysPath, "public.key");
+        if (!File.Exists(path))
+            throw new FileNotFoundException($"Публичный ключ не найден — регистрация не завершена: {path}");
+        return File.ReadAllBytes(path);
+    }
 
     public void SavePrivateKey(byte[] privateKey)
     {

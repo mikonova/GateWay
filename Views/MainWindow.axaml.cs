@@ -86,7 +86,7 @@ public partial class MainWindow : Window
     }
 
     // обработка логина
-    private void AcceptName_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    private async void AcceptName_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         AcceptName.Background = ColorPaletteNebula.ChatPress;
         string _login = RegUserNameField.Text;
@@ -94,8 +94,24 @@ public partial class MainWindow : Window
         string PublicKey = String.Empty;
         if (!string.IsNullOrEmpty(_login) && _isValidUsername(_login) )
         {
-            _template.RegistrationUser(_login, _password).Wait(5000); // ждем 5 сек -> таймаут
-            PublicKey = Convert.ToBase64String(_template.GetMyPublicKey());
+            try
+            {
+                await _template.RegistrationUser(_login, _password);
+            }
+            catch (Exception ex)
+            {
+                UserWarning.Text = $"Ошибка: {ex.Message}";
+                UserWarning.IsVisible = true;
+                return;
+            }
+            var key = _template.GetMyPublicKey();
+            if (key == null)
+            {
+                UserWarning.Text = "Ошибка регистрации — ключ не сохранён";
+                UserWarning.IsVisible = true;
+                return;
+            }
+            PublicKey = Convert.ToBase64String(key);
             if (string.IsNullOrEmpty(PublicKey))
             {
                 UserWarning.Text = "Сервер не отвечает, ошибка получения ключа";

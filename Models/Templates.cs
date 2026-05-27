@@ -17,8 +17,8 @@ namespace CoreClasses
         private readonly ApiService _api;
         private readonly WebSocketService _ws;
 
-        private readonly string _serverUrl = "http://192.168.43.151:8000";
-        private readonly string _wsUrl = "ws://192.168.43.151:8000";
+        private readonly string _serverUrl = "http://192.168.0.18:8000";
+        private readonly string _wsUrl = "ws://192.168.0.18:8000";
 
         public Templates(string rootPath)
         {
@@ -140,6 +140,8 @@ namespace CoreClasses
                 IsOutgoing = true
             };
             _chatStorage.SaveMessage(chatId, message);
+
+            Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId), content, DateTime.UtcNow.ToString(), true);
         }
 
         public void LoadMessages(string chatId, int downloaded)
@@ -156,6 +158,12 @@ namespace CoreClasses
             }
         }
 
-        public byte[] GetMyPublicKey() => _keyStorage.LoadPublicKey();
+        public byte[]? GetMyPublicKey()
+        {
+            if (!_keyStorage.KeysExist()) return null;
+            return _keyStorage.LoadPublicKey();
+        }
+
+        public void DeleteChat(string chatId) => _chatStorage.DeleteChat(chatId);
     }
 }
