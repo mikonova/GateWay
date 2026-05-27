@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text.Json;
 using System.Text;
 
 namespace CoreClasses.Tests
@@ -28,8 +29,21 @@ namespace CoreClasses.Tests
 
 
         }
-        //[Fact]
+        [Fact]
+        public async Task Register_ShouldReturnSuccess()
+        {
+            var http = new HttpClient();
+            var body = JsonSerializer.Serialize(new { nickname = "testuser", password = "testpass123" });
 
+            var response = await http.PostAsync("http://192.168.43.151:8000/register",
+                new StringContent(body, Encoding.UTF8, "application/json"));
 
-       }
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Статус: {response.StatusCode}");
+            Console.WriteLine($"Ответ: {content}");
+
+            Assert.True(response.IsSuccessStatusCode);
+        }
+
+    }
 }

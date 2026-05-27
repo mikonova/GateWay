@@ -23,7 +23,9 @@ namespace CoreClasses.Protocol
         RenderUserStatus,   // Обновить статус пользователя
         RegistrationSuccess,
         RegistrationIncorrectKey,
-        RegistrationIncorrectName
+        RegistrationIncorrectName,
+        Ping,
+        Pong
     }
 
     /// <summary>Внешние команды (операции с БД).</summary>

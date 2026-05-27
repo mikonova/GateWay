@@ -38,4 +38,13 @@ public class KeyStorage
         var encrypted = File.ReadAllBytes(Path.Combine(_keysPath, "private.key"));
         return ProtectedData.Unprotect(encrypted, null, DataProtectionScope.CurrentUser);
     }
+
+    public void SaveToken(string token)
+    => File.WriteAllText(Path.Combine(_keysPath, "token.txt"), token);
+
+    public string LoadToken()
+        => File.ReadAllText(Path.Combine(_keysPath, "token.txt"));
+
+    public bool TokenExists()
+        => File.Exists(Path.Combine(_keysPath, "token.txt"));
 }
