@@ -17,7 +17,7 @@ namespace GateWay.Views;
 public partial class MainWindow
 {
     
-    public async void LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing)
+    public void LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing)
     {
         if (_mainWindowViewModel.SelectedChat == null)
         {

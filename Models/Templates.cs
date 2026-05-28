@@ -70,7 +70,7 @@ namespace CoreClasses
                         };
 
                         _chatStorage.SaveMessage(chatId, message);
-                        await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
+                        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                         {
                             Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
                                 decryptedContent, sentAt, false);
@@ -155,14 +155,14 @@ namespace CoreClasses
             var message = new Message
             {
                 Id = Guid.NewGuid().ToString(),
-                SenderId = Convert.ToBase64String(_keyStorage.LoadPublicKey()),
+                SenderId = user_name,
                 Content = content,
                 SentAt = DateTimeOffset.UtcNow,
                 IsOutgoing = true
             };
             _chatStorage.SaveMessage(chatId, message);
 
-            Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId), content, DateTime.UtcNow.ToString(), true);
+            //Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId), content, DateTime.UtcNow.ToString(), true);
         }
 
         public void LoadMessages(string chatId, int downloaded)
