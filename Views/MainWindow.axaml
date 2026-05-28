@@ -17,8 +17,6 @@
         Title="GateWay">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     <Window.Resources>
@@ -26,7 +24,6 @@
     </Window.Resources>
     
     <Window.Styles>
-        
         <Style Selector="Label.TopRowStyle">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Width" Value="36" />
@@ -34,422 +31,524 @@
             <Setter Property="CornerRadius" Value="18"/>
             <Setter Property="Margin" Value="10,0,0,0"/>
         </Style>
-        
         <Style Selector="Label.TopRowStyle:pointerover">
             <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.HighlightColor}}"/>
         </Style>
-        
         <Style Selector="Label.TopRowStyle:pressed">
             <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.PressColor}}"/>
         </Style>
-        
-        <Style Selector="Label.SidePaneStyle:pointerover">
-            <Setter Property="Background" Value="#40f5f5f5" />
+        <Style Selector="Label.SidePaneStyle">
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
-        
+        <Style Selector="Label.SidePaneStyle:pointerover">
+            <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.HighlightColor}}"/>
+        </Style>
+        <Style Selector="Label.SidePaneStyle:pressed">
+            <Setter Property="Background" Value="{Binding Source={x:Static color:ColorPaletteNebula.PressColor}}"/>
+        </Style>
     </Window.Styles>
     
-    <!--Viewbox Stretch="Uniform"-->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="40" MinHeight="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid 
-                Grid.Row="0"
-                Name="TopBar"
-                HorizontalAlignment="Stretch"
-                PointerPressed="TopBar_OnPointerPressed"
-                  Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
-                <StackPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Right">
-                    <Label 
-                        x:Name="BtnToTray" 
-                        HorizontalAlignment="Right"
-                        Classes="TopRowStyle"
-                        PointerPressed="BtnToTray_OnClick">
-                            <TextBlock Text="-" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"/>
-                        </Label>
-                        <Label 
-                            Classes="TopRowStyle"
-                            PointerPressed="BtnFullscreen_OnClick"
-                            HorizontalAlignment="Right">
-                            <TextBlock x:Name="BtnFullscreen"  Text="□" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"/>
-                        </Label>
-                        <Label 
-                            x:Name="BtnClose" 
-                            HorizontalAlignment="Right"
-                            Classes="TopRowStyle"
-                            PointerPressed="BtnClose_OnClick">
-                            <TextBlock Text="x" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"/>
-                        </Label>
-                </StackPanel>
-            </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="40" MinHeight="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- === ВЕРХНЯЯ ПАНЕЛЬ ОКНА (заголовок, кнопки управления) === -->
+        <Grid 
+            Grid.Row="0"
+            Name="TopBar"
+            HorizontalAlignment="Stretch"
+            PointerPressed="TopBar_OnPointerPressed"
+            Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
             
-            <!-- Если пользователь залогинен, работает контрол ниже -->
-            <UserControl 
-                Grid.Row="1"
-                Name="UserLogged">
-                <Grid 
-                    Name="ContentGrid"
-                    Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}">
+            <TextBlock 
+                Text="GateWay" 
+                FontSize="18" 
+                FontWeight="SemiBold"
+                Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left"
+                Margin="16,0,0,0"/>
+            
+            <StackPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Right">
+                <Label 
+                    x:Name="BtnToTray" 
+                    HorizontalAlignment="Right"
+                    Classes="TopRowStyle"
+                    PointerPressed="BtnToTray_OnClick">
+                    <TextBlock Text="-" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"
+                               Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                </Label>
+                <Label 
+                    Classes="TopRowStyle"
+                    PointerPressed="BtnFullscreen_OnClick"
+                    HorizontalAlignment="Right">
+                    <TextBlock x:Name="BtnFullscreen" Text="□" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"
+                               Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                </Label>
+                <Label 
+                    x:Name="BtnClose" 
+                    HorizontalAlignment="Right"
+                    Classes="TopRowStyle"
+                    PointerPressed="BtnClose_OnClick">
+                    <TextBlock Text="x" FontSize="20" VerticalAlignment="Center" TextAlignment="Center"
+                               Foreground="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}"/>
+                </Label>
+            </StackPanel>
+        </Grid>
+        
+        <!-- === ОСНОВНОЙ ИНТЕРФЕЙС (пользователь авторизован) === -->
+        <UserControl Grid.Row="1" Name="UserLogged">
+            <Grid Name="ContentGrid" Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Боковая панель навигации (скрытая) -->
+                <SplitView 
+                    VerticalAlignment="Stretch"
+                    ZIndex="10"
+                    HorizontalAlignment="Left"
+                    x:Name="SidePane" 
+                    CornerRadius="12"
+                    PaneBackground="{Binding Source={x:Static color:ColorPaletteNebula.VertBarGradient}}"
+                    DisplayMode="CompactInline"
+                    IsPaneOpen="False"
+                    CompactPaneLength="50"
+                    OpenPaneLength="300">
+                    <SplitView.Pane>
+                        <StackPanel Orientation="Vertical" ClipToBounds="True">
+                            <StackPanel>
+                                <Label 
+                                       x:Name="PaneExpand"
+                                       PointerPressed="PaneExpand_OnClick"
+                                       Classes="SidePaneStyle"
+                                       Width="48"
+                                       Height="48"
+                                       HorizontalAlignment="Left"
+                                       Background="Transparent">
+                                    <TextBlock Text="☰" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                                </Label>
+                            </StackPanel>
+                            <StackPanel
+                                Orientation="Vertical"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Stretch"
+                                x:Name="PaneContent"
+                                IsEnabled="False"
+                                IsVisible="False"
+                                ClipToBounds="True">
+                                <Separator ClipToBounds="True" Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"/>
+                                <Label
+                                    Classes="SidePaneStyle"
+                                    Name="AddChatBtn"
+                                    HorizontalAlignment="Stretch"
+                                    Height="50"
+                                    Margin="5"
+                                    Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
+                                    <TextBlock Text="Добавить чат" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"
+                                               Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                                </Label>
+                                <Label
+                                    Classes="SidePaneStyle"
+                                    Name="LogoutLabel"
+                                    HorizontalAlignment="Stretch"
+                                    Height="50"
+                                    Margin="5"
+                                    Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
+                                    <TextBlock Text="Выйти" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"
+                                               Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                                </Label>
+                            </StackPanel>
+                        </StackPanel>
+                    </SplitView.Pane>
+                    <SplitView.Content/>
+                </SplitView>
+                
+                <!-- Список чатов (слева) -->
+                <StackPanel Grid.Column="0" Margin="50,0,0,0" HorizontalAlignment="Left" Orientation="Vertical">
+                    <ScrollViewer IsScrollInertiaEnabled="False" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel x:Name="ChatList" Spacing="4" Margin="4 4 2 0"/>
+                    </ScrollViewer>
+                </StackPanel>
+                
+                <!-- Вертикальный разделитель -->
+                <Border Grid.Column="1" Width="2" Background="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}" CornerRadius="5" Margin="0 20"/>
+                
+                <!-- Область чата (справа) -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Контейнер сообщений (DockPanel для добавления снизу вверх) -->
+                    <ScrollViewer 
+                        Grid.Row="0"
+                        IsScrollInertiaEnabled="False"
+                        VerticalScrollBarVisibility="Hidden"
+                        HorizontalScrollBarVisibility="Disabled"
+                        Name="MessageScroller"
+                        ScrollChanged="ScrollViewer_LoadMore"
+                        Margin="0 20 0 30">
+                        <DockPanel Name="StackMessages" LastChildFill="False" ClipToBounds="True" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                    </ScrollViewer>
+                    
+                    <!-- Панель отправки сообщения -->
+                    <Border Grid.Row="1" Name="ChatSendBar" IsVisible="True" Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}" CornerRadius="8" Margin="8,0,8,8" Padding="8" BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}" BorderThickness="1">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <ScrollViewer Grid.Column="0" MaxHeight="160" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <TextBox Name="MessageInput" Background="Transparent" BorderThickness="0" Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}" FontSize="15" Padding="12,10" MaxLength="1000" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="42" MaxHeight="140" VerticalAlignment="Stretch" PlaceholderText="Напишите сообщение..." PlaceholderForeground="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"/>
+                            </ScrollViewer>
+                            <Label Grid.Column="1" x:Name="SendButton" Cursor="Hand" Height="28" Width="29" VerticalAlignment="Bottom" CornerRadius="5" Margin="8,0,4,4" Padding="8">
+                                <Label.Background>
+                                    <ImageBrush Source="avares://GateWay/Assets/SendMessage.jpg" Stretch="Uniform"/>
+                                </Label.Background>
+                            </Label>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </UserControl>
+        
+        <!-- === ЭКРАН АВТОРИЗАЦИИ (пользователь не авторизован) === -->
+        <UserControl Grid.Row="1" Name="LoginScreen" Background="{StaticResource BgBrush}">
+            <Grid>
+                
+                <!-- Приветственный экран с кнопками входа/регистрации -->
+                <StackPanel
+                    Name="LoginSuggestion"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0" 
+                            Text="Добро Пожаловать!"
+                            TextWrapping="Wrap"
+                            FontSize="40" 
+                            FontWeight="ExtraBold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="FloralWhite"
+                        />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Text="Вы не имеете локального аккаунта. Нажмите ниже, чтобы создать его.&#10;
+                        Мы не используем сторонние сервисы" 
+                            FontSize="30"
+                            Name="GreetingText"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontWeight="DemiBold"
+                            Foreground="FloralWhite"/>
+                        <Label
+                            Grid.Row="2"
+                            Name="LogUserLabel"
+                            Margin="0 25 0 0"
+                            FontSize="40"
+                            Padding="10"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            CornerRadius="5"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            PointerEntered="LogUserLabel_OnPointerEntered"
+                            PointerExited="LogUserLabel_OnPointerExited"
+                            PointerPressed="LogUserLabel_OnPointerPressed">
+                            <TextBlock 
+                                HorizontalAlignment="Center"
+                                Text="Вход"
+                                Foreground="FloralWhite"/>
+                        </Label>
+                        <Label
+                            Grid.Row="3"
+                            Name="CreateUserLabel"
+                            Margin="0 25 0 0"
+                            FontSize="40"
+                            Padding="10"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            CornerRadius="5"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            PointerEntered="CreateUserLabel_OnPointerEntered"
+                            PointerExited="CreateUserLabel_OnPointerExited"
+                            PointerPressed="CreateUserLabel_OnPointerPressed">
+                            <TextBlock 
+                                HorizontalAlignment="Center"
+                                Text="Регистрация"
+                                Foreground="FloralWhite"/>
+                        </Label>
+                    </Grid>
+                </StackPanel>
+                
+                <!-- === ФОРМА РЕГИСТРАЦИИ === -->
+                <Grid
+                    Name="RegistrationForm"
+                    HorizontalAlignment="Stretch"
+                    ClipToBounds="True"
+                    VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="6"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <SplitView 
-                        VerticalAlignment="Stretch"
-                        ZIndex="10"
-                        HorizontalAlignment="Left"
-                        x:Name="SidePane" 
-                        CornerRadius="12"
-                        PaneBackground="{Binding Source={x:Static color:ColorPaletteNebula.VertBarGradient}}"
-                        DisplayMode= "CompactInline"
-                        IsPaneOpen="False"
-                        CompactPaneLength="50"
-                        OpenPaneLength="300">
-                        <SplitView.Pane>
-                            <StackPanel 
-                                Orientation="Vertical"
-                                ClipToBounds="True">
-                                <StackPanel>
-                                    <Label 
-                                           x:Name="PaneExpand"
-                                           PointerPressed="PaneExpand_OnClick"
-                                           Classes="SidePaneStyle"
-                                           Width="48"
-                                           Height="48"
-                                           HorizontalAlignment="Left">
-                                        <TextBlock 
-                                            Text="☰" 
-                                            FontSize="35" 
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
-                                    </Label>
-                                </StackPanel>
-                                <StackPanel
-                                    Orientation="Vertical"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Stretch"
-                                    x:Name="PaneContent"
-                                    IsEnabled="False"
-                                    IsVisible="False"
-                                    ClipToBounds="True">
-                                    <Separator
-                                        ClipToBounds="True"
-                                        Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"/>
-                                    <Label
-                                        Classes="SidePaneStyle"
-                                        Name="AddChatBtn"
-                                        HorizontalAlignment="Stretch"
-                                        Height="50"
-                                        Margin="5 5 5 5"
-                                        CornerRadius="5"
-                                        Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
-                                        <TextBlock
-                                            Text="Добавить чат"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="20"/>
-                                    </Label>
-                                    <Label
-                                        Classes="SidePaneStyle"
-                                        Name="LogoutLabel"
-                                        HorizontalAlignment="Stretch"
-                                        Height="50"
-                                        Margin="5 5 5 5"
-                                        CornerRadius="5"
-                                        Background="{Binding Source={x:Static color:ColorPaletteNebula.HorBarGradient}}">
-                                        <TextBlock
-                                            Text="Выйти"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="20"/>
-                                    </Label>
-                                </StackPanel>
-                            </StackPanel>
-                        </SplitView.Pane>
-                        <SplitView.Content>
-
-                        </SplitView.Content>
-                    </SplitView>
-                    <StackPanel 
-                        Grid.Column="0"
-                        Margin="50,0,0,0"
-                        HorizontalAlignment="Left"
-                        Orientation="Vertical">
-                        <ScrollViewer
-                            IsScrollInertiaEnabled="False"
-                            VerticalScrollBarVisibility="Hidden"
-                            HorizontalScrollBarVisibility="Disabled"
-                            >
-                            <StackPanel x:Name="ChatList">
-                                
-                            </StackPanel>
-                        </ScrollViewer>
-                    </StackPanel>
-                    <Border 
-                        Grid.Column="1"
-                        Width="2"
-                        Background="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}"
-                        CornerRadius="5"
-                        Margin="0 20 0 20 "
-                        HorizontalAlignment="Center"/>
-                    <Grid
-                        Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <ScrollViewer
-                            Grid.Row="0"
-                            IsScrollInertiaEnabled="False"
-                            VerticalScrollBarVisibility="Hidden"
-                            HorizontalScrollBarVisibility="Disabled"
-                            Name="MessageScroller"
-                            ScrollChanged="ScrollViewer_LoadMore"
-                            Margin="0 20 0 30">
-                            <StackPanel
-                                Name="StackMessages"
-                                ClipToBounds="True">
-                                
-                            </StackPanel>
-                        </ScrollViewer>
-                        <!--
-                        ОТПРАВКА СООБЩЕНИЯ
-                        -->
-                        <Border
-                            Grid.Row="1"
-                            Name="ChatSendBar"
-                            IsVisible="True"
-                            Background="#1f2529"
-                            CornerRadius="5"
-                            Margin="8,0,8,8"
-                            Padding="8">
-
-                            <Grid ColumnDefinitions="*, Auto">
-
-                                <!-- Поле ввода с прокруткой -->
-                                <ScrollViewer 
-                                    Grid.Column="0"
-                                    MaxHeight="160"
-                                    VerticalScrollBarVisibility="Auto"
-                                    HorizontalScrollBarVisibility="Disabled">
-
-                                    <TextBox 
-                                        Name="MessageInput"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Foreground="#e0e0e0"
-                                        FontSize="15"
-                                        Padding="12,10"
-                                        MaxLength="1000"
-                                        AcceptsReturn="True"
-                                        TextWrapping="Wrap"
-                                        MinHeight="42"
-                                        MaxHeight="140"
-                                        VerticalAlignment="Stretch"
-                                        PlaceholderText="Напишите сообщение..."/>
-                                </ScrollViewer>
-
-                                <!-- Кнопка отправки -->
-                                <Label Grid.Column="1"
-                                       x:Name="SendButton"
-                                       Cursor="Hand"
-                                       Height="28"
-                                       Width="29"
-                                       VerticalAlignment="Bottom"
-                                       CornerRadius="5"
-                                       Margin="8,0,4,4"
-                                       Padding="8">
-                                    <Label.Background>
-                                        <ImageBrush Source="avares://GateWay/Assets/SendMessage.jpg" Stretch="Uniform"/>
-                                    </Label.Background>
-                                </Label>
-
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </Grid>
-            </UserControl>
-            
-            <!-- Если не залогинен, работает экран логина -->
-            <UserControl Grid.Row="1" Name="LoginScreen" Background="{StaticResource BgBrush}">
-                <Grid>
-                    <StackPanel
-                        Name="LoginSuggestion"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock
-                                Grid.Row="0" 
-                                Text="Добро Пожаловать!"
-                                TextWrapping="Wrap"
-                                FontSize="40" 
-                                FontWeight="ExtraBold"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="FloralWhite"
-                            />
-
-                            <TextBlock
-                                Grid.Row="1"
-                                Text="Вы не имеете локального аккаунта. Нажмите ниже, чтобы создать его.&#10;
-                            Мы не используем сторонние сервисы" 
-                                FontSize="30"
-                                Name="GreetingText"
-                                TextWrapping="Wrap"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                FontWeight="DemiBold"
-                                Foreground="FloralWhite"/>
-                            <Label
-                                Grid.Row="2"
-                                Name="LogUserLabel"
-                                Margin="0 25 0 0"
-                                FontSize="40"
-                                Padding="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                CornerRadius="5"
-                                Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
-                                PointerEntered="LogUserLabel_OnPointerEntered"
-                                PointerExited="LogUserLabel_OnPointerExited"
-                                PointerPressed="LogUserLabel_OnPointerPressed">
-                                <TextBlock 
-                                    HorizontalAlignment="Center"
-                                    Text="Вход"
-                                    Foreground="FloralWhite"/>
-                            </Label>
-                            <Label
-                                Grid.Row="3"
-                                Name="CreateUserLabel"
-                                Margin="0 25 0 0"
-                                FontSize="40"
-                                Padding="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                CornerRadius="5"
-                                Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
-                                PointerEntered="CreateUserLabel_OnPointerEntered"
-                                PointerExited="CreateUserLabel_OnPointerExited"
-                                PointerPressed="CreateUserLabel_OnPointerPressed">
-                                <TextBlock 
-                                    HorizontalAlignment="Center"
-                                    Text="Регистрация"
-                                    Foreground="FloralWhite"/>
-                            </Label>
-                        </Grid>
-                    </StackPanel>
-                    
-                    <!-- Блок Регистрации юзера -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel
-                            Grid.Column="1"
-                            Name="RegistrationForm"
-                            HorizontalAlignment="Stretch"
+                    <StackPanel Grid.Column="1" ClipToBounds="True" Spacing="10">
+                        <TextBlock
+                            Name="UserWarning"
+                            TextWrapping="Wrap"
+                            FontSize="20"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}"
+                            IsVisible="False"
+                            HorizontalAlignment="Center"
+                            TextAlignment="Center"/>
+                            
+                        <TextBox 
+                            Name="RegUserNameField"
+                            HorizontalContentAlignment="Stretch"
+                            FontSize="20"
+                            Width="400"
+                            PlaceholderText="Введите имя пользователя..."
+                            AcceptsReturn="False"
+                            AcceptsTab="False"
+                            TextWrapping="NoWrap"
+                            Margin="0 10 0 0"
+                            MaxLength="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
                             ClipToBounds="True"
-                            VerticalAlignment="Center">
+                            TextAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                            BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            BorderThickness="2"
+                            CornerRadius="8"
+                            Padding="12 8"/>
+                            
+                        <TextBox 
+                            Name="RegUserPassField"
+                            Width="400"
+                            FontSize="20"
+                            HorizontalContentAlignment="Stretch"
+                            PasswordChar="*"
+                            RevealPassword="False"
+                            PlaceholderText="Пароль: от 8 символов, цифры и буквы"
+                            AcceptsReturn="False"
+                            AcceptsTab="False"
+                            TextWrapping="NoWrap"
+                            Margin="0 10 0 0"
+                            MaxLength="20"
+                            ClipToBounds="True"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            TextAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                            BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            BorderThickness="2"
+                            CornerRadius="8"
+                            Padding="12 8"/>
+                            
+                        <TextBox 
+                            Name="RegUserPassRepField"
+                            Width="400"
+                            HorizontalContentAlignment="Stretch"
+                            ClipToBounds="True"
+                            FontSize="20"
+                            PasswordChar="*"
+                            RevealPassword="False"
+                            PlaceholderText="Повтор пароля"
+                            AcceptsReturn="False"
+                            AcceptsTab="False"
+                            TextWrapping="NoWrap"
+                            Margin="0 10 0 0"
+                            MaxLength="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            TextAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                            BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            BorderThickness="2"
+                            CornerRadius="8"
+                            Padding="12 8"/>
+                            
+                        <Label
+                            Name="AcceptName"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"
+                            HorizontalAlignment="Center"
+                            CornerRadius="8"
+                            VerticalAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            Padding="24 12"
+                            Margin="0 25 0 0"
+                            PointerEntered="AcceptName_OnPointerEntered"
+                            PointerExited="AcceptName_OnPointerExited"
+                            PointerPressed="AcceptName_OnPointerPressed"
+                            Cursor="Hand">
                             <TextBlock
-                                Name="UserWarning"
-                                TextWrapping="NoWrap"
+                                Foreground="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"
+                                Text="Зарегистрироваться"
                                 FontSize="20"
-                                Foreground="OrangeRed"
-                                IsVisible="False"/>
-                            <TextBox 
-                                Name="RegUserNameField"
-                                HorizontalContentAlignment="Stretch"
-                                FontSize="20"
-                                Width="400"
-                                PlaceholderText="Введите имя пользователя..."
-                                AcceptsReturn="False"
-                                AcceptsTab="False"
-                                TextWrapping="NoWrap"
-                                Margin="0 10 0 0"
-                                MaxLength="20"
-                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                TextAlignment="Center"
                                 HorizontalAlignment="Center"
-                                ClipToBounds="True"
-                                TextAlignment="Center"/>
-                            <TextBox 
-                                Name="RegUserPassField"
-                                Width="400"
-                                FontSize="20"
-                                HorizontalContentAlignment="Stretch"
-                                PasswordChar="*"
-                                RevealPassword="False"
-                                PlaceholderText="Пароль: от 8 символов, цифры и буквы"
-                                AcceptsReturn="False"
-                                AcceptsTab="False"
-                                TextWrapping="NoWrap"
-                                Margin="0 10 0 0"
-                                MaxLength="20"
-                                ClipToBounds="True"
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Label>
+                        <Label
+                            Name="BackButtonSimple"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            PointerEntered="BackButtonSimple_OnPointerEntered"
+                            PointerExited="AcceptName_OnPointerExited"
+                            PointerPressed="BackButtonSimple_OnPointerPressed"
+                            CornerRadius="8"
+                            Padding="16 8"
+                            Margin="0 10 0 0"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                            Cursor="Hand">
+                            <TextBlock
+                                Text="← Назад"
+                                FontSize="16"
+                                FontWeight="Medium"
                                 HorizontalAlignment="Center"
-                                TextAlignment="Center"/>
-                            <TextBox 
-                                Name="RegUserPassRepField"
-                                Width="400"
-                                HorizontalContentAlignment="Stretch"
-                                ClipToBounds="True"
-                                FontSize="20"
-                                PasswordChar="*"
-                                RevealPassword="False"
-                                PlaceholderText="Повтор пароля"
-                                AcceptsReturn="False"
-                                AcceptsTab="False"
-                                TextWrapping="NoWrap"
-                                Margin="0 10 0 0"
-                                MaxLength="20"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                TextAlignment="Center"/>
-                            <Label
-                                Name="AcceptName"
-                                Foreground="WhiteSmoke"
-                                HorizontalAlignment="Center"
-                                CornerRadius="5 "
-                                VerticalAlignment="Center"
-                                Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
-                                Padding="5 5 5 5"
-                                Margin="0 25 0 0 "
-                                PointerEntered="AcceptName_OnPointerEntered"
-                                PointerExited="AcceptName_OnPointerExited"
-                                PointerPressed="AcceptName_OnPointerPressed">
-                                <TextBlock
-                                    Foreground="WhiteSmoke"
-                                    Text="Зарегистрироваться"
-                                    FontSize="20"
-                                    TextAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
-                            </Label>
-                        </StackPanel>
-                        </Grid>
-                    <!-- Блок аторизации -->
-                    <StackPanel
-                        Name="LoginForm"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                        
-                        
+                                Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                        </Label>
                     </StackPanel>
                 </Grid>
-            </UserControl>
-            
-        </Grid>
-    <!--/Viewbox-->
+                
+                <!-- === ФОРМА ВХОДА === -->
+                <Grid
+                    Name="LoginForm"
+                    HorizontalAlignment="Stretch"
+                    ClipToBounds="True"
+                    VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel 
+                        Grid.Column="1"
+                        ClipToBounds="True"
+                        Spacing="12">
+                        <TextBlock
+                            Name="LoginWarning"
+                            TextWrapping="Wrap"
+                            FontSize="20"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.SummerSurfColor}}"
+                            IsVisible="False"
+                            HorizontalAlignment="Center"
+                            TextAlignment="Center"
+                            MaxWidth="400"/>
+
+                        <TextBox 
+                            Name="LoginUserNameField"
+                            HorizontalContentAlignment="Stretch"
+                            FontSize="20"
+                            Width="400"
+                            PlaceholderText="Введите имя пользователя..."
+                            AcceptsReturn="False"
+                            AcceptsTab="False"
+                            TextWrapping="NoWrap"
+                            Margin="0"
+                            MaxLength="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            ClipToBounds="True"
+                            TextAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                            BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            BorderThickness="2"
+                            CornerRadius="8"
+                            Padding="12 8"/>
+
+                        <TextBox 
+                            Name="LoginPassField"
+                            Width="400"
+                            FontSize="20"
+                            HorizontalContentAlignment="Stretch"
+                            PasswordChar="*"
+                            RevealPassword="False"
+                            PlaceholderText="Введите пароль..."
+                            AcceptsReturn="False"
+                            AcceptsTab="False"
+                            TextWrapping="NoWrap"
+                            Margin="0"
+                            MaxLength="30"
+                            ClipToBounds="True"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            TextAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                            BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            BorderThickness="2"
+                            CornerRadius="8"
+                            Padding="12 8"/>
+
+                        <Label
+                            Name="AcceptLogin"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"
+                            HorizontalAlignment="Center"
+                            CornerRadius="8"
+                            VerticalAlignment="Center"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                            Padding="24 12"
+                            Margin="0 15 0 0"
+                            PointerEntered="AcceptLogin_OnPointerEntered"
+                            PointerExited="AcceptLogin_OnPointerExited"
+                            PointerPressed="AcceptLogin_OnPointerPressed"
+                            Cursor="Hand">
+                            <TextBlock
+                                Foreground="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"
+                                Text="Войти"
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                TextAlignment="Center"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Label>
+
+                        <Label
+                            Name="BackButtonLogin"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            CornerRadius="8"
+                            Padding="16 8"
+                            Margin="0 10 0 0"
+                            Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                            Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                            Cursor="Hand"
+                            PointerEntered="BackButtonLogin_OnPointerEntered"
+                            PointerExited="BackButtonLogin_OnPointerExited"
+                            PointerPressed="BackButtonLogin_OnPointerPressed">
+                            <TextBlock
+                                Text="← Назад"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                        </Label>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </UserControl>
+    </Grid>
 
 </Window>

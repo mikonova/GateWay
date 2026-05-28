@@ -30,7 +30,7 @@ public partial class LoginWindow : Window
     {
         PublicKeyTextBlock.Text = _publicKey;
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
-        clipboard.SetTextAsync(PublicKeyTextBlock.Text);
+        clipboard.SetTextAsync(_publicKey);
         var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
             "Кажется произошла ошибка и ключ не сгенерировался", ButtonEnum.Ok);
         box.ShowAsync();

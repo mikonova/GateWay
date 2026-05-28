@@ -30,7 +30,7 @@ public partial class MainWindow
         Border message = new Border()
         {
             Name = chatId,
-            Margin = new Thickness(50, 30),
+            Margin = new Thickness(20, 15),
             CornerRadius = new CornerRadius(5),
             Padding = new Thickness(10),
             MinWidth = 50
@@ -45,7 +45,7 @@ public partial class MainWindow
 
         Label senderSignature = new Label()
         {
-            FontSize = 20,
+            FontSize = 16,
             FontFamily = new FontFamily("Nunito"),
             Content =  senderAlias,
             FontWeight = FontWeight.SemiBold,
@@ -56,7 +56,7 @@ public partial class MainWindow
 
         TextBlock contentSignature = new TextBlock()
         {
-            FontSize = 20,
+            FontSize = 16,
             TextWrapping =  TextWrapping.Wrap,
             FontFamily = new FontFamily("Nunito"),
             Foreground = new SolidColorBrush(Colors.WhiteSmoke),
@@ -66,7 +66,7 @@ public partial class MainWindow
         };
         TextBlock timeSignature = new TextBlock()
         {
-            FontSize = 20,
+            FontSize = 16,
             FontFamily = new FontFamily("Nunito"),
             Foreground = new SolidColorBrush(Colors.WhiteSmoke),
             HorizontalAlignment = HorizontalAlignment.Right,
@@ -97,7 +97,9 @@ public partial class MainWindow
         Grid.SetRow(timeSignature, 4);
         
         message.Child = grid;
+        DockPanel.SetDock(message, Dock.Bottom);
         StackMessages.Children.Add(message);
+        MessageScroller.ScrollToEnd();
         
         if (isOutgoing)
         {

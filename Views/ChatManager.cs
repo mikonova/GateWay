@@ -36,16 +36,19 @@ public class Chat
 }
 public partial class MainWindow
 {
-    public async void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
+        public async void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
     {
-        // string chatId, string senderAlias, string lastSentence, bool isSelf
         Border? border = new Border
         {
             Background = ColorPaletteNebula.BackgroundColor,
+            BorderBrush = ColorPaletteNebula.ChatCloudColor,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(8),
             Name = chatId,
             Width = 250,
             Height = 60,
-            Padding = new Thickness(4, 2, 4, 2)
+            // Margin =  new Thickness(0, 4, 0, 4),
+            Padding = new Thickness(8, 4, 8, 4)
         };
         border.ContextMenu = createContextMenu(ColorPaletteNebula.OnBgColor, ColorPaletteNebula.OnBgColor, border.Name);
 
@@ -58,6 +61,7 @@ public partial class MainWindow
             FontSize = 20,
             TextAlignment = TextAlignment.Center,
             FontWeight = FontWeight.Bold,
+            Foreground = ColorPaletteNebula.GlacierMistColor,
             Text = $"{senderAlias}"
         };
         TextBlock sender = new TextBlock
@@ -65,21 +69,22 @@ public partial class MainWindow
             FontSize = 16,
             TextAlignment = TextAlignment.Center,
             FontWeight = FontWeight.Bold,
-            Opacity = 0.8,
+            Foreground = ColorPaletteNebula.SummerSurfColor,
             Margin = new Thickness(0, 0, 5, 0)
         };
         TextBlock lastMsg = new TextBlock
         {
             FontSize = 16,
             TextAlignment = TextAlignment.Center,
-            Opacity = 0.8,
+            Foreground = ColorPaletteNebula.SummerSurfColor,
             Text = lastSentence,
         };
         StackPanel messageInfo = new StackPanel()
         {
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Bottom,
-            Orientation = Orientation.Horizontal
+            Orientation = Orientation.Horizontal,
+            Spacing = 4
         };
 
         if (isSelf)
@@ -105,6 +110,7 @@ public partial class MainWindow
             if (_mainWindowViewModel.CurrentChat != chat)
             {
                 border.Background = ColorPaletteNebula.ChatHover;
+                border.BorderBrush = ColorPaletteNebula.SummerSurfColor;
             }
         };
         border.PointerExited += (_, _) =>
@@ -112,23 +118,23 @@ public partial class MainWindow
             if (_mainWindowViewModel.CurrentChat != chat)
             {
                 border.Background = ColorPaletteNebula.BackgroundColor;
+                border.BorderBrush = ColorPaletteNebula.ChatCloudColor;
             }
         };
         border.Tapped += (_, _) =>
         {
-            border.Background = ColorPaletteNebula.PressColor;
+            border.Background = ColorPaletteNebula.ChatPress;
+            border.BorderBrush = ColorPaletteNebula.GlacierMistColor;
             if (_mainWindowViewModel.CurrentChat.ChatId != chat.ChatId)
             {
                 _mainWindowViewModel.CurrentChat.ChatBorder.Background = ColorPaletteNebula.BackgroundColor;
+                _mainWindowViewModel.CurrentChat.ChatBorder.BorderBrush = ColorPaletteNebula.ChatCloudColor;
                 _mainWindowViewModel.SelectedChat = chat;
             }
         };
 
         _mainWindowViewModel.ChatList.Add(chat);
         ChatList.Children.Add(border);
-
-        
-
     }
 
     public async void DeleteChat(string chatId)
