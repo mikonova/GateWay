@@ -78,8 +78,12 @@ public class ApiService
         var response = await _http.PostAsync($"{_serverUrl}/chats",
             new StringContent(body, Encoding.UTF8, "application/json"));
 
+        var content = await response.Content.ReadAsStringAsync();
+        Console.WriteLine($"Статус: {response.StatusCode}, Ответ: {content}");
+
         if (!response.IsSuccessStatusCode)
-            throw new Exception("Не удалось создать чат");
+            throw new Exception($"Не удалось создать чат: {content}");
+        // ...
 
         var json = JsonSerializer.Deserialize<JsonElement>(
             await response.Content.ReadAsStringAsync());

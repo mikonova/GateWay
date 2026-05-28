@@ -9,14 +9,14 @@ namespace CoreClasses.Tests;
 public class ApiServiceTests
 {
     private readonly ApiService _api;
-    private readonly string _testNickname = "testusermhjfjgfjhfjgfjg";
+    private readonly string _testNickname = "userkdkdk";
     private readonly string _testPassword = "testpass123";
-    private readonly KeyStorage _keyStorage = new KeyStorage("C:\\Users\\miko\\git\\GateWay\\bin\\Debug\\net10.0");
+    private readonly KeyStorage _keyStorage = new KeyStorage("C:\\Users\\nteli\\Desktop\\GateWayTests");
     private string? _token;
 
     public ApiServiceTests()
     {
-        _api = new ApiService("http://192.168.43.151:8000");
+        _api = new ApiService("http://192.168.0.18:8000");
     }
     
     [Fact]
@@ -197,5 +197,16 @@ public class ApiServiceTests
 
         Assert.NotEmpty(messages);
         Console.WriteLine($"Сообщений: {messages.Count}");
+    }
+    [Fact]
+    public async Task CreateChat_Debug()
+    {
+        var token = await _api.LoginAsync("crabic", "lorap");
+        _api.SetToken(token);
+
+        var chatId = await _api.CreateChatAsync("тест чат", false,
+            new List<string> { "crabic", "nteli" });
+
+        Console.WriteLine($"Chat ID: {chatId}");
     }
 }

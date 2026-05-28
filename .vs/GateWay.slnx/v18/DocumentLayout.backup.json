@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\nteli\\Desktop\\GateWay\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|c:\\users\\nteli\\desktop\\gateway\\tests\\coreclasses.tests\\apiservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|solutionrelative:tests\\coreclasses.tests\\apiservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|c:\\users\\nteli\\desktop\\gateway\\models\\chatstorage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|solutionrelative:models\\chatstorage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,6 +23,10 @@
       "RelativeMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|solutionrelative:models\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|c:\\users\\nteli\\desktop\\gateway\\tests\\coreclasses.tests\\apiservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFB4F09-4346-C111-E7D8-25B52AC7F2F5}|Tests\\CoreClasses.Tests\\CoreClasses.Tests.csproj|solutionrelative:tests\\coreclasses.tests\\apiservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|c:\\users\\nteli\\desktop\\gateway\\models\\websocketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|solutionrelative:models\\websocketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -38,11 +38,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ChatStorage.cs",
               "DocumentMoniker": "C:\\Users\\nteli\\Desktop\\GateWay\\Models\\ChatStorage.cs",
               "RelativeDocumentMoniker": "Models\\ChatStorage.cs",
@@ -55,7 +55,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "ApiService.cs",
               "DocumentMoniker": "C:\\Users\\nteli\\Desktop\\GateWay\\Models\\ApiService.cs",
               "RelativeDocumentMoniker": "Models\\ApiService.cs",
@@ -68,7 +68,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "ChatPreview.cs",
               "DocumentMoniker": "C:\\Users\\nteli\\Desktop\\GateWay\\Models\\ChatPreview.cs",
               "RelativeDocumentMoniker": "Models\\ChatPreview.cs",
@@ -81,7 +81,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "AddNewChatWindow.axaml.cs",
               "DocumentMoniker": "C:\\Users\\nteli\\Desktop\\GateWay\\Views\\AddNewChatWindow.axaml.cs",
               "RelativeDocumentMoniker": "Views\\AddNewChatWindow.axaml.cs",
@@ -107,20 +107,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "ApiServiceTests.cs",
               "DocumentMoniker": "C:\\Users\\nteli\\Desktop\\GateWay\\Tests\\CoreClasses.Tests\\ApiServiceTests.cs",
               "RelativeDocumentMoniker": "Tests\\CoreClasses.Tests\\ApiServiceTests.cs",
               "ToolTip": "C:\\Users\\nteli\\Desktop\\GateWay\\Tests\\CoreClasses.Tests\\ApiServiceTests.cs",
               "RelativeToolTip": "Tests\\CoreClasses.Tests\\ApiServiceTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAAANEAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-28T20:01:02.651Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Templates.cs",
               "DocumentMoniker": "C:\\Users\\nteli\\Desktop\\GateWay\\Models\\Templates.cs",
               "RelativeDocumentMoniker": "Models\\Templates.cs",
