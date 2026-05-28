@@ -43,7 +43,7 @@ public partial class App : Application
         _mainWindow.RegistrationForm.IsVisible = false;
         _mainWindow.LoginForm.IsVisible = false;
         _mainWindow.LoginSuggestion.IsVisible = false;
-        _mainWindowViewModel.IsUserSessionActive = true;//_templates.IsUserRegistered();
+        _mainWindowViewModel.IsUserSessionActive = _templates.IsUserRegistered();
         
     }
     
