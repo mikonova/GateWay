@@ -27,8 +27,8 @@ public partial class MainWindow : Window
         _mainWindowViewModel = ViewModel;
         InitializeComponent();
         // тесты ,удалить 
-        //AddChatToList("123", "miko", "Привчедел", false);
-        //AddChatToList("124", "Вася", "Го в кино", true);
+        AddChatToList("123", "miko", "Привчедел", false);
+        AddChatToList("124", "Вася", "Го в кино", true);
         //AddChatToList("125", "Леша", "Ты тут?", false);
         //LoadMessage("123", "miko", "safdfgsdWAUKJHGFDSSDHGFDSFSsgdfgfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsfd", "2026-05-21T14:30:45+02:00", true);
         //LoadMessage("123", "Леша", "safdfgsdsfd", "2026-05-21T14:30:45Z", false);
@@ -87,7 +87,7 @@ public partial class MainWindow : Window
     
     private void AddChatBtn_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        AddNewChatWindow addNewChatWindow = new AddNewChatWindow();
+        AddNewChatWindow addNewChatWindow = new AddNewChatWindow(_template);
         addNewChatWindow.ShowDialog(this);
     }
     

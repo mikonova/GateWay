@@ -165,6 +165,6 @@ namespace CoreClasses
         }
 
         public void DeleteChat(string chatId) => _chatStorage.DeleteChat(chatId);
-        public void CreateChat(string name, byte[] key) => _chatStorage.CreateChat(name, key);
+        public string CreateChat(string name, byte[] key) => _chatStorage.CreateChat(name, key);
     }
 }

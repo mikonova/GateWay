@@ -1,0 +1,103 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:color="clr-namespace:ColorPalette"
+        mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="280"
+        x:Class="GateWay.Views.AddNewChatWindow"
+        Title="Добавить чат"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight"
+        CanResize="False"
+        WindowDecorations="None"
+        Background="Transparent"
+        TransparencyLevelHint="AcrylicBlur">
+
+    <Border Background="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"
+            CornerRadius="12"
+            BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+            BorderThickness="1"
+            Padding="20"
+            BoxShadow="0 4 20 #00000080">
+        
+        <StackPanel Spacing="12" Width="280">
+            
+            <!-- Заголовок -->
+            <TextBlock Text="Новый чат"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                       HorizontalAlignment="Center"
+                       Margin="0 0 0 8"/>
+            
+            <!-- Имя пользователя -->
+            <TextBox Name="UserNameField"
+                     PlaceholderText="Имя пользователя (макс. 20)"
+                     MaxLength="20"
+                     FontSize="14"
+                     Padding="10 8"
+                     Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                     Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                     BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                     BorderThickness="1"
+                     CornerRadius="6"
+                     TextAlignment="Center"/>
+            
+            <!-- Публичный ключ -->
+            <TextBox Name="PublicKeyField"
+                     PlaceholderText="Публичный ключ"
+                     FontSize="14"
+                     Padding="10 8"
+                     Background="{Binding Source={x:Static color:ColorPaletteNebula.OnBgColor}}"
+                     Foreground="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"
+                     BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                     BorderThickness="1"
+                     CornerRadius="6"
+                     TextAlignment="Center"/>
+            
+            <!-- Кнопки -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="16" Margin="0 8 0 0">
+                
+                <Label Name="AddButton"
+                       Content="Добавить"
+                       Padding="20 8"
+                       CornerRadius="6"
+                       Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                       Cursor="Hand"
+                       PointerEntered="AddButton_OnPointerEntered"
+                       PointerExited="AddButton_OnPointerExited"
+                       PointerPressed="AddButton_OnPointerPressed">
+                    <Label.Styles>
+                        <Style Selector="Label TextBlock">
+                            <Setter Property="Foreground" Value="{Binding Source={x:Static color:ColorPaletteNebula.BackgroundColor}}"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                        </Style>
+                    </Label.Styles>
+                </Label>
+                
+                <Label Name="CancelButton"
+                       Content="Отмена"
+                       Padding="20 8"
+                       CornerRadius="6"
+                       Background="Transparent"
+                       BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                       BorderThickness="1"
+                       Cursor="Hand"
+                       PointerEntered="CancelButton_OnPointerEntered"
+                       PointerExited="CancelButton_OnPointerExited"
+                       PointerPressed="CancelButton_OnPointerPressed">
+                    <Label.Styles>
+                        <Style Selector="Label TextBlock">
+                            <Setter Property="Foreground" Value="{Binding Source={x:Static color:ColorPaletteNebula.GlacierMistColor}}"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontSize" Value="14"/>
+                        </Style>
+                    </Label.Styles>
+                </Label>
+                
+            </StackPanel>
+            
+        </StackPanel>
+    </Border>
+</Window>

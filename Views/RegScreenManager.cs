@@ -22,7 +22,6 @@ public partial class MainWindow
         CreateUserLabel.Background = ColorPaletteNebula.ChatPress;
         LoginSuggestion.IsVisible = false;
         RegistrationForm.IsVisible = true;
-        LoginForm.IsVisible = false;
     }
 
     private void CreateUserLabel_OnPointerEntered(object? sender, PointerEventArgs e)

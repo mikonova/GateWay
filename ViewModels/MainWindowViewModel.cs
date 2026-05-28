@@ -5,6 +5,10 @@ using Avalonia.Controls;
 using GateWay.Views;
 using GateWay;
 using CoreClasses;
+using System.IO;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace GateWay.ViewModels;
 
@@ -19,8 +23,20 @@ public partial class MainWindowViewModel : ViewModelBase
         get => CurrentChat;
         set
         {
+            CurrentWindow?.ChatSendBar.IsVisible = true;
+            CurrentWindow?.StackMessages.Children.Clear();
             CurrentChat = value;
-            _template.LoadMessages(value.ChatId, 0);
+            try
+            {
+                _template.LoadMessages(value.ChatId, 0);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
+                    $"Ошибка загрузки сообщений:\n {ex.Message}", ButtonEnum.Ok);
+                box.ShowAsPopupAsync(CurrentWindow);
+            }
+
             CurrentWindow.MessageScroller.ScrollToEnd();
         }
     }
@@ -52,14 +68,13 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         if (_isUserSessionActive)
         {
-            CurrentWindow.LoginScreen.IsVisible = false;
-            CurrentWindow.UserLogged.IsVisible = true;
-            _template.LoadAllChats();
+            CurrentWindow.LoginScreen.IsVisible = true;
+            CurrentWindow.LoginForm.IsVisible = true;
         }
         else
         {
             CurrentWindow.LoginScreen.IsVisible = true;
-            CurrentWindow.UserLogged.IsVisible = false;
+            CurrentWindow.LoginSuggestion.IsVisible = true;
         }
         return Task.CompletedTask;
     }

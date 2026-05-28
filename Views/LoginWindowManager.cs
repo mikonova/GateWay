@@ -45,11 +45,18 @@ public partial class MainWindow
             try
             {
                 await _template.LoginUser(_login, _password);
+                _template.LoadAllChats();
+                LoginForm.IsVisible = false;
+                LoginScreen.IsVisible = false;
+                UserLogged.IsVisible = true;
             }
             catch (Exception ex)
             {
                 LoginWarning.Text = $"Ошибка: {ex.Message}";
                 LoginWarning.IsVisible = true;
+                LoginScreen.IsVisible = true;
+                LoginForm.IsVisible = true;
+                UserLogged.IsVisible = false;
                 return;
             }
         }
@@ -67,12 +74,12 @@ public partial class MainWindow
 
     private void AcceptLogin_OnPointerExited(object? sender, PointerEventArgs e)
     {
-        AcceptName.Background = ColorPaletteNebula.ChatCloudColor;
+        AcceptLogin.Background = ColorPaletteNebula.ChatCloudColor;
     }
 
     private void AcceptLogin_OnPointerEntered(object? sender, PointerEventArgs e)
     {
-        AcceptName.Background = ColorPaletteNebula.ChatHover;
+        AcceptLogin.Background = ColorPaletteNebula.ChatHover;
     }
     private void BackButtonLogin_OnPointerEntered(object? sender, PointerEventArgs e)
     {
