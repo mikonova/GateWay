@@ -42,7 +42,9 @@ public partial class AddNewChatWindow : Window
                 var msbox = MessageBoxManager.GetMessageBoxStandard("Ой!",
                     $"Произошла ошибка {ex}", ButtonEnum.Ok);
                 msbox.ShowAsPopupAsync(this);
+                return;
             }
+            this.Close();
         }
     }
     

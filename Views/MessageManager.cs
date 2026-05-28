@@ -132,16 +132,16 @@ public partial class MainWindow
         }   
     }
 
-    void SendMessage(string ChatId, string Content)
+    private void _sendMessage(string ChatId, string Content)
     {
         _template.SendMessage(ChatId, Content);
+        MessageInput.Text = String.Empty;
     }
 
     
     private void SendButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        SendMessage(_mainWindowViewModel.SelectedChat.ChatId, MessageInput.Text);
-        MessageInput.Text = String.Empty;
+        _sendMessage(_mainWindowViewModel.SelectedChat.ChatId, MessageInput.Text);
     }
 }
 /*
