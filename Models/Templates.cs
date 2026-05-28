@@ -76,6 +76,20 @@ namespace CoreClasses
                                 decryptedContent, sentAt, false);
                         });
                         break;
+
+                    case "new_chat":
+                        var newChatId = json.GetProperty("chat_id").GetInt32().ToString();
+                        var creatorName = json.GetProperty("creator_name").GetString() ?? string.Empty;
+                        var creatorKey = json.GetProperty("creator_key").GetString() ?? string.Empty;
+
+                        var creatorKeyBytes = Convert.FromBase64String(creatorKey);
+                        _chatStorage.CreateChat(creatorName, creatorKeyBytes, newChatId);
+
+                        await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
+                        {
+                            Mainwindow.AddChatToList(newChatId, creatorName, "Начните общение!", false);
+                        });
+                        break;
                 }
             }
             catch (Exception ex)
