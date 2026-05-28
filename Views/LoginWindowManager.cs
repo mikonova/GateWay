@@ -37,8 +37,8 @@ public partial class MainWindow
        private async void AcceptLogin_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         AcceptName.Background = ColorPaletteNebula.ChatPress;
-        string _login = RegUserNameField.Text;
-        string _password = RegUserPassField.Text;
+        string _login = LoginUserNameField.Text;
+        string _password = LoginPassField.Text;
         if (!string.IsNullOrEmpty(_login) &&
             !string.IsNullOrEmpty(_password))
         {
