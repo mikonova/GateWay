@@ -85,5 +85,10 @@ public partial class MainWindow : Window
         this.WindowState = WindowState.Minimized;
     }
     
+    private void AddChatBtn_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        AddNewChatWindow addNewChatWindow = new AddNewChatWindow();
+        addNewChatWindow.ShowDialog(this);
+    }
     
 }

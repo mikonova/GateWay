@@ -20,12 +20,13 @@ public partial class MainWindowViewModel : ViewModelBase
         set
         {
             CurrentChat = value;
-            // сюда можно поставить проверку/логику
+            _template.LoadMessages(value.ChatId, 0);
+            CurrentWindow.MessageScroller.ScrollToEnd();
         }
     }
     public List<Chat> ChatList = new List<Chat>();
     private bool _isUserSessionActive;
-    
+    private int _sessionCheckupRes;
     
     public bool IsUserSessionActive
     {
@@ -33,7 +34,7 @@ public partial class MainWindowViewModel : ViewModelBase
         set
         {
             _isUserSessionActive = value;
-            CheckUserSession().Wait();
+            AsyncUserCheckUp();
         }
     }
     
@@ -41,8 +42,13 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         _template = template;
     }
+
+    private async void AsyncUserCheckUp()
+    {
+        await CheckUserSession();
+    }
     
-    private async Task CheckUserSession()
+    private Task CheckUserSession()
     {
         if (_isUserSessionActive)
         {
@@ -55,5 +61,6 @@ public partial class MainWindowViewModel : ViewModelBase
             CurrentWindow.LoginScreen.IsVisible = true;
             CurrentWindow.UserLogged.IsVisible = false;
         }
+        return Task.CompletedTask;
     }
 }

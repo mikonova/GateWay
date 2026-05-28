@@ -76,12 +76,12 @@ public partial class MainWindow
     }
     private void BackButtonLogin_OnPointerEntered(object? sender, PointerEventArgs e)
     {
-        BackButtonSimple.Background = ColorPaletteNebula.ChatHover;
+        BackButtonLogin.Background = ColorPaletteNebula.ChatHover;
     }
 
     private void BackButtonLogin_OnPointerExited(object? sender, PointerEventArgs e)
     {
-        BackButtonSimple.Background = ColorPaletteNebula.OnBgColor;
+        BackButtonLogin.Background = Brushes.Transparent;
     }
     private void BackButtonLogin_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
@@ -89,6 +89,7 @@ public partial class MainWindow
         LoginUserNameField.Clear();
         LoginPassField.Clear();
         LoginSuggestion.IsVisible = true;
+        LoginForm.IsVisible = false;
         RegistrationForm.IsVisible = false;
     }
 }

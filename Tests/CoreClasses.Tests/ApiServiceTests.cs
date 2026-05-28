@@ -9,9 +9,9 @@ namespace CoreClasses.Tests;
 public class ApiServiceTests
 {
     private readonly ApiService _api;
-    private readonly string _testNickname = "testuser";
+    private readonly string _testNickname = "testusermhjfjgfjhfjgfjg";
     private readonly string _testPassword = "testpass123";
-    private readonly KeyStorage _keyStorage = new KeyStorage("C:\\Users\\Family\\Desktop\\GateWayTests");
+    private readonly KeyStorage _keyStorage = new KeyStorage("C:\\Users\\miko\\git\\GateWay\\bin\\Debug\\net10.0");
     private string? _token;
 
     public ApiServiceTests()

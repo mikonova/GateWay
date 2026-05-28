@@ -13,6 +13,7 @@ using CoreClasses;
 
 namespace GateWay.Views;
 
+
 public partial class MainWindow
 {
     
@@ -89,6 +90,7 @@ public partial class MainWindow
         grid.Children.Add(senderSignature);
         grid.Children.Add(contentSignature);
         grid.Children.Add(timeSignature);
+        _mainWindowViewModel.SelectedChat.AddPage();
         
         Grid.SetRow(senderSignature, 0);
         Grid.SetRow(upperSeparator, 1);
@@ -99,7 +101,7 @@ public partial class MainWindow
         message.Child = grid;
         DockPanel.SetDock(message, Dock.Bottom);
         StackMessages.Children.Add(message);
-        MessageScroller.ScrollToEnd();
+        
         
         if (isOutgoing)
         {
@@ -122,7 +124,7 @@ public partial class MainWindow
             
             double OldExtHeight = MessageScroller.Extent.Height;
             
-            // добавление новой пачки В ЭТОМ МЕСТЕ
+            //_template.LoadMessages(_mainWindowViewModel.SelectedChat.ChatId, _mainWindowViewModel.SelectedChat.GetPagesLoaded());
             
             double NewExtHeight = MessageScroller.Extent.Height;
             double delta = OldExtHeight - NewExtHeight;
@@ -132,7 +134,14 @@ public partial class MainWindow
 
     void SendMessage(string ChatId, string Content)
     {
-        _template.SendMessage(ChatId, Content).Wait();
+        _template.SendMessage(ChatId, Content);
+    }
+
+    
+    private void SendButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        SendMessage(_mainWindowViewModel.SelectedChat.ChatId, MessageInput.Text);
+        MessageInput.Text = String.Empty;
     }
 }
 /*

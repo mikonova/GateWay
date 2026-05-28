@@ -57,8 +57,8 @@ public partial class MainWindow
                 UserWarning.IsVisible = true;
                 return;
             }
-            var key = _template.GetMyPublicKey();
-            if (key == null)
+            byte[]? key = _template.GetMyPublicKey();
+            if (string.IsNullOrEmpty(Convert.ToBase64String(key)))
             {
                 UserWarning.Text = "Ошибка регистрации — ключ не сохранён";
                 UserWarning.IsVisible = true;
@@ -111,7 +111,7 @@ public partial class MainWindow
 
     private void BackButtonSimple_OnPointerExited(object? sender, PointerEventArgs e)
     {
-        BackButtonSimple.Background = ColorPaletteNebula.OnBgColor;
+        BackButtonSimple.Background = new SolidColorBrush(Colors.Transparent);
     }
     private void BackButtonSimple_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
