@@ -44,11 +44,12 @@ public partial class MainWindow
         {
             try
             {
-                await _template.LoginUser(_login, _password);
+                var token = await _template.LoginUser(_login, _password);
                 _template.LoadAllChats();
                 LoginForm.IsVisible = false;
                 LoginScreen.IsVisible = false;
                 UserLogged.IsVisible = true;
+                await _template.StartConnectionToServer(token);
             }
             catch (Exception ex)
             {

@@ -40,7 +40,7 @@ namespace CoreClasses
             await _ws.ConnectAsync(token);
         }
 
-        private void OnMessageReceived(object? sender, JsonElement json)
+        private async void OnMessageReceived(object? sender, JsonElement json)
         {
             try
             {
@@ -70,8 +70,11 @@ namespace CoreClasses
                         };
 
                         _chatStorage.SaveMessage(chatId, message);
-                        Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
-                            decryptedContent, sentAt, false);
+                        await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
+                        {
+                            Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
+                                decryptedContent, sentAt, false);
+                        });
                         break;
                 }
             }
