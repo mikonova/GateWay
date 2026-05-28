@@ -28,9 +28,14 @@ public class Chat
         return _pagesLoaded;
     }
 
-    private int AddPage()
+    public int AddPage()
     {
         _pagesLoaded++;
+        return _pagesLoaded;
+    }
+    public int ClearPages()
+    {
+        _pagesLoaded = 0;
         return _pagesLoaded;
     }
 }
@@ -129,6 +134,7 @@ public partial class MainWindow
             {
                 _mainWindowViewModel.CurrentChat.ChatBorder.Background = ColorPaletteNebula.BackgroundColor;
                 _mainWindowViewModel.CurrentChat.ChatBorder.BorderBrush = ColorPaletteNebula.ChatCloudColor;
+                _mainWindowViewModel.CurrentChat.ClearPages();
                 _mainWindowViewModel.SelectedChat = chat;
             }
         };

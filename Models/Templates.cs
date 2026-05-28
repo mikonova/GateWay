@@ -17,8 +17,8 @@ namespace CoreClasses
         private readonly ApiService _api;
         private readonly WebSocketService _ws;
 
-        private readonly string _serverUrl = "http://192.168.0.18:8000";
-        private readonly string _wsUrl = "ws://192.168.0.18:8000";
+        private readonly string _serverUrl = "http://192.168.43.151:8000";
+        private readonly string _wsUrl = "ws://192.168.43.151:8000";
 
         public Templates(string rootPath)
         {

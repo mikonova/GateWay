@@ -23,12 +23,12 @@ public partial class LoginWindow : Window
         _template = template;
         _window = window;
         _publicKey = key;
+        PublicKeyTextBlock.Text = _publicKey;
         
     }
 
     private void CopyButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        PublicKeyTextBlock.Text = _publicKey;
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
         clipboard.SetTextAsync(_publicKey);
         var box = MessageBoxManager.GetMessageBoxStandard("Ой!",

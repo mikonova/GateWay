@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Avalonia.Input;
 
 namespace GateWay.Views;
 
@@ -18,4 +19,5 @@ public partial class MainWindow
 
         return Regex.IsMatch(password, pattern);
     }
+    
 }
