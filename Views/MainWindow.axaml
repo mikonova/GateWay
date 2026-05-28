@@ -263,6 +263,7 @@
                         Background="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
                         Cursor="Hand"
                         BorderBrush="{Binding Source={x:Static color:ColorPaletteNebula.ChatCloudColor}}"
+                        BorderThickness="2"
                         PointerEntered="LogUserLabel_OnPointerEntered"
                         PointerExited="LogUserLabel_OnPointerExited"
                         PointerPressed="LogUserLabel_OnPointerPressed">
