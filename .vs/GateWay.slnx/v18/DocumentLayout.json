@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nteli\\Desktop\\GateWay\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|c:\\users\\nteli\\desktop\\gateway\\models\\templates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94112108-F8DF-5F33-FCC7-943C584AEA0E}|GateWay.csproj|solutionrelative:models\\templates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Templates.cs",
+              "DocumentMoniker": "C:\\Users\\nteli\\Desktop\\GateWay\\Models\\Templates.cs",
+              "RelativeDocumentMoniker": "Models\\Templates.cs",
+              "ToolTip": "C:\\Users\\nteli\\Desktop\\GateWay\\Models\\Templates.cs",
+              "RelativeToolTip": "Models\\Templates.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAqwE8AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T22:31:02.994Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
