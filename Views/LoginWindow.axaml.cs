@@ -41,7 +41,6 @@ public partial class LoginWindow : Window
         }
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
         clipboard.SetTextAsync(_publicKey);
-        this.Close();
     }
 
     private void OkLabel_OnPointerPressed(object? sender, PointerPressedEventArgs e)
