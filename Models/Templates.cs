@@ -1,6 +1,7 @@
 ﻿using GateWay.ViewModels;
 using GateWay.Views;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -16,9 +17,10 @@ namespace CoreClasses
         private readonly CryptoService _crypto;
         private readonly ApiService _api;
         private readonly WebSocketService _ws;
+        private string user_name;
 
-        private readonly string _serverUrl = "http://192.168.43.151:8000";
-        private readonly string _wsUrl = "ws://192.168.43.151:8000";
+        private readonly string _serverUrl = "http://192.168.0.18:8000";
+        private readonly string _wsUrl = "ws://192.168.0.18:8000";
 
         public Templates(string rootPath)
         {
@@ -101,7 +103,9 @@ namespace CoreClasses
         public async Task<string> LoginUser(string name, string password)
         {
             var token = await _api.LoginAsync(name, password);
+            _api.SetToken(token);
             _keyStorage.SaveToken(token);
+            user_name = name;
             return token;
         }
 
@@ -165,6 +169,14 @@ namespace CoreClasses
         }
 
         public void DeleteChat(string chatId) => _chatStorage.DeleteChat(chatId);
-        public string CreateChat(string name, byte[] key) => _chatStorage.CreateChat(name, key);
+        public async Task<string> CreateChat(string name, byte[] key) {
+            var chat_id = await _api.CreateChatAsync($"chat with {name}", false,
+            new List<string> { name, user_name });
+
+            _chatStorage.CreateChat(name, key, chat_id.ToString());
+
+            return chat_id.ToString();
+        }
+
     }
 }

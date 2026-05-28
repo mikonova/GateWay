@@ -21,7 +21,7 @@ public partial class AddNewChatWindow : Window
     }
     private void AddButton_OnPointerEntered(object? s, PointerEventArgs e) => AddButton.Background = ColorPaletteNebula.ChatHover;
     private void AddButton_OnPointerExited(object? s, PointerEventArgs e) => AddButton.Background = ColorPaletteNebula.ChatCloudColor;
-    private void AddButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    private async void AddButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         string name = UserNameField.Text;
         string key = PublicKeyField.Text;
@@ -32,8 +32,8 @@ public partial class AddNewChatWindow : Window
         {
             var _convertedKey = Convert.FromBase64String(key);
             try
-            { 
-               string ChatId = _templates.CreateChat(name, _convertedKey);
+            {
+                string ChatId = await _templates.CreateChat(name, _convertedKey);
                 MainWindow window = Owner as MainWindow;
                 window.AddChatToList(ChatId, name, "Начните общение!", false);
             }

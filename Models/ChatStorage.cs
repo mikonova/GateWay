@@ -26,11 +26,9 @@ public class ChatStorage
 
     // ===================== ЧАТЫ =====================
 
-    public string CreateChat(string name, byte[] publicKey)
+    public string CreateChat(string name, byte[] publicKey, string chatId)
     {
-        var chatId = ComputeChatId(publicKey);
         var chatPath = GetChatPath(chatId);
-
         Directory.CreateDirectory(chatPath);
 
         var infoPath = Path.Combine(chatPath, "info.txt");
@@ -38,7 +36,7 @@ public class ChatStorage
         {
             File.WriteAllLines(infoPath, [
                 name,
-                Convert.ToBase64String(publicKey)
+            Convert.ToBase64String(publicKey)
             ]);
         }
 
