@@ -27,13 +27,20 @@ public partial class LoginWindow : Window
         
     }
 
-    private void CopyButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    private async void CopyButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        if (string.IsNullOrEmpty(_publicKey))
+        {
+            var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
+                "Кажется произошла ошибка и ключ не сгенерировался", ButtonEnum.Ok);
+            var okPressed = await box.ShowAsync();
+            if (okPressed == ButtonResult.Ok)
+            {
+                this.Close();
+            }
+        }
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
         clipboard.SetTextAsync(_publicKey);
-        var box = MessageBoxManager.GetMessageBoxStandard("Ой!",
-            "Кажется произошла ошибка и ключ не сгенерировался", ButtonEnum.Ok);
-        box.ShowAsync();
         this.Close();
     }
 
