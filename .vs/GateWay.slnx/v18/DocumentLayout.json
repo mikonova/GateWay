@@ -50,8 +50,7 @@
               "RelativeToolTip": "Models\\ChatStorage.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAgwBwAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-28T20:51:45.952Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-28T20:51:45.952Z"
             },
             {
               "$type": "Document",
@@ -63,8 +62,7 @@
               "RelativeToolTip": "Models\\ApiService.cs",
               "ViewState": "AgIAAEEAAAAAAAAAAAAAwFUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-28T20:32:53.963Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-28T20:32:53.963Z"
             },
             {
               "$type": "Document",
@@ -76,8 +74,7 @@
               "RelativeToolTip": "Models\\ChatPreview.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-28T20:32:52.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-28T20:32:52.901Z"
             },
             {
               "$type": "Document",
@@ -89,8 +86,7 @@
               "RelativeToolTip": "Views\\AddNewChatWindow.axaml.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAMwCMAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-28T20:25:21.494Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-28T20:25:21.494Z"
             },
             {
               "$type": "Document",
@@ -102,8 +98,7 @@
               "RelativeToolTip": "Models\\WebSocketService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-28T20:12:42.729Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-28T20:12:42.729Z"
             },
             {
               "$type": "Document",
@@ -113,7 +108,7 @@
               "RelativeDocumentMoniker": "Tests\\CoreClasses.Tests\\ApiServiceTests.cs",
               "ToolTip": "C:\\Users\\nteli\\Desktop\\GateWay\\Tests\\CoreClasses.Tests\\ApiServiceTests.cs",
               "RelativeToolTip": "Tests\\CoreClasses.Tests\\ApiServiceTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-28T20:01:02.651Z",
               "EditorCaption": ""
@@ -128,8 +123,7 @@
               "RelativeToolTip": "Models\\Templates.cs",
               "ViewState": "AgIAAKIAAAAAAAAAAAAUwK8AAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-28T19:43:55.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-28T19:43:55.553Z"
             }
           ]
         }
