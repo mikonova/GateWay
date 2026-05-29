@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Avalonia.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -154,7 +155,10 @@ public partial class MainWindow
         }
     
         StackMessages.Children.Insert(0, msg);
-        MessageScroller.ScrollToEnd();
+        Dispatcher.UIThread.Post(() => 
+        {
+            MessageScroller.ScrollToEnd();
+        }, DispatcherPriority.Render);
     }
 }
 /*
