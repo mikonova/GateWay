@@ -1,4 +1,5 @@
-﻿using GateWay.ViewModels;
+﻿using Avalonia.Controls;
+using GateWay.ViewModels;
 using GateWay.Views;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,15 @@ namespace CoreClasses
                             Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
                                 decryptedContent, sentAt, false);
                         });
+
+                        /*var chat_to_update = MainWindowViewModel.ChatList.Find(chat => chat.ChatId == chatId);
+                        Grid grid = chat_to_update.ChatBorder.Child as Grid;
+                        var t = grid.Children[0] as TextBlock;
+                        t.Text = decryptedContent;*/
+
+                        Mainwindow.RemoveAllChats();
+                        this.LoadAllChats();
+
                         break;
 
                     case "new_chat":
@@ -158,15 +168,15 @@ namespace CoreClasses
             await _api.SendMessageAsync(int.Parse(chatId),
                 Convert.ToBase64String(encryptedContent));
 
-            var message = new Message
+            /*var message = new Message
             {
                 Id = Guid.NewGuid().ToString(),
                 SenderId = user_name,
                 Content = content,
                 SentAt = DateTimeOffset.UtcNow,
                 IsOutgoing = true
-            };
-            _chatStorage.SaveMessage(chatId, message);
+            };*/
+            //_chatStorage.SaveMessage(chatId, message);
 
             var msg = await Mainwindow.LoadMessage(chatId, user_name, content, DateTime.UtcNow.ToString(), true);
             Mainwindow.MessageReclipToBottom(msg);
