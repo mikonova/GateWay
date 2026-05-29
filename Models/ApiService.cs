@@ -52,8 +52,14 @@ public class ApiService
         var json = JsonSerializer.Deserialize<JsonElement>(
             await response.Content.ReadAsStringAsync());
 
+
+        
+
         return json.GetProperty("access_token").GetString()
                ?? throw new Exception("Токен не получен");
+
+
+        
     }
 
     public async Task UploadPublicKeyAsync(string publicKeyBase64)
@@ -141,6 +147,22 @@ public class ApiService
         if (!response.IsSuccessStatusCode)
             throw new Exception("Не удалось отправить сообщение");
     }
+
+    public async Task<int?> WhoamiAsync()
+    {
+        var response = await _http.GetAsync($"{_serverUrl}/whoami");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new Exception($"Не удалось получить информацию о пользователе: {response.StatusCode} - {errorContent}");
+        }
+
+        var json = JsonSerializer.Deserialize<JsonElement>(
+            await response.Content.ReadAsStringAsync());
+
+        return json.GetProperty("user_id").GetInt32();
+}
 
     public async Task<List<JsonElement>> GetMessagesAsync(int chatId, int limit = 50)
     {
