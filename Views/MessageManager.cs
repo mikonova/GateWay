@@ -17,8 +17,9 @@ namespace GateWay.Views;
 public partial class MainWindow
 {
     
-    public void LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing)
-    {
+        public async Task<Border> LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing) { 
+
+       
         if (_mainWindowViewModel.SelectedChat == null)
         {
             //throw new Exception("No selected chat!");
@@ -103,7 +104,7 @@ public partial class MainWindow
         StackMessages.Children.Add(message);
         
         
-        if (isOutgoing)
+        if (!isOutgoing)
         {
             message.Background = ColorPaletteNebula.OnBgColor;
             message.HorizontalAlignment = HorizontalAlignment.Left;
@@ -113,6 +114,8 @@ public partial class MainWindow
             message.Background = ColorPaletteNebula.ChatCloudColor;
             message.HorizontalAlignment = HorizontalAlignment.Right;
         }
+
+        return message;
     }
     
     // отслеживание пачек сообщений для загрузки
@@ -142,6 +145,17 @@ public partial class MainWindow
     private void SendButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         _sendMessage(_mainWindowViewModel.SelectedChat.ChatId, MessageInput.Text);
+    }
+
+    public void MessageReclipToBottom(Border msg)
+    {
+        if (StackMessages.Children.Contains(msg))
+        {
+            StackMessages.Children.Remove(msg);
+        }
+    
+        StackMessages.Children.Insert(0, msg);
+        MessageScroller.ScrollToEnd();
     }
 }
 /*
