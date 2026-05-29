@@ -183,8 +183,8 @@ namespace CoreClasses
             };*/
             //_chatStorage.SaveMessage(chatId, message);
 
-            var msg = Mainwindow.LoadMessage(chatId, user_name, content, DateTime.UtcNow.ToString(), true);
-            Mainwindow.MessageReclipToBottom(msg);
+            /*var msg = Mainwindow.LoadMessage(chatId, user_name, content, DateTime.UtcNow.ToString(), true);
+            Mainwindow.MessageReclipToBottom(msg);*/
         }
 
         public void LoadMessages(string chatId, int downloaded)
