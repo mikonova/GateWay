@@ -41,7 +41,7 @@ public class Chat
 }
 public partial class MainWindow
 {
-        public async void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
+        public void AddChatToList(string chatId, string senderAlias, string lastSentence, bool isSelf)
     {
         Border? border = new Border
         {
@@ -150,7 +150,7 @@ public partial class MainWindow
         ChatList.Children.Remove(chat.ChatBorder);
     }
 
-    public async void RemoveAllChats()
+    public void RemoveAllChats()
     {
         ChatList.Children.Clear();
     }
