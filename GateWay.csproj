@@ -28,7 +28,7 @@
   <Compile Remove="Tests\**" />
   <EmbeddedResource Remove="Tests\**" />
   <None Remove="Tests\**" />
-  <Compile Update="Views\LoginWindow.axaml.cs">
+  <Compile Update="Views\CopyKeyWindow.axaml.cs">
     <DependentUpon>KeyRevealWindow.axaml</DependentUpon>
   </Compile>
   <PackageReference Include="MessageBox.Avalonia" Version="12.0.0" />

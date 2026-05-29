@@ -162,7 +162,7 @@ namespace CoreClasses
             };
             _chatStorage.SaveMessage(chatId, message);
 
-            var msg = Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId), content, DateTime.UtcNow.ToString(), true);
+            var msg = await Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId), content, DateTime.UtcNow.ToString(), true);
             Mainwindow.MessageReclipToBottom(msg);
         }
 

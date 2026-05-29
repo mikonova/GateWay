@@ -146,9 +146,8 @@ public partial class MainWindow
         _sendMessage(_mainWindowViewModel.SelectedChat.ChatId, MessageInput.Text);
     }
 
-    public async void MessageReclipToBottom(Task<Border> tmsg)
+    public void MessageReclipToBottom(Border msg)
     {
-        Border msg = await tmsg;
         if (StackMessages.Children.Contains(msg))
         {
             StackMessages.Children.Remove(msg);

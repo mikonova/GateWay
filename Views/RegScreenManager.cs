@@ -64,7 +64,7 @@ public partial class MainWindow
                 return;
             }
             PublicKey = Convert.ToBase64String(key);
-            LoginWindow LoginInfo = new LoginWindow(_template, this, PublicKey); 
+            CopyKeyWindow LoginInfo = new CopyKeyWindow(_template, this, PublicKey); 
             LoginInfo.ShowDialog(this);
         }
         else if (!_isValidUsername(_login))
