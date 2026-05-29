@@ -2,6 +2,7 @@
 using GateWay.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace CoreClasses
         private readonly ApiService _api;
         private readonly WebSocketService _ws;
         private string user_name;
+        private string root;
 
         private readonly string _serverUrl = "http://192.168.43.151:8000";
         private readonly string _wsUrl = "ws://192.168.43.151:8000";
@@ -32,6 +34,7 @@ namespace CoreClasses
             _api = new ApiService(_serverUrl);
             _ws = new WebSocketService(_wsUrl);
             _ws.MessageReceived += OnMessageReceived;
+            root = rootPath;
         }
 
         // ===================== ЗАПУСК =====================
@@ -176,7 +179,9 @@ namespace CoreClasses
             int toLoad = pages - downloaded;
             var raw = _chatStorage.LoadPage(chatId, toLoad);
 
-            foreach (var msg in raw)
+            //var arr = new Array<Message> { raw };
+
+            foreach (var msg in raw.AsEnumerable().Reverse())
             {
                 Mainwindow.LoadMessage(chatId, senderAlias, msg.Content,
                     msg.SentAt.ToString(), msg.IsOutgoing);
@@ -266,7 +271,7 @@ namespace CoreClasses
             foreach (var chat in serverChats)
             {
                 var chatId = chat.GetProperty("id").GetInt32().ToString();
-                if (Directory.Exists(Path.Combine(/* rootPath */, "chats", chatId)))
+                if (Directory.Exists(Path.Combine(root, "chats", chatId)))
                     await SyncMessages(chatId);
             }
         }
