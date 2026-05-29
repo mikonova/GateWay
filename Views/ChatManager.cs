@@ -149,5 +149,10 @@ public partial class MainWindow
         _mainWindowViewModel.ChatList.Remove(chat);
         ChatList.Children.Remove(chat.ChatBorder);
     }
-    
+
+    public async void RemoveAllChats()
+    {
+        ChatList.Children.Clear();
+    }
+
 }
