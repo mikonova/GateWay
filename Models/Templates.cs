@@ -24,6 +24,7 @@ namespace CoreClasses
         private readonly WebSocketService _ws;
         private string user_name;
         private string root;
+        private int? id;
 
         private readonly string _serverUrl = "http://192.168.43.151:8000";
         private readonly string _wsUrl = "ws://192.168.43.151:8000";
@@ -73,7 +74,7 @@ namespace CoreClasses
                             SenderId = senderId,
                             Content = decryptedContent,
                             SentAt = DateTimeOffset.Parse(sentAt),
-                            IsOutgoing = false
+                            IsOutgoing = (senderId == id.ToString())
                         };
 
                         _chatStorage.SaveMessage(chatId, message);
@@ -144,6 +145,13 @@ namespace CoreClasses
             _keyStorage.SaveToken(token);
             user_name = name;
             await this.SyncAllChats();
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                id = await _api.WhoamiAsync();
+                //return token;
+
+            }
             return token;
         }
 
