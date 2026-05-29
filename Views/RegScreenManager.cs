@@ -41,10 +41,36 @@ public partial class MainWindow
         string _login = RegUserNameField.Text;
         string _password = RegUserPassField.Text;
         string PublicKey = String.Empty;
-        if (!string.IsNullOrEmpty(_login) &&
-            !string.IsNullOrEmpty(_password) &&
-            _isValidUsername(_login) &&
-            _isValidPassword(_password))
+        
+        if (!_isValidUsername(_login))
+        {
+            UserWarning.Text = "Минимальная Длина имени - 4 символа";
+            UserWarning.IsVisible = true;
+            RegUserNameField.Clear();
+            return;
+        }
+        else if (!string.Equals(RegUserPassField.Text, RegUserPassRepField.Text))
+        {
+            UserWarning.Text = "Пароли не совпадают!";
+            UserWarning.IsVisible = true;
+            return;
+        }
+        else if (RegUserPassField.Text.Length < 8)
+        {
+            UserWarning.Text = "Минимальный размер - 8 символов";
+            UserWarning.IsVisible = true;
+            return;
+        }
+        else if (!_isValidPassword(_password))
+        {
+            UserWarning.Text = "Пароль должен содержать цифры и буквы";
+            UserWarning.IsVisible = true;
+            return;
+        }
+        else if (!string.IsNullOrEmpty(_login) &&
+                !string.IsNullOrEmpty(_password) &&
+                _isValidUsername(_login) &&
+                _isValidPassword(_password))
         {
             try
             {
@@ -66,31 +92,6 @@ public partial class MainWindow
             PublicKey = Convert.ToBase64String(key);
             CopyKeyWindow LoginInfo = new CopyKeyWindow(_template, this, PublicKey); 
             LoginInfo.ShowDialog(this);
-        }
-        else if (!_isValidUsername(_login))
-        {
-            UserWarning.Text = "Минимальная Длина имени - 4 символа";
-            UserWarning.IsVisible = true;
-            RegUserNameField.Clear();
-            return;
-        }
-        else if (!RegUserPassField.Text.Equals(RegUserPassRepField.Text))
-        {
-            UserWarning.Text = "Пароли не совпадают!";
-            UserWarning.IsVisible = true;
-            return;
-        }
-        else if (RegUserPassField.Text.Length < 8)
-        {
-            UserWarning.Text = "Минимальный размер - 8 символов";
-            UserWarning.IsVisible = true;
-            return;
-        }
-        else if (!_isValidPassword(_password))
-        {
-            UserWarning.Text = "Пароль должен содержать цифры и буквы";
-            UserWarning.IsVisible = true;
-            return;
         }
     }
 
