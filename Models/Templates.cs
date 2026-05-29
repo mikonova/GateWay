@@ -80,9 +80,18 @@ namespace CoreClasses
                         _chatStorage.SaveMessage(chatId, message);
                         Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                         {
-                            var msg = Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
-                                decryptedContent, sentAt, false);
-                            Mainwindow.MessageReclipToBottom(msg);
+                            if (senderId == id.ToString())
+                            {
+                                var msg = Mainwindow.LoadMessage(chatId, user_name,
+                                    decryptedContent, sentAt, false);
+                                Mainwindow.MessageReclipToBottom(msg);
+                            }
+                            else
+                            {
+                                var msg = Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
+                                    decryptedContent, sentAt, true);
+                                Mainwindow.MessageReclipToBottom(msg);
+                            }
                         });
 
                         //var msg = await Mainwindow.LoadMessage(chatId, user_name, decryptedContent, DateTime.UtcNow.ToString(), true);
