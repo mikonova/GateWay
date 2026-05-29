@@ -57,15 +57,24 @@ public partial class MainWindow
             VerticalAlignment = VerticalAlignment.Center,
         };
 
-        TextBlock contentSignature = new TextBlock()
+        TextBox contentSignature = new TextBox()
         {
-            FontSize = 16,
-            TextWrapping =  TextWrapping.Wrap,
-            FontFamily = new FontFamily("Nunito"),
-            Foreground = new SolidColorBrush(Colors.WhiteSmoke),
             Text = content,
+            FontSize = 16,
+            TextWrapping = TextWrapping.Wrap,
+            FontFamily = new FontFamily("Nunito"),
+            Foreground = new SolidColorBrush(Colors.WhiteSmoke), // Цвет обычного текста
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Center,
+    
+            Background = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            IsReadOnly = true,
+            Cursor = new Cursor(StandardCursorType.Ibeam),
+    
+            // Цвет ФОНА под выделенным текстом
+            SelectionBrush = new SolidColorBrush(Colors.Gray) { Opacity = 0.5 }
+            
         };
         TextBlock timeSignature = new TextBlock()
         {

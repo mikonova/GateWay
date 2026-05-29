@@ -83,13 +83,13 @@ namespace CoreClasses
                             if (senderId == id.ToString())
                             {
                                 var msg = Mainwindow.LoadMessage(chatId, user_name,
-                                    decryptedContent, sentAt, false);
+                                    decryptedContent, sentAt, true);
                                 Mainwindow.MessageReclipToBottom(msg);
                             }
                             else
                             {
                                 var msg = Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
-                                    decryptedContent, sentAt, true);
+                                    decryptedContent, sentAt, false);
                                 Mainwindow.MessageReclipToBottom(msg);
                             }
                         });
