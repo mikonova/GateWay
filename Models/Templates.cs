@@ -2,6 +2,8 @@
 using GateWay.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,8 +21,8 @@ namespace CoreClasses
         private readonly WebSocketService _ws;
         private string user_name;
 
-        private readonly string _serverUrl = "http://192.168.0.18:8000";
-        private readonly string _wsUrl = "ws://192.168.0.18:8000";
+        private readonly string _serverUrl = "http://192.168.43.151:8000";
+        private readonly string _wsUrl = "ws://192.168.43.151:8000";
 
         public Templates(string rootPath)
         {
@@ -70,7 +72,7 @@ namespace CoreClasses
                         };
 
                         _chatStorage.SaveMessage(chatId, message);
-                        await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
+                        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                         {
                             Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
                                 decryptedContent, sentAt, false);
@@ -123,6 +125,7 @@ namespace CoreClasses
             _api.SetToken(token);
             _keyStorage.SaveToken(token);
             user_name = name;
+            await this.SyncAllChats();
             return token;
         }
 
@@ -155,14 +158,14 @@ namespace CoreClasses
             var message = new Message
             {
                 Id = Guid.NewGuid().ToString(),
-                SenderId = Convert.ToBase64String(_keyStorage.LoadPublicKey()),
+                SenderId = user_name,
                 Content = content,
                 SentAt = DateTimeOffset.UtcNow,
                 IsOutgoing = true
             };
             _chatStorage.SaveMessage(chatId, message);
 
-            var msg = await Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId), content, DateTime.UtcNow.ToString(), true);
+            var msg = await Mainwindow.LoadMessage(chatId, user_name, content, DateTime.UtcNow.ToString(), true);
             Mainwindow.MessageReclipToBottom(msg);
         }
 
@@ -194,6 +197,78 @@ namespace CoreClasses
             _chatStorage.CreateChat(name, key, chat_id.ToString());
 
             return chat_id.ToString();
+        }
+
+        public async Task SyncMessages(string chatId)
+        {
+            // Узнаём дату последнего локального сообщения
+            var lastPage = _chatStorage.GetMaxListNumber(chatId);
+            DateTimeOffset lastLocalTime = DateTimeOffset.MinValue;
+
+            if (lastPage > 0)
+            {
+                var localMessages = _chatStorage.LoadPage(chatId, lastPage);
+                if (localMessages.Count > 0)
+                    lastLocalTime = localMessages.Last().SentAt;
+            }
+
+            // Подгружаем с сервера
+            var serverMessages = await _api.GetMessagesAsync(int.Parse(chatId));
+            var myPrivateKey = _keyStorage.LoadPrivateKey();
+            var senderPublicKey = _chatStorage.GetPublicKey(chatId);
+
+            // Берём только новее последнего локального, разворачиваем (сервер отдаёт DESC)
+            var newMessages = serverMessages
+            .Where(m => {
+                var sender = m.GetProperty("sender").GetString();
+                var sentAt = DateTimeOffset.Parse(m.GetProperty("sent_at").GetString()!);
+                return sender != user_name && sentAt > lastLocalTime; // только входящие новые
+            })
+            .Reverse()
+            .ToList();
+
+            foreach (var m in newMessages)
+            {
+                var sender = m.GetProperty("sender").GetString() ?? string.Empty;
+                var encryptedText = m.GetProperty("text").GetString() ?? string.Empty;
+                var sentAt = m.GetProperty("sent_at").GetString() ?? string.Empty;
+                var isOutgoing = sender == user_name;
+
+                string content;
+                try
+                {
+                    var encryptedBytes = Convert.FromBase64String(encryptedText);
+                    // Если исходящее — расшифровываем своим ключом и ключом получателя
+                    // Если входящее — расшифровываем своим ключом и ключом отправителя
+                    var decryptedBytes = _crypto.Decrypt(encryptedBytes, myPrivateKey, senderPublicKey);
+                    content = Encoding.UTF8.GetString(decryptedBytes);
+                }
+                catch
+                {
+                    content = "[не удалось расшифровать]";
+                }
+
+                var message = new Message
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    SenderId = sender,
+                    Content = content,
+                    SentAt = DateTimeOffset.Parse(sentAt),
+                    IsOutgoing = isOutgoing
+                };
+
+                _chatStorage.SaveMessage(chatId, message);
+            }
+        }
+        public async Task SyncAllChats()
+        {
+            var serverChats = await _api.GetMyChatsAsync();
+            foreach (var chat in serverChats)
+            {
+                var chatId = chat.GetProperty("id").GetInt32().ToString();
+                if (Directory.Exists(Path.Combine(/* rootPath */, "chats", chatId)))
+                    await SyncMessages(chatId);
+            }
         }
 
     }

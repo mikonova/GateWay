@@ -18,8 +18,9 @@ namespace GateWay.Views;
 public partial class MainWindow
 {
     
-    public async Task<Border> LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing)
-    {
+        public async Task<Border> LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing) { 
+
+       
         if (_mainWindowViewModel.SelectedChat == null)
         {
             //throw new Exception("No selected chat!");
@@ -104,7 +105,7 @@ public partial class MainWindow
         StackMessages.Children.Add(message);
         
         
-        if (isOutgoing)
+        if (!isOutgoing)
         {
             message.Background = ColorPaletteNebula.OnBgColor;
             message.HorizontalAlignment = HorizontalAlignment.Left;
