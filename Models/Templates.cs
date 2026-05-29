@@ -79,12 +79,13 @@ namespace CoreClasses
                         _chatStorage.SaveMessage(chatId, message);
                         Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                         {
-                            Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
+                            var msg = Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
                                 decryptedContent, sentAt, false);
+                            Mainwindow.MessageReclipToBottom(msg);
                         });
 
-                        var msg = await Mainwindow.LoadMessage(chatId, user_name, decryptedContent, DateTime.UtcNow.ToString(), true);
-                        Mainwindow.MessageReclipToBottom(msg);
+                        //var msg = await Mainwindow.LoadMessage(chatId, user_name, decryptedContent, DateTime.UtcNow.ToString(), true);
+                        
 
                         /*var chat_to_update = MainWindowViewModel.ChatList.Find(chat => chat.ChatId == chatId);
                         Grid grid = chat_to_update.ChatBorder.Child as Grid;
@@ -182,7 +183,7 @@ namespace CoreClasses
             };*/
             //_chatStorage.SaveMessage(chatId, message);
 
-            var msg = await Mainwindow.LoadMessage(chatId, user_name, content, DateTime.UtcNow.ToString(), true);
+            var msg = Mainwindow.LoadMessage(chatId, user_name, content, DateTime.UtcNow.ToString(), true);
             Mainwindow.MessageReclipToBottom(msg);
         }
 

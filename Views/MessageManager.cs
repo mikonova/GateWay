@@ -18,7 +18,7 @@ namespace GateWay.Views;
 public partial class MainWindow
 {
     
-        public async Task<Border> LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing) { 
+        public Border LoadMessage(string chatId, string senderAlias, string content, string timeStamp, bool isOutgoing) { 
 
        
         if (_mainWindowViewModel.SelectedChat == null)
