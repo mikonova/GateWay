@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -81,6 +82,9 @@ namespace CoreClasses
                             Mainwindow.LoadMessage(chatId, _chatStorage.GetName(chatId),
                                 decryptedContent, sentAt, false);
                         });
+
+                        var msg = await Mainwindow.LoadMessage(chatId, user_name, decryptedContent, DateTime.UtcNow.ToString(), true);
+                        Mainwindow.MessageReclipToBottom(msg);
 
                         /*var chat_to_update = MainWindowViewModel.ChatList.Find(chat => chat.ChatId == chatId);
                         Grid grid = chat_to_update.ChatBorder.Child as Grid;
